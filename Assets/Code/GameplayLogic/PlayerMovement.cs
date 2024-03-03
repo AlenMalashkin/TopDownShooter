@@ -14,7 +14,7 @@ namespace Code.GameplayLogic
         private bool _isMoving;
         
 
-        private float CurrentMoveSpeed
+        public float CurrentMoveSpeed
         {
             get
             {
