@@ -14,10 +14,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05bc894f-0934-4ac1-be08-185b696b9587" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TopDownShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/GameplayLogic/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/GameplayLogic/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Character Model/Model/advancedCharacter.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character Model/Model/advancedCharacter.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Bootstrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameRunner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameRunner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/GameStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/GameStateMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/IGameStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/IGameStateMachine.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,24 +30,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Code/GameplayLogic/PlayerMovement.cs" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameRunner.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/IState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/IGameStateMachine.cs" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/BootstrapGameState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/GameState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/BootstrapState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/GameStateMachine.cs" />
-        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/Bootstrap.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/Services/ServiceLocator.cs" />
         <option value="$PROJECT_DIR$/Packages/packages-lock.json" />
         <option value="$PROJECT_DIR$/Assets/Code/GameplayLogic/PlayerMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/IGameState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/BootstrapState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/GameState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/GameStateMachine.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/IGameStateMachine.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/GameStateMachine/States/IState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/Infrastructure/Bootstrap.cs" />
       </list>
     </option>
   </component>
@@ -56,12 +57,10 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "PlayerModel/MAIN-T-20",
-    "node.js.selected.package.tslint": "(autodetect)"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.30f1\Editor\Unity.exe" />
@@ -83,9 +82,8 @@
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
-      <option name="projectPathOnTarget" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -93,9 +91,8 @@
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
-      <option name="projectPathOnTarget" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -111,6 +108,7 @@
       <workItem from="1709486306384" duration="155000" />
       <workItem from="1709486493514" duration="61000" />
       <workItem from="1709486596635" duration="6402000" />
+      <workItem from="1709575193306" duration="934000" />
     </task>
     <servers />
   </component>
@@ -126,6 +124,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

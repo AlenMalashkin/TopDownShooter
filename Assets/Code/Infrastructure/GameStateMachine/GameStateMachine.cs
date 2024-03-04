@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Infrastructure.GameStateMachine.States;
+using Code.Infrastructure.GameStateMachineNamespace.States;
+using Code.Services;
+using Code.Services.SceneLoadService;
 
-namespace Code.Infrastructure.GameStateMachine
+namespace Code.Infrastructure.GameStateMachineNamespace
 {
     public class GameStateMachine : IGameStateMachine
     {
-        private Dictionary<Type, IExitableState> _states;
+        private Dictionary<Type, IExitableState> _states = new Dictionary<Type, IExitableState>();
         private IExitableState _currentState;
 
-        public GameStateMachine()
+        public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService, LoadingScreen loadingScreen)
         {
-            //init states
+            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen);
+            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), loadingScreen);
         }
         
-        public void Enter<TState>() where TState : class, IState
+        public void Enter<TState>() where TState : class, IGameState
         {
-            IState state = ChangeState<TState>();
-            state.Enter();
+            IGameState gameState = ChangeState<TState>();
+            gameState.Enter();
         }
 
         public void Enter<TPayloadState, TPayload>(TPayload payload) where TPayloadState : class, IPayloadState<TPayload>
