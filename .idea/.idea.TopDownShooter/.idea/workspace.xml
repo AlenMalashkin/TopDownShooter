@@ -57,6 +57,8 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  }
+}</component>
   <component name="PropertiesComponent">
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -124,7 +126,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
