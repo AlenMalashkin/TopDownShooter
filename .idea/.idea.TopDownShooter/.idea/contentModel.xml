@@ -8,6 +8,12 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Code" t="Include">
+          <e p="Factories" t="Include">
+            <e p="GameplayFactoies" t="Include">
+              <e p="GameFactory.cs" t="Include" />
+              <e p="IGameFactory.cs" t="Include" />
+            </e>
+          </e>
           <e p="GameplayLogic" t="Include">
             <e p="PlayerMovement.cs" t="Include" />
           </e>
@@ -18,11 +24,28 @@
               <e p="GameStateMachine.cs" t="Include" />
               <e p="IGameStateMachine.cs" t="Include" />
               <e p="States" t="Include">
+                <e p="BootstrapState.cs" t="Include" />
+                <e p="GameState.cs" t="Include" />
+                <e p="IGameState.cs" t="Include" />
                 <e p="IState.cs" t="Include" />
               </e>
             </e>
+            <e p="ICoroutineRunner.cs" t="Include" />
+            <e p="LoadingScreen.cs" t="Include" />
           </e>
           <e p="Input" t="Include" />
+          <e p="Services" t="Include">
+            <e p="IService.cs" t="Include" />
+            <e p="SceneLoadService" t="Include">
+              <e p="ISceneLoadService.cs" t="Include" />
+              <e p="SceneLoadService.cs" t="Include" />
+            </e>
+            <e p="ServiceLocator.cs" t="Include" />
+            <e p="StaticDataService" t="Include">
+              <e p="IStaticDataService.cs" t="Include" />
+              <e p="StaticDataService.cs" t="Include" />
+            </e>
+          </e>
         </e>
         <e p="Resources" t="Include">
           <e p="Blaster Kit" t="Include">
@@ -38,8 +61,12 @@
           </e>
           <e p="Character Model" t="Include">
             <e p="Material" t="Include">
-              <e p="Advanced" t="Include" />
-              <e p="Basic" t="Include" />
+              <e p="Advanced" t="Include">
+                <e p="Materials" t="Include" />
+              </e>
+              <e p="Basic" t="Include">
+                <e p="Materials" t="Include" />
+              </e>
             </e>
             <e p="Model" t="Include">
               <e p="Materials" t="Include" />
