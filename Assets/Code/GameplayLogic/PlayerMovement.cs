@@ -9,22 +9,22 @@ namespace Code.GameplayLogic
     {
         [SerializeField] private float _speed;
 
-        private Vector2 _moveDirection;
+        private Vector3 _moveDirection;
         private CharacterController _controller;
+
+        private void Awake()
+        {
+            _controller = GetComponent<CharacterController>();
+        }
 
         private void Update()
         {
-            _controller.Move(new Vector3(_moveDirection.x, 0, _moveDirection.y) * _speed * Time.deltaTime);
-        }
-
-        private void OnValidate()
-        {
-            _controller ??= GetComponent<CharacterController>();
+            _controller.Move(_moveDirection * _speed * Time.deltaTime);
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            _moveDirection = context.ReadValue<Vector2>();
+            _moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
         }
     }
 }
