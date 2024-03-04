@@ -16,6 +16,7 @@
           </e>
           <e p="GameplayLogic" t="Include">
             <e p="PlayerMovement.cs" t="Include" />
+            <e p="Shoot.cs" t="Include" />
           </e>
           <e p="Infrastructure" t="Include">
             <e p="Bootstrap.cs" t="Include" />
@@ -27,14 +28,19 @@
                 <e p="BootstrapState.cs" t="Include" />
                 <e p="GameState.cs" t="Include" />
                 <e p="IGameState.cs" t="Include" />
-                <e p="IState.cs" t="Include" />
               </e>
             </e>
             <e p="ICoroutineRunner.cs" t="Include" />
             <e p="LoadingScreen.cs" t="Include" />
           </e>
-          <e p="Input" t="Include" />
+          <e p="Input" t="Include">
+            <e p="PlayerInputActions.cs" t="Include" />
+          </e>
           <e p="Services" t="Include">
+            <e p="InputService" t="Include">
+              <e p="DesktopInputService.cs" t="Include" />
+              <e p="IInputService.cs" t="Include" />
+            </e>
             <e p="IService.cs" t="Include" />
             <e p="SceneLoadService" t="Include">
               <e p="ISceneLoadService.cs" t="Include" />
@@ -103,6 +109,7 @@
               </e>
             </e>
           </e>
+          <e p="Infrastructure" t="Include" />
           <e p="Interface Sounds" t="Include">
             <e p="Audio" t="Include" />
           </e>
