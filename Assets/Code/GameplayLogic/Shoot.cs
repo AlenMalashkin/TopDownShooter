@@ -1,4 +1,5 @@
-using System;
+using Code.Services;
+using Code.Services.InputService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +10,27 @@ namespace Code.GameplayLogic
         [SerializeField] private GameObject _shootingPoint;
 
         private float _range = 100f;
+        private IInputService _inputService;
 
-        public void OnFire(InputAction.CallbackContext context)
+        private void Awake()
         {
-            if (context.started)
-            {
-                Fire();
-            }
+            _inputService = ServiceLocator.Container.Resolve<IInputService>();
+            Debug.Log(_inputService);
+        }
+
+        private void OnEnable()
+        {
+            _inputService.SubscribeFireInput(OnFire);
+        }
+
+        private void OnDisable()
+        {
+            _inputService.UnsubscribeFireInput(OnFire);
+        }
+        
+        private void OnFire(InputAction.CallbackContext context)
+        {
+            Fire();
         }
 
         private void Fire()
@@ -30,5 +45,6 @@ namespace Code.GameplayLogic
                 Debug.Log("не попал");
             }
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Code.Services;
+using Code.Services.InputService;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Code.GameplayLogic
@@ -11,10 +13,24 @@ namespace Code.GameplayLogic
 
         private Vector3 _moveDirection;
         private CharacterController _controller;
+        private IInputService _inputService;
 
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
+            _inputService = ServiceLocator.Container.Resolve<IInputService>();
+        }
+
+        private void OnEnable()
+        {
+            _inputService.Enable();
+            _inputService.SubscribeMovementInput(OnMove);
+        }
+
+        private void OnDisable()
+        {
+            _inputService.Disable();
+            _inputService.UnsubscribeMovementInput(OnMove);
         }
 
         private void Update()
