@@ -1,6 +1,6 @@
-﻿namespace Code.Infrastructure.GameStateMachine.States
+﻿namespace Code.Infrastructure.GameStateMachineNamespace.States
 {
-    public interface IState : IExitableState
+    public interface IGameState : IExitableState
     {
         void Enter();
     }
