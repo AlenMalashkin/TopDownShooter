@@ -9,12 +9,12 @@ namespace Code.GameplayLogic
     {
         [SerializeField] private float _speed;
 
-        private Vector3 _moveDirection;
+        private Vector2 _moveDirection;
         private CharacterController _controller;
 
         private void Update()
         {
-            _controller.Move(_moveDirection * _speed * Time.deltaTime);
+            _controller.Move(new Vector3(_moveDirection.x, 0, _moveDirection.y) * _speed * Time.deltaTime);
         }
 
         private void OnValidate()
@@ -24,7 +24,7 @@ namespace Code.GameplayLogic
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            _moveDirection = context.ReadValue<Vector3>();
+            _moveDirection = context.ReadValue<Vector2>();
         }
     }
 }
