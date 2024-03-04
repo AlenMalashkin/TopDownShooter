@@ -1,5 +1,6 @@
 ﻿using Code.Factories.GameplayFactoies;
 using Code.Services;
+using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _serviceLocator.RegisterService(_sceneLoadService);
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 
         private void RegisterStaticDataService()
