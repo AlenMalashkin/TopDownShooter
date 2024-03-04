@@ -14,9 +14,9 @@ namespace Code.Infrastructure
         {
             ServiceLocator serviceLocator = ServiceLocator.Container;
             ISceneLoadService sceneLoadService = new SceneLoadService(this);
-            IGameStateMachine gameStateMachine = new GameStateMachineNamespace.GameStateMachine(serviceLocator, sceneLoadService, Instantiate(_loadingScreen));
+            IGameStateMachine gameStateMachine = new GameStateMachine(serviceLocator, sceneLoadService, Instantiate(_loadingScreen));
             gameStateMachine.Enter<BootstrapState>();
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
