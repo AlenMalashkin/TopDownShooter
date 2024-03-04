@@ -10,7 +10,7 @@ namespace Code.Infrastructure
         {
             Bootstrap bootstrap = FindObjectOfType<Bootstrap>();
 
-            if (bootstrap)
+            if (bootstrap != null)
                 return;
 
             Instantiate(_bootstrap);
