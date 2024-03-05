@@ -22,7 +22,7 @@ namespace Code.Services.SceneLoadService
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
-            if (!operation.isDone)
+            while (!operation.isDone)
                 yield return null;
                     
             onLoad?.Invoke();

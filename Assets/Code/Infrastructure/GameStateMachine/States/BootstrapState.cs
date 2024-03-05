@@ -1,5 +1,6 @@
 ﻿using Code.Factories.GameplayFactoies;
 using Code.Services;
+using Code.Services.AssetProvider;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
@@ -28,6 +29,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _loadingScreen.Show();
             _sceneLoadService.LoadScene("Bootstrap", OnLoad);
+            Debug.Log("Boot");
         }
 
         public void Exit()
@@ -37,14 +39,16 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void OnLoad()
         {
             _gameStateMachine.Enter<GameState>();
+            Debug.Log("OnLoad");
         }
 
         private void RegisterAllServices()
         {
             _serviceLocator.RegisterService(_gameStateMachine);
             _serviceLocator.RegisterService(_sceneLoadService);
+            _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
-            _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 
