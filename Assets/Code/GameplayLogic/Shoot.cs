@@ -15,7 +15,6 @@ namespace Code.GameplayLogic
         private void Awake()
         {
             _inputService = ServiceLocator.Container.Resolve<IInputService>();
-            Debug.Log(_inputService);
         }
 
         private void OnEnable()
