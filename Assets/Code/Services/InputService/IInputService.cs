@@ -11,5 +11,7 @@ namespace Code.Services.InputService
         void UnsubscribeMovementInput(Action<InputAction.CallbackContext> action);
         void SubscribeFireInput(Action<InputAction.CallbackContext> action);
         void UnsubscribeFireInput(Action<InputAction.CallbackContext> action);
+        void SubscribeLookInput(Action<InputAction.CallbackContext> action);
+        void UnsubscribeLookInput(Action<InputAction.CallbackContext> action);
     }
 }
