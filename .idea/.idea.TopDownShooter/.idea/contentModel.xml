@@ -15,6 +15,7 @@
             </e>
           </e>
           <e p="GameplayLogic" t="Include">
+            <e p="PlayerLook.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
             <e p="Shoot.cs" t="Include" />
           </e>
@@ -33,13 +34,16 @@
             <e p="ICoroutineRunner.cs" t="Include" />
             <e p="LoadingScreen.cs" t="Include" />
           </e>
-          <e p="Input" t="Include">
-            <e p="PlayerInputActions.cs" t="Include" />
-          </e>
           <e p="Services" t="Include">
+            <e p="AssetProvider" t="Include">
+              <e p="AssetPaths.cs" t="Include" />
+              <e p="AssetProvider.cs" t="Include" />
+              <e p="IAssetProvider.cs" t="Include" />
+            </e>
             <e p="InputService" t="Include">
               <e p="DesktopInputService.cs" t="Include" />
               <e p="IInputService.cs" t="Include" />
+              <e p="PlayerInputActions.cs" t="Include" />
             </e>
             <e p="IService.cs" t="Include" />
             <e p="SceneLoadService" t="Include">
@@ -54,85 +58,88 @@
           </e>
         </e>
         <e p="Resources" t="Include">
-          <e p="Blaster Kit" t="Include">
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include" />
+          <e p="ExternalContent" t="Include">
+            <e p="Blaster Kit" t="Include">
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include" />
+              </e>
+              <e p="Previews" t="Include" />
             </e>
-            <e p="Previews" t="Include" />
-          </e>
-          <e p="Car Kit" t="Include">
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include" />
+            <e p="Car Kit" t="Include">
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include" />
+              </e>
             </e>
-          </e>
-          <e p="Character Model" t="Include">
-            <e p="Material" t="Include">
-              <e p="Advanced" t="Include">
+            <e p="Character Model" t="Include">
+              <e p="Material" t="Include">
+                <e p="Advanced" t="Include">
+                  <e p="Materials" t="Include" />
+                </e>
+                <e p="Basic" t="Include">
+                  <e p="Materials" t="Include" />
+                </e>
+              </e>
+              <e p="Model" t="Include">
                 <e p="Materials" t="Include" />
               </e>
-              <e p="Basic" t="Include">
-                <e p="Materials" t="Include" />
+            </e>
+            <e p="City Kit - Suburban" t="Include">
+              <e p="Isometric" t="Include" />
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include" />
               </e>
             </e>
-            <e p="Model" t="Include">
-              <e p="Materials" t="Include" />
-            </e>
-          </e>
-          <e p="City Kit - Suburban" t="Include">
-            <e p="Isometric" t="Include" />
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include" />
-            </e>
-          </e>
-          <e p="Game Icons" t="Include">
-            <e p="PNG" t="Include">
-              <e p="Black" t="Include">
-                <e p="1x" t="Include" />
-                <e p="2x" t="Include" />
+            <e p="Game Icons" t="Include">
+              <e p="PNG" t="Include">
+                <e p="Black" t="Include">
+                  <e p="1x" t="Include" />
+                  <e p="2x" t="Include" />
+                </e>
+                <e p="White" t="Include">
+                  <e p="1x" t="Include" />
+                  <e p="2x" t="Include" />
+                </e>
               </e>
-              <e p="White" t="Include">
-                <e p="1x" t="Include" />
-                <e p="2x" t="Include" />
+              <e p="Spritesheet" t="Include">
+                <e p="sheet_black1x.xml" t="Include" />
+                <e p="sheet_black2x.xml" t="Include" />
+                <e p="sheet_white1x.xml" t="Include" />
+                <e p="sheet_white2x.xml" t="Include" />
               </e>
             </e>
-            <e p="Spritesheet" t="Include">
-              <e p="sheet_black1x.xml" t="Include" />
-              <e p="sheet_black2x.xml" t="Include" />
-              <e p="sheet_white1x.xml" t="Include" />
-              <e p="sheet_white2x.xml" t="Include" />
-            </e>
-          </e>
-          <e p="Graveyard Kit" t="Include">
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include">
-                <e p="Textures" t="Include" />
+            <e p="Graveyard Kit" t="Include">
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include">
+                  <e p="Textures" t="Include" />
+                </e>
               </e>
+            </e>
+            <e p="Interface Sounds" t="Include">
+              <e p="Audio" t="Include" />
+            </e>
+            <e p="Music Loops" t="Include">
+              <e p="Idents" t="Include" />
+              <e p="Loops" t="Include" />
+              <e p="Retro" t="Include" />
+            </e>
+            <e p="Nature Kit" t="Include">
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include">
+                  <e p="Materials" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="Survival Kit" t="Include">
+              <e p="Models" t="Include">
+                <e p="FBX format" t="Include" />
+              </e>
+            </e>
+            <e p="UI Audio" t="Include">
+              <e p="Audio" t="Include" />
             </e>
           </e>
           <e p="Infrastructure" t="Include" />
-          <e p="Interface Sounds" t="Include">
-            <e p="Audio" t="Include" />
-          </e>
-          <e p="Music Loops" t="Include">
-            <e p="Idents" t="Include" />
-            <e p="Loops" t="Include" />
-            <e p="Retro" t="Include" />
-          </e>
-          <e p="Nature Kit" t="Include">
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include">
-                <e p="Materials" t="Include" />
-              </e>
-            </e>
-          </e>
-          <e p="Survival Kit" t="Include">
-            <e p="Models" t="Include">
-              <e p="FBX format" t="Include" />
-            </e>
-          </e>
-          <e p="UI Audio" t="Include">
-            <e p="Audio" t="Include" />
-          </e>
+          <e p="Prefabs" t="Include" />
         </e>
         <e p="Scenes" t="Include" />
       </e>

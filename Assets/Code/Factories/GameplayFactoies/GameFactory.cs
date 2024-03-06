@@ -19,12 +19,10 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
         }
 
-        public CinemachineVirtualCamera CreatePlayerCamera(Transform target)
+        public CinemachineVirtualCamera CreatePlayerCamera()
         {
             CinemachineVirtualCamera playerCameraPrefab =
                 _assetProvider.LoadAsset<CinemachineVirtualCamera>(AssetPaths.PlayerCamera);
-
-            playerCameraPrefab.Follow = target;
             
              return Object.Instantiate(playerCameraPrefab);
         }

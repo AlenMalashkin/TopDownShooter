@@ -1,4 +1,5 @@
-﻿using Code.Factories.GameplayFactoies;
+﻿using Cinemachine;
+using Code.Factories.GameplayFactoies;
 using Code.Services.SceneLoadService;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         public void Enter()
         {
             _sceneLoadService.LoadScene("Main", OnLoad);
-            Debug.Log("game state");
         }
 
         public void Exit()
@@ -31,9 +31,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _loadingScreen.Hide();
 
-            Debug.Log("OnLoad");
+            InitializePlayerAndCamera();
+        }
+
+        private void InitializePlayerAndCamera()
+        {
             GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 1, 0));
-            _gameFactory.CreatePlayerCamera(player.transform);
+            CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
+            camera.Follow = player.transform;
         }
     }
 }

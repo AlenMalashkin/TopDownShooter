@@ -29,7 +29,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _loadingScreen.Show();
             _sceneLoadService.LoadScene("Bootstrap", OnLoad);
-            Debug.Log("Boot");
         }
 
         public void Exit()
@@ -39,7 +38,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void OnLoad()
         {
             _gameStateMachine.Enter<GameState>();
-            Debug.Log("OnLoad");
         }
 
         private void RegisterAllServices()

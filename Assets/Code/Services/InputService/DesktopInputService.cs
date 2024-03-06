@@ -30,5 +30,11 @@ namespace Code.Services.InputService
 
         public void UnsubscribeFireInput(Action<InputAction.CallbackContext> action)
             => _playerInputActions.Player.Fire.performed -= action;
+
+        public void SubscribeLookInput(Action<InputAction.CallbackContext> action)
+            => _playerInputActions.Player.Look.performed += action;
+
+        public void UnsubscribeLookInput(Action<InputAction.CallbackContext> action)
+            => _playerInputActions.Player.Look.performed -= action;
     }
 }
