@@ -1,5 +1,6 @@
 ﻿using Code.Services;
 using Code.Services.InputService;
+using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,13 +25,13 @@ namespace Code.GameplayLogic
         private void OnEnable()
         {
             _inputService.Enable();
-            _inputService.SubscribeMovementInput(OnMove);
+            _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
         }
 
         private void OnDisable()
         {
             _inputService.Disable();
-            _inputService.UnsubscribeMovementInput(OnMove);
+            _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
         }
 
         private void Update()

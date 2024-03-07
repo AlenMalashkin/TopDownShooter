@@ -1,5 +1,6 @@
 using Code.Services;
 using Code.Services.InputService;
+using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,12 +20,12 @@ namespace Code.GameplayLogic
 
         private void OnEnable()
         {
-            _inputService.SubscribeFireInput(OnFire);
+            _inputService.GetInputAction<IFireAction>().SubscribeFireInput(OnFire);
         }
 
         private void OnDisable()
         {
-            _inputService.UnsubscribeFireInput(OnFire);
+            _inputService.GetInputAction<IFireAction>().UnsubscribeFireInput(OnFire);
         }
         
         private void OnFire(InputAction.CallbackContext context)
