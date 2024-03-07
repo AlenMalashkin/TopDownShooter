@@ -1,5 +1,8 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
+using Code.GameplayLogic;
+using Code.Services;
+using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using UnityEngine;
 
@@ -36,7 +39,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void InitializePlayerAndCamera()
         {
-            GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 1, 0));
+            IWeapon weapon = _gameFactory.CreateWeapon();
+            
+            GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0, 0));
+            PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
+            playerShoot.Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
+            weapon.AttachToHand(playerShoot.PlayerArm);
+
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
             camera.Follow = player.transform;
         }
