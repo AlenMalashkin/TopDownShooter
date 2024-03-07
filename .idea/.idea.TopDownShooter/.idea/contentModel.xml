@@ -17,7 +17,11 @@
           <e p="GameplayLogic" t="Include">
             <e p="PlayerLook.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
-            <e p="Shoot.cs" t="Include" />
+            <e p="PlayerShoot.cs" t="Include" />
+            <e p="Weapons" t="Include">
+              <e p="IWeapon.cs" t="Include" />
+              <e p="Weapon.cs" t="Include" />
+            </e>
           </e>
           <e p="Infrastructure" t="Include">
             <e p="Bootstrap.cs" t="Include" />
@@ -43,6 +47,15 @@
             <e p="InputService" t="Include">
               <e p="DesktopInputService.cs" t="Include" />
               <e p="IInputService.cs" t="Include" />
+              <e p="InputActions" t="Include">
+                <e p="FireAction.cs" t="Include" />
+                <e p="IFireAction.cs" t="Include" />
+                <e p="IInputAction.cs" t="Include" />
+                <e p="ILookAction.cs" t="Include" />
+                <e p="IMovementAction.cs" t="Include" />
+                <e p="LookAction.cs" t="Include" />
+                <e p="MovementAction.cs" t="Include" />
+              </e>
               <e p="PlayerInputActions.cs" t="Include" />
             </e>
             <e p="IService.cs" t="Include" />

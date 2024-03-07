@@ -1,4 +1,5 @@
 using Cinemachine;
+using Code.GameplayLogic;
 using Code.Services.AssetProvider;
 using UnityEngine;
 
@@ -17,6 +18,13 @@ namespace Code.Factories.GameplayFactoies
         {
             GameObject playerPrefab = _assetProvider.LoadAsset(AssetPaths.Player);
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
+        }
+
+        public IWeapon CreateWeapon()
+        {
+            GameObject weaponPrefab = _assetProvider.LoadAsset(AssetPaths.PlayerWeapon);
+            IWeapon weapon = Object.Instantiate(weaponPrefab).GetComponent<IWeapon>();
+            return weapon;
         }
 
         public CinemachineVirtualCamera CreatePlayerCamera()
