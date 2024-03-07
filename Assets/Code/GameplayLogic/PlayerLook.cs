@@ -1,6 +1,7 @@
 using System;
 using Code.Services;
 using Code.Services.InputService;
+using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,12 +22,12 @@ namespace Code.GameplayLogic
 
         private void OnEnable()
         {
-            _inputService.SubscribeLookInput(LookAtMousePoint);
+            _inputService.GetInputAction<ILookAction>().SubscribeLookInput(LookAtMousePoint);
         }
 
         private void OnDisable()
         {
-            _inputService.UnsubscribeLookInput(LookAtMousePoint);
+            _inputService.GetInputAction<ILookAction>().UnsubscribeLookInput(LookAtMousePoint);
         }
 
         private void LookAtMousePoint(InputAction.CallbackContext context)

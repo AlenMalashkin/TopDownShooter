@@ -1,4 +1,5 @@
 using System;
+using Code.Services.InputService.InputActions;
 using UnityEngine.InputSystem;
 
 namespace Code.Services.InputService
@@ -7,11 +8,6 @@ namespace Code.Services.InputService
     {
         void Enable();
         void Disable();
-        void SubscribeMovementInput(Action<InputAction.CallbackContext> action);
-        void UnsubscribeMovementInput(Action<InputAction.CallbackContext> action);
-        void SubscribeFireInput(Action<InputAction.CallbackContext> action);
-        void UnsubscribeFireInput(Action<InputAction.CallbackContext> action);
-        void SubscribeLookInput(Action<InputAction.CallbackContext> action);
-        void UnsubscribeLookInput(Action<InputAction.CallbackContext> action);
+        T GetInputAction<T>() where T : IInputAction;
     }
 }
