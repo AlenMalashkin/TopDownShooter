@@ -8,44 +8,22 @@ namespace Code.GameplayLogic
 {
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
-
     {
         [SerializeField] private float _speed;
 
         private Vector3 _moveDirection;
         private CharacterController _controller;
         private IInputService _inputService;
-        private Animator _animator;
-        private Transform _playerDirection;
-        private bool _isMoving;
-        private bool _isMovingBackwards;
 
-        public bool IsMoving
+        public Vector3 MoveDirection
         {
-            get => _isMoving;
-            private set
-            {
-                _isMoving = value;
-                _animator.SetBool(AnimationStrings.IsMoving, value);
-            }
-        }
-
-        public bool IsMovingBackwards
-        {
-            get => _isMovingBackwards;
-            private set
-            {
-                _isMovingBackwards = value;
-                _animator.SetBool(AnimationStrings.IsMovingBackwards, value);
-            }
+            get => _moveDirection;
         }
 
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
             _inputService = ServiceLocator.Container.Resolve<IInputService>();
-            _animator = GetComponentInChildren<Animator>();
-            _playerDirection = GetComponentInParent<Transform>();
         }
 
         private void OnEnable()
@@ -63,8 +41,7 @@ namespace Code.GameplayLogic
         private void Update()
         {
             _controller.Move(_moveDirection * _speed * Time.deltaTime);
-            IsMoving = _moveDirection != Vector3.zero;
-            IsMovingBackwards = _moveDirection.z < 0;
+            
         }
 
         public void OnMove(InputAction.CallbackContext context)
