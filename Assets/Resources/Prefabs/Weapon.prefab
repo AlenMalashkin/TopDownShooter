@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26676efffb544508b09dae23d28cf034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPositionInHand: {x: 0, y: -0.1, z: 0.1}
+  weaponPositionInHand: {x: 0, y: 0, z: 0.09}
   weaponRotationInHand: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
   _shootingPoint: {fileID: 6662779085964614009}
   _range: 1000
