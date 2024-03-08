@@ -4,6 +4,7 @@ using Code.GameplayLogic;
 using Code.Services;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -12,22 +13,27 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
     {
         private ISceneLoadService _sceneLoadService;
         private LoadingScreen _loadingScreen;
+        private IInputService _inputService;
         private IGameFactory _gameFactory;
         
-        public GameState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IGameFactory gameFactory)
+        public GameState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IInputService inputService,
+            IGameFactory gameFactory)
         {
             _sceneLoadService = sceneLoadService;
             _loadingScreen = loadingScreen;
+            _inputService = inputService;
             _gameFactory = gameFactory;
         }
         
         public void Enter()
         {
             _sceneLoadService.LoadScene("Main", OnLoad);
+            _inputService.Enable();
         }
 
         public void Exit()
         {
+            _inputService.Disable();
         }
 
         private void OnLoad()
@@ -43,7 +49,12 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             
             GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0, 0));
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
-            playerShoot.Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
+            playerShoot
+                .Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
+            player.GetComponent<PlayerLook>()
+                .Init(ServiceLocator.Container.Resolve<IInputService>(), Camera.main);
+            player.GetComponent<PlayerMovement>()
+                .Init(ServiceLocator.Container.Resolve<IInputService>());
             weapon.AttachToHand(playerShoot.PlayerArm);
 
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
