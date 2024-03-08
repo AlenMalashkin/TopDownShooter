@@ -40,23 +40,22 @@ namespace Code.GameplayLogic
             }
         }
 
-        private void Awake()
+        public void Init(IInputService inputService)
         {
+            _inputService = inputService;
+            
             _controller = GetComponent<CharacterController>();
-            _inputService = ServiceLocator.Container.Resolve<IInputService>();
             _animator = GetComponentInChildren<Animator>();
             _playerDirection = GetComponentInParent<Transform>();
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            _inputService.Enable();
             _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
         }
 
         private void OnDisable()
         {
-            _inputService.Disable();
             _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
         }
 
