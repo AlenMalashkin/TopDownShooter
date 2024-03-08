@@ -8,18 +8,17 @@ namespace Code.GameplayLogic
 {
     public class PlayerLook : MonoBehaviour
     {
-        
         private IInputService _inputService;
         private Camera _camera;
         private float _rayLength;
-        
-        private void Awake()
+
+        public void Init(IInputService inputService, Camera camera)
         {
-            _inputService = ServiceLocator.Container.Resolve<IInputService>();
-            _camera = Camera.main;
+            _inputService = inputService;
+            _camera = camera;
         }
 
-        private void OnEnable()
+        private void Start()
         {
             _inputService.GetInputAction<ILookAction>().SubscribeLookInput(LookAtMousePoint);
         }

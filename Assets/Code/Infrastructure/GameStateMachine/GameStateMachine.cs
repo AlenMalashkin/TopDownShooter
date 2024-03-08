@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Code.Factories.GameplayFactoies;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
+using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 
 namespace Code.Infrastructure.GameStateMachineNamespace
@@ -15,7 +16,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService, LoadingScreen loadingScreen)
         {
             _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen);
-            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), loadingScreen, serviceLocator.Resolve<IGameFactory>());
+            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), loadingScreen, ServiceLocator.Container.Resolve<IInputService>(), serviceLocator.Resolve<IGameFactory>());
         }
         
         public void Enter<TState>() where TState : class, IGameState
