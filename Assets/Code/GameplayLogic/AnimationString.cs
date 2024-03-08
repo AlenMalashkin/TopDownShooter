@@ -1,8 +1,8 @@
 namespace Code.GameplayLogic
 {
-    public class AnimationStrings
+    public static class AnimationStrings
     {
-        public static string IsMoving = "IsMoving";
-        public static string IsMovingBackwards = "IsMovingBackwards";
+        public const string IsMoving = "IsMoving";
+        public const string IsMovingBackwards = "IsMovingBackwards";
     }
 }
