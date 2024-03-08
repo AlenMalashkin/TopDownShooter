@@ -26,8 +26,6 @@ namespace Code.GameplayLogic
             
             _controller = GetComponent<CharacterController>();
             _inputService = ServiceLocator.Container.Resolve<IInputService>();
-            _animator = GetComponentInChildren<Animator>();
-            _playerDirection = GetComponentInParent<Transform>();
         }
 
         private void Start()
