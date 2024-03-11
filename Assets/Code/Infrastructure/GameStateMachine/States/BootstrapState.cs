@@ -1,6 +1,7 @@
 ﻿using Code.Factories.GameplayFactoies;
 using Code.Services;
 using Code.Services.AssetProvider;
+using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
@@ -46,7 +47,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _serviceLocator.RegisterService(_sceneLoadService);
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
-            _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IEquipmentService>(new EquipmentService());
+            _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>(), _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 

@@ -1,6 +1,9 @@
 using Cinemachine;
+using Code.Data;
 using Code.GameplayLogic;
 using Code.Services.AssetProvider;
+using Code.Services.EquipmentService;
+using Code.Services.StaticDataService;
 using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
@@ -8,10 +11,14 @@ namespace Code.Factories.GameplayFactoies
     public class GameFactory : IGameFactory
     {
         private IAssetProvider _assetProvider;
+        private IStaticDataService _staticDataService;
+        private IEquipmentService _equipmentService;
         
-        public GameFactory(IAssetProvider assetProvider)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticDataService, IEquipmentService equipmentService)
         {
             _assetProvider = assetProvider;
+            _staticDataService = staticDataService;
+            _equipmentService = equipmentService;
         }
 
         public GameObject CreatePlayer(Vector3 position)
@@ -22,8 +29,8 @@ namespace Code.Factories.GameplayFactoies
 
         public IWeapon CreateWeapon()
         {
-            GameObject weaponPrefab = _assetProvider.LoadAsset(AssetPaths.PlayerWeapon);
-            IWeapon weapon = Object.Instantiate(weaponPrefab).GetComponent<IWeapon>();
+            WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);
+            IWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<IWeapon>();
             return weapon;
         }
 
