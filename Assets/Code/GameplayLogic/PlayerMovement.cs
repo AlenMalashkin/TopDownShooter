@@ -15,10 +15,6 @@ namespace Code.GameplayLogic
         private CharacterController _controller;
         private IInputService _inputService;
 
-        public Vector3 MoveDirection
-        {
-            get => _moveDirection;
-        }
 
         public void Init(IInputService inputService)
         {
