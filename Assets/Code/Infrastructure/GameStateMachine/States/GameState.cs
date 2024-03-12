@@ -47,7 +47,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             IWeapon weapon = _gameFactory.CreateWeapon();
             
-            GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0, 0));
+            GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0.5f, 0));
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
