@@ -1,45 +1,62 @@
+using Code.Services.InputService;
+using Code.Services.InputService.InputActions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Code.GameplayLogic
 {
-    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerMovement), typeof(Animator))]
     public class PlayerAnimator : MonoBehaviour
     {
-        private Transform _mainCamera;
         private Animator _animator;
         private bool _isMoving;
         private bool _isMovingBackwards;
 
+        private Transform _cameraTransform;
+        private IInputService _inputService;
+        
+        public void Init(IInputService inputService, Transform cameraTransform)
+        {
+            _inputService = inputService;
+            _cameraTransform = cameraTransform;
+        }
+        
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _mainCamera = Camera.main.transform;
-        }
-        
-        
-        private void Update()
-        {
-            CalculateMovementVector();
         }
 
-        private void CalculateMovementVector()
+        private void Start()
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-        
-            Vector3 cameraRight = _mainCamera.right;
-            Vector3 cameraForward = _mainCamera.forward;
+            _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
+        }
+
+        private void OnDisable()
+        {
+            _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
+        }
+
+        private void OnMove(InputAction.CallbackContext context)
+        {
+            UpdateMovementAnimations(context.ReadValue<Vector2>());
+        }
+
+        private void UpdateMovementAnimations(Vector2 direction)
+        {
+            Vector3 cameraRight = _cameraTransform.right;
+            Vector3 cameraForward = _cameraTransform.forward;
 
             cameraRight.y = 0;
             cameraForward.y = 0;
 
-            Vector3 movementVector = cameraForward.normalized * vertical + cameraRight.normalized * horizontal;
+            Vector3 movementVector = cameraForward.normalized * direction.y
+                                     + cameraRight.normalized * direction.x;
             movementVector = Vector3.ClampMagnitude(movementVector, 1);
-            
+
             Vector3 relativeVector = transform.InverseTransformDirection(movementVector);
-            
-            _animator.SetFloat(AnimationStrings.Horizontal,relativeVector.x);
-            _animator.SetFloat(AnimationStrings.Vertical,relativeVector.z);
+
+            _animator.SetFloat(AnimationStrings.Horizontal, relativeVector.x);
+            _animator.SetFloat(AnimationStrings.Vertical, relativeVector.z);
         }
     }
 }
