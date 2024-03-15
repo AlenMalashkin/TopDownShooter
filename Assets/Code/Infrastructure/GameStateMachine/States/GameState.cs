@@ -47,15 +47,20 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             IWeapon weapon = _gameFactory.CreateWeapon();
 
+            Camera mainCamera = Camera.main;
+
+
             GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0.5f, 0));
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
             player.GetComponent<PlayerLook>()
-                .Init(ServiceLocator.Container.Resolve<IInputService>(), Camera.main);
+                .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>());
             weapon.AttachToHand(playerShoot.PlayerArm);
+            player.GetComponent<PlayerAnimator>()
+                .Init(_inputService, mainCamera.transform);
 
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
             camera.Follow = player.transform;

@@ -19,9 +19,7 @@ namespace Code.GameplayLogic
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
-            
             _controller = GetComponent<CharacterController>();
-            _inputService = ServiceLocator.Container.Resolve<IInputService>();
         }
 
         private void Start()
