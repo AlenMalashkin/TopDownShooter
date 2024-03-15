@@ -4,5 +4,6 @@ namespace Code.Services.AssetProvider
     {
         public const string Player = "Prefabs/Player";
         public const string PlayerCamera = "Prefabs/PlayerCamera";
+        public const string Enemy = "Prefabs/Enemy"; 
     }
 }

@@ -26,6 +26,13 @@ namespace Code.Factories.GameplayFactoies
             GameObject playerPrefab = _assetProvider.LoadAsset(AssetPaths.Player);
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
         }
+        
+
+        public GameObject CreateEnemy(Vector3 position)
+        {
+            GameObject enemyPrefab = _assetProvider.LoadAsset(AssetPaths.Enemy);
+            return Object.Instantiate(enemyPrefab, position, Quaternion.identity);
+        }
 
         public IWeapon CreateWeapon()
         {
@@ -41,5 +48,6 @@ namespace Code.Factories.GameplayFactoies
             
              return Object.Instantiate(playerCameraPrefab);
         }
+        
     }
 }
