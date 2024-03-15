@@ -4,7 +4,6 @@ using Code.GameplayLogic;
 using Code.Services;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -15,7 +14,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private LoadingScreen _loadingScreen;
         private IInputService _inputService;
         private IGameFactory _gameFactory;
-        
+
         public GameState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IInputService inputService,
             IGameFactory gameFactory)
         {
@@ -24,7 +23,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _inputService = inputService;
             _gameFactory = gameFactory;
         }
-        
+
         public void Enter()
         {
             _sceneLoadService.LoadScene("Main", OnLoad);
@@ -40,13 +39,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _loadingScreen.Hide();
 
-            InitializePlayerAndCamera();
+            GameObject player = InitializePlayerAndCamera();
+            InitializeEnemy(player.transform);
         }
 
-        private void InitializePlayerAndCamera()
+        private GameObject InitializePlayerAndCamera()
         {
             IWeapon weapon = _gameFactory.CreateWeapon();
-            
+
             GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0.5f, 0));
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
@@ -59,6 +59,15 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
             camera.Follow = player.transform;
+
+            return player;
+        }
+
+        private void InitializeEnemy(Transform playerTransform)
+        {
+            GameObject enemy = _gameFactory.CreateEnemy(new Vector3(2.5f, 0.5f, 0));
+            enemy.GetComponent<EnemyMovement>()
+                .Init(playerTransform);
         }
     }
 }
