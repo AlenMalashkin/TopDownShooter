@@ -3,7 +3,7 @@ using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Code.GameplayLogic
+namespace Code.GameplayLogic.PlayerLogic
 {
     [RequireComponent(typeof(PlayerMovement), typeof(Animator))]
     public class PlayerAnimator : MonoBehaviour

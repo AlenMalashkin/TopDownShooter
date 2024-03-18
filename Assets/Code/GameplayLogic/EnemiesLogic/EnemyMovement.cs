@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Code.GameplayLogic
+namespace Code.GameplayLogic.EnemiesLogic
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMovement : MonoBehaviour
@@ -12,7 +11,7 @@ namespace Code.GameplayLogic
 
         public void Init(Transform playerTransform)
         {
-           _playerTransform = playerTransform;
+            _playerTransform = playerTransform;
         }
 
         private void Awake()
@@ -23,7 +22,7 @@ namespace Code.GameplayLogic
         private void Update()
         {
             _agent.destination = _playerTransform.position;
+            transform.
         }
-
     }
 }
