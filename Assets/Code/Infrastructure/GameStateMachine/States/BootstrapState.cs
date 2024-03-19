@@ -47,7 +47,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _serviceLocator.RegisterService(_sceneLoadService);
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
-            _serviceLocator.RegisterService<IEquipmentService>(new EquipmentService());
+            _serviceLocator.RegisterService<IEquipmentService>(new EquipmentService(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>(), _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }

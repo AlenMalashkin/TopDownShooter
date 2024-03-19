@@ -2,6 +2,7 @@
 using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.Services;
+using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 .Init(ServiceLocator.Container.Resolve<IInputService>());
             weapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
-                .Init(_inputService, mainCamera.transform);
+                .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
 
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
             camera.Follow = player.transform;
