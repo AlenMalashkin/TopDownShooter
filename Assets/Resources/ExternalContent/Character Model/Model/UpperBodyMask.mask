@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UpperBodyMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: ArmLeft1
+    m_Weight: 1
+  - m_Path: ArmRight1
+    m_Weight: 1
+  - m_Path: Body1
+    m_Weight: 1
+  - m_Path: Head1
+    m_Weight: 1
+  - m_Path: LegLeft1
+    m_Weight: 0
+  - m_Path: LegRight1
+    m_Weight: 0
+  - m_Path: Rig1
+    m_Weight: 1
+  - m_Path: Rig1/LegL1
+    m_Weight: 0
+  - m_Path: Rig1/LegL1/LegL2
+    m_Weight: 1
+  - m_Path: Rig1/LegL1/LegL2/LegL3
+    m_Weight: 1
+  - m_Path: Rig1/LegR1
+    m_Weight: 0
+  - m_Path: Rig1/LegR1/LegR2
+    m_Weight: 1
+  - m_Path: Rig1/LegR1/LegR2/LegR3
+    m_Weight: 1
+  - m_Path: Rig1/Spine1
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmL1
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmL1/ArmL2
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmL1/ArmL2/ArmL3
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmR1
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmR1/ArmR2
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/ArmR1/ArmR2/ArmR3
+    m_Weight: 1
+  - m_Path: Rig1/Spine1/Spine2/Neck1
+    m_Weight: 1

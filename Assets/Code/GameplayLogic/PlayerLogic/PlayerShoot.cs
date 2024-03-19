@@ -1,12 +1,12 @@
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace Code.GameplayLogic.PlayerLogic
+namespace Code.GameplayLogic
 {
     public class PlayerShoot : MonoBehaviour
     {
+        [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Transform playerArm;
         public Transform PlayerArm => playerArm;
         
@@ -18,20 +18,18 @@ namespace Code.GameplayLogic.PlayerLogic
             _weapon = weapon;
             _inputService = inputService;
         }
-        
-        private void Start()
-        {
-            _inputService.GetInputAction<IFireAction>().SubscribeFireInput(OnFire);
-        }
 
-        private void OnDisable()
+        private void Update()
         {
-            _inputService.GetInputAction<IFireAction>().UnsubscribeFireInput(OnFire);
-        }
-        
-        private void OnFire(InputAction.CallbackContext context)
-        {
-            _weapon.Shoot(Vector3.forward);
+            if (_inputService.GetInputAction<IFireAction>().FirePressed)
+            {
+                _weapon.Shoot(Vector3.forward);
+                _playerAnimator.PlayShootAnimation();
+            }
+            else
+            {
+                _playerAnimator.PlayRunWithWeaponAnimation();
+            }
         }
     }
 }
