@@ -18,7 +18,7 @@ namespace Code.GameplayLogic
             _weapon = weapon;
             _inputService = inputService;
         }
-
+        
         private void Update()
         {
             if (_inputService.GetInputAction<IFireAction>().FirePressed)

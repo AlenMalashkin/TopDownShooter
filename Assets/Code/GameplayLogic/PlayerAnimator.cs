@@ -40,12 +40,10 @@ namespace Code.GameplayLogic
         }
 
         public void PlayShootAnimation() 
-            => _animator.Play(GetShootAnimationName(_equipmentService.CurrentWeaponCategory), 
-                _animator.GetLayerIndex("Upper Body"));
+            => _animator.Play(GetShootAnimationName(_equipmentService.CurrentWeaponCategory), _animator.GetLayerIndex("Upper Body"));
         
         public void PlayRunWithWeaponAnimation() 
-            => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory), 
-                _animator.GetLayerIndex("Upper Body"));
+            => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory), _animator.GetLayerIndex("Upper Body"));
 
         private void OnMove(InputAction.CallbackContext context)
         {
