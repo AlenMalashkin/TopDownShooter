@@ -1,10 +1,9 @@
-﻿using Code.Services;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Code.GameplayLogic
+namespace Code.GameplayLogic.PlayerLogic
 {
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
