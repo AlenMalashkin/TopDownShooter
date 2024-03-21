@@ -3,6 +3,7 @@ using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Services;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
@@ -56,7 +57,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0.5f, 0));
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
-                .Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
+                .Init(ServiceLocator.Container.Resolve<IInputService>());
             player.GetComponent<PlayerLook>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
