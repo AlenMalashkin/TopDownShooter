@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2891484462921024806}
   - component: {fileID: 9166475989338961789}
   - component: {fileID: 6917467311574802575}
+  - component: {fileID: 4290737681227849139}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,6 +121,7 @@ MonoBehaviour:
   playerArm: {fileID: 3396605725178930342}
   _shootingPoint: {fileID: 3673542332112053539}
   _range: 1000
+  _damage: 25
 --- !u!114 &9166475989338961789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +146,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bf105b51f7444da48c8ae2a5a102d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4290737681227849139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147739227663965134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d29c0a73e24ef1a4fa54839224b5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _maxHealth: 100
 --- !u!1 &3396605725179295872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,7 +1245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3673542332112053539}
   m_Layer: 0
-  m_Name: ShootPosition
+  m_Name: ShootingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1243,7 +1259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8314417581318515940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.008, y: 0.3497, z: 0.2306}
+  m_LocalPosition: {x: -0.008, y: 0.3497, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
