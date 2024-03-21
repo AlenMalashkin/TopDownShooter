@@ -3,11 +3,13 @@ using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
-using Code.GameplayLogic.Weapons;
+using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
+using Code.Services.StaticDataService;
+using Code.StaticData.LevelStaticData;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -15,14 +17,18 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
     public class GameState : IGameState
     {
         private ISceneLoadService _sceneLoadService;
+        private IStaticDataService _staticDataService;
         private LoadingScreen _loadingScreen;
         private IInputService _inputService;
         private IGameFactory _gameFactory;
 
-        public GameState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IInputService inputService,
+        private LevelStaticData _levelStaticData;
+
+        public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService, LoadingScreen loadingScreen, IInputService inputService,
             IGameFactory gameFactory)
         {
             _sceneLoadService = sceneLoadService;
+            _staticDataService = staticDataService;
             _loadingScreen = loadingScreen;
             _inputService = inputService;
             _gameFactory = gameFactory;
@@ -30,7 +36,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public void Enter()
         {
-            _sceneLoadService.LoadScene("Main", OnLoad);
+            _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
+            _sceneLoadService.LoadScene(_levelStaticData.LevelName, OnLoad);
             _inputService.Enable();
         }
 
@@ -53,8 +60,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             Camera mainCamera = Camera.main;
 
-
-            GameObject player = _gameFactory.CreatePlayer(new Vector3(0, 0.5f, 0));
+            GameObject player = _gameFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(ServiceLocator.Container.Resolve<IInputService>());
@@ -74,7 +80,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void InitializeEnemy(Transform playerTransform)
         {
-            GameObject enemy = _gameFactory.CreateEnemy(new Vector3(2.5f, 0.5f, 0));
+            GameObject enemy = _gameFactory.CreateEnemy(_levelStaticData
+                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
             enemy.GetComponent<EnemyMovement>()
                 .Init(playerTransform);
         }
