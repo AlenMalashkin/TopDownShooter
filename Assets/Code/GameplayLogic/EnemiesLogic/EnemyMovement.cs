@@ -8,6 +8,7 @@ namespace Code.GameplayLogic.EnemiesLogic
     {
         private Transform _playerTransform;
         private NavMeshAgent _agent;
+        private Rigidbody _rigidbody;
 
         public void Init(Transform playerTransform)
         {
@@ -17,12 +18,13 @@ namespace Code.GameplayLogic.EnemiesLogic
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
         {
             _agent.destination = _playerTransform.position;
-            transform.
+            _rigidbody.rotation.SetLookRotation(_playerTransform.position, Vector3.forward);
         }
     }
 }

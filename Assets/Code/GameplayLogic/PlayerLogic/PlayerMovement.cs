@@ -5,20 +5,20 @@ using UnityEngine.InputSystem;
 
 namespace Code.GameplayLogic.PlayerLogic
 {
-    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
 
         private Vector3 _moveDirection;
-        private CharacterController _controller;
         private IInputService _inputService;
+        private Rigidbody _rigidbody;
 
 
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
-            _controller = GetComponent<CharacterController>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Start()
@@ -31,11 +31,11 @@ namespace Code.GameplayLogic.PlayerLogic
             _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            _controller.Move(_moveDirection * _speed * Time.deltaTime);
-            
+            _rigidbody.velocity = _moveDirection * _speed;
         }
+        
 
         public void OnMove(InputAction.CallbackContext context)
         {
