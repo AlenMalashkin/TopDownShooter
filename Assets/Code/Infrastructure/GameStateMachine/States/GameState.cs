@@ -3,6 +3,7 @@ using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
