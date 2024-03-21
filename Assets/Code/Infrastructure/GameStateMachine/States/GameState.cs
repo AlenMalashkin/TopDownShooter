@@ -63,7 +63,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject player = _gameFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
-                .Init(weapon, ServiceLocator.Container.Resolve<IInputService>());
+                .Init(ServiceLocator.Container.Resolve<IInputService>());
             player.GetComponent<PlayerLook>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
