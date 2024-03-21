@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8b23f9f46344f6aaa7c2b252b56447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerAnimator: {fileID: 6917467311574802575}
   playerArm: {fileID: 3396605725178930342}
 --- !u!114 &9166475989338961789
 MonoBehaviour:

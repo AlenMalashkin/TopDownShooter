@@ -8,6 +8,7 @@ namespace Code.Data
     public class WeaponData
     {
         public WeaponType Type;
+        public WeaponCategory Category;
         public GameObject Prefab;
     }
 }

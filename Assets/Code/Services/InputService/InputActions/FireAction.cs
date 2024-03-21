@@ -12,10 +12,7 @@ namespace Code.Services.InputService.InputActions
             _playerInputActions = playerInputActions;
         }
 
-        public void SubscribeFireInput(Action<InputAction.CallbackContext> action)
-            => _playerInputActions.Player.Fire.performed += action;
-        
-        public void UnsubscribeFireInput(Action<InputAction.CallbackContext> action)
-            => _playerInputActions.Player.Fire.performed -= action; 
+
+        public bool FirePressed => _playerInputActions.Player.Fire.IsPressed();
     }
 }
