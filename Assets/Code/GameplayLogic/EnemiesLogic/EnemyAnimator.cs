@@ -5,8 +5,9 @@ namespace Code.GameplayLogic.EnemiesLogic
     [RequireComponent(typeof(Animator))]
     public class EnemyAnimator : MonoBehaviour
     {
+        [SerializeField] private DetectionZone _detectionZone;
+
         private Animator _animator;
-        private bool _hasTarget;
 
         private void Awake()
         {
@@ -15,17 +16,24 @@ namespace Code.GameplayLogic.EnemiesLogic
 
         private void OnEnable()
         {
-            DetectionZone.PlayerDetected += SetAttackAnimation;
+            _detectionZone.PlayerDetected += OnPlayerDetected;
+            _detectionZone.PlayerLeft += OnPlayerLeft;
         }
 
         private void OnDisable()
         {
-            DetectionZone.PlayerDetected -= SetAttackAnimation;
+            _detectionZone.PlayerDetected -= OnPlayerDetected;
+            _detectionZone.PlayerLeft -= OnPlayerLeft;
         }
 
-        private void SetAttackAnimation()
+        private void OnPlayerDetected()
         {
-            _animator.SetTrigger(AnimationStrings.Attack);
+            _animator.SetBool(AnimationStrings.Attack, true);
+        }
+
+        private void OnPlayerLeft()
+        {
+            _animator.SetBool(AnimationStrings.Attack, false);
         }
     }
 }
