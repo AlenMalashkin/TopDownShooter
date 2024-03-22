@@ -1,4 +1,5 @@
 ﻿using Code.Factories.GameplayFactoies;
+using Code.Factories.UIFactory;
 using Code.Services;
 using Code.Services.AssetProvider;
 using Code.Services.EquipmentService;
@@ -38,7 +39,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void OnLoad()
         {
-            _gameStateMachine.Enter<GameState>();
+            _gameStateMachine.Enter<MenuState>();
         }
 
         private void RegisterAllServices()
@@ -49,6 +50,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(new EquipmentService(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>(), _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
+            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>(), _serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 
