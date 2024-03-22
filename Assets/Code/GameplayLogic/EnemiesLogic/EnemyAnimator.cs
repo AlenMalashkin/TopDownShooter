@@ -6,6 +6,7 @@ namespace Code.GameplayLogic.EnemiesLogic
     public class EnemyAnimator : MonoBehaviour
     {
         [SerializeField] private DetectionZone _detectionZone;
+        [SerializeField] private Collider _collider;
 
         private Animator _animator;
 
@@ -34,6 +35,16 @@ namespace Code.GameplayLogic.EnemiesLogic
         private void OnPlayerLeft()
         {
             _animator.SetBool(AnimationStrings.Attack, false);
+        }
+
+        public void ActivateFist()
+        {
+            _collider.enabled = true;
+        }
+
+        public void DeactivateFist()
+        {
+            _collider.enabled = false;
         }
     }
 }
