@@ -29,9 +29,7 @@ namespace Code.GameplayLogic.PlayerLogic
             
             if (Physics.Raycast(_shootingPoint.transform.position, _shootingPoint.transform.forward, out hit, _range))
             {
-                IDamageable damageable = hit.transform.GetComponent<Damageable>();
-                
-                if (damageable != null)
+                if (hit.transform.TryGetComponent(out IDamageable damageable))
                 {
                     damageable.TakeDamage(_damage);
                 }

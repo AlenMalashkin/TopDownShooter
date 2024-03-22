@@ -12,17 +12,14 @@ namespace Code.GameplayLogic
             get => _health;
             private set
             {
-                if (value > _maxHealth)
-                {
-                    _health = _maxHealth;
-                }
-                else if (_health < 0)
+                _health = value;
+                if (_health < 0)
                 {
                     _health = 0;
                 }
-                else
+                else if (_health > _maxHealth)
                 {
-                    _health = value;
+                    _health = _maxHealth;
                 }
             }
         }
@@ -30,7 +27,6 @@ namespace Code.GameplayLogic
         public void TakeDamage(int damage)
         {
             Health -= damage;
-            Debug.Log("hit");
         }
     }
 }

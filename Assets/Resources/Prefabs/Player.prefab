@@ -121,7 +121,7 @@ MonoBehaviour:
   playerArm: {fileID: 3396605725178930342}
   _shootingPoint: {fileID: 3673542332112053539}
   _range: 1000
-  _damage: 25
+  _damage: 59
 --- !u!114 &9166475989338961789
 MonoBehaviour:
   m_ObjectHideFlags: 0
