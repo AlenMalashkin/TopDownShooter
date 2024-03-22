@@ -13,7 +13,8 @@ namespace Code.GameplayLogic
         {
             [WeaponCategory.Pistol] = "PistolShoot",
             [WeaponCategory.Rifle] = "RifleShoot"
-        }; 
+        };
+        
         public const string Horizontal = "Horizontal";
         public const string Vertical = "Vertical";
         public const string Attack = "Attack";
