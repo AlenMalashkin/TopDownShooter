@@ -7,7 +7,9 @@ namespace Code.GameplayLogic
     {
         [SerializeField] private int _health;
         [SerializeField] private int _maxHealth;
-        
+
+        public event Action Death;
+
         public int Health
         {
             get => _health;
@@ -28,7 +30,9 @@ namespace Code.GameplayLogic
         public void TakeDamage(int damage)
         {
             Health -= damage;
+            
+            if (_health <= 0)
+                Death?.Invoke();
         }
-
     }
 }

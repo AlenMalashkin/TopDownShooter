@@ -12,6 +12,7 @@ namespace Code.GameplayLogic.PlayerLogic
         [SerializeField] private Transform _shootingPoint;
         [SerializeField] private float _range = 1000f;
         [SerializeField] private int _damage = 25;
+
         
         public Transform PlayerArm => playerArm;
 
@@ -32,10 +33,10 @@ namespace Code.GameplayLogic.PlayerLogic
                 if (hit.transform.TryGetComponent(out IDamageable damageable))
                 {
                     damageable.TakeDamage(_damage);
+                    Debug.Log(_damage);
                 }
                 else
                 {
-                    Debug.Log("pizdec");
                     Debug.Log(hit.transform.name);
                 }
             }   

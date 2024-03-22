@@ -24,7 +24,7 @@ namespace Code.GameplayLogic.PlayerLogic
             _equipmentService = equipmentService;
             _cameraTransform = cameraTransform;
         }
-        
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -40,12 +40,20 @@ namespace Code.GameplayLogic.PlayerLogic
             _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
         }
 
-        public void PlayShootAnimation() 
-            => _animator.Play(GetShootAnimationName(_equipmentService.CurrentWeaponCategory), _animator.GetLayerIndex("Upper Body"));
-        
-        public void PlayRunWithWeaponAnimation() 
-            => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory), _animator.GetLayerIndex("Upper Body"));
-            
+        public void PlayDeathAnimation()
+        {
+            _animator.SetLayerWeight(_animator.GetLayerIndex("Upper Body"), 0f);
+            _animator.Play(AnimationStrings.Death, _animator.GetLayerIndex("Base Layer"));
+        }
+
+        public void PlayShootAnimation()    
+            => _animator.Play(GetShootAnimationName(_equipmentService.CurrentWeaponCategory),
+                _animator.GetLayerIndex("Upper Body"));
+
+        public void PlayRunWithWeaponAnimation()
+            => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory),
+                _animator.GetLayerIndex("Upper Body"));
+
         private void OnMove(InputAction.CallbackContext context)
         {
             UpdateMovementAnimations(context.ReadValue<Vector2>());
@@ -69,7 +77,7 @@ namespace Code.GameplayLogic.PlayerLogic
             _animator.SetFloat(AnimationStrings.Vertical, relativeVector.z);
         }
 
-        private string GetShootAnimationName(WeaponCategory category) 
+        private string GetShootAnimationName(WeaponCategory category)
             => AnimationStrings.WeaponShootAnimationNames[category];
 
         private string GetRunWithWeaponAnimationName(WeaponCategory category)

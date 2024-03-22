@@ -7,7 +7,7 @@ namespace Code.GameplayLogic.EnemiesLogic
     {
         [SerializeField] private DetectionZone _detectionZone;
         [SerializeField] private Collider _collider;
-
+        
         private Animator _animator;
 
         private void Awake()
@@ -26,6 +26,9 @@ namespace Code.GameplayLogic.EnemiesLogic
             _detectionZone.PlayerDetected -= OnPlayerDetected;
             _detectionZone.PlayerLeft -= OnPlayerLeft;
         }
+        
+        public void PlayDeathAnimation()
+            => _animator.Play(AnimationStrings.Death);
 
         private void OnPlayerDetected()
         {
