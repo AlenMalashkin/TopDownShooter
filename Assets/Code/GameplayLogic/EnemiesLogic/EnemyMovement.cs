@@ -1,3 +1,4 @@
+using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,5 +30,6 @@ namespace Code.GameplayLogic.EnemiesLogic
                 _rigidbody.rotation.SetLookRotation(_playerTransform.position, Vector3.forward);
             }
         }
+        
     }
 }

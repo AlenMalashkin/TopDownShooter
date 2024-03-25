@@ -1,4 +1,3 @@
-using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
@@ -10,10 +9,11 @@ namespace Code.GameplayLogic.PlayerLogic
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Transform playerArm;
         [SerializeField] private Transform _shootingPoint;
+
         [SerializeField] private float _range = 1000f;
         [SerializeField] private int _damage = 25;
 
-        
+
         public Transform PlayerArm => playerArm;
 
         private float _shootingCooldown;
@@ -23,11 +23,11 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             _inputService = inputService;
         }
-        
+
         public void Shoot()
         {
             RaycastHit hit;
-            
+
             if (Physics.Raycast(_shootingPoint.transform.position, _shootingPoint.transform.forward, out hit, _range))
             {
                 if (hit.transform.TryGetComponent(out IDamageable damageable))
@@ -39,13 +39,13 @@ namespace Code.GameplayLogic.PlayerLogic
                 {
                     Debug.Log(hit.transform.name);
                 }
-            }   
+            }
             else
             {
                 Debug.Log("не попал");
             }
         }
-        
+
         private void Update()
         {
             if (_inputService.GetInputAction<IFireAction>().FirePressed)
