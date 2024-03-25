@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponsData:
   - Type: 0
+    Category: 0
+    Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     Prefab: {fileID: 6662779086400649341, guid: bb7d17dfe35805c4692616dad0b11e2f, type: 3}
   - Type: 1
+    Category: 1
+    Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     Prefab: {fileID: 1279242007283226942, guid: 372240b587d76ed4f869e9c6da1e2db7, type: 3}
   - Type: 2
+    Category: 1
+    Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     Prefab: {fileID: 707861973409315246, guid: d24dd15cba9440c4e984ea7386225cce, type: 3}
