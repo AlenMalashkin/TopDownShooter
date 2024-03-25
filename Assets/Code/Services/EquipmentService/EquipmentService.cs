@@ -9,8 +9,8 @@ namespace Code.Services.EquipmentService
         public WeaponType CurrentEquippedWeapon => _currentEquippedWeapon;
         public WeaponCategory CurrentWeaponCategory => _currentWeaponCategory;
 
-        private WeaponType _currentEquippedWeapon = WeaponType.Pistol;
-        private WeaponCategory _currentWeaponCategory = WeaponCategory.Pistol;
+        private WeaponType _currentEquippedWeapon = WeaponType.Rifle;
+        private WeaponCategory _currentWeaponCategory = WeaponCategory.Rifle;
 
         private IStaticDataService _staticDataService;
 
