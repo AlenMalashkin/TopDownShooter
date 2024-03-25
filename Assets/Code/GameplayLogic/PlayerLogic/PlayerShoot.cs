@@ -8,61 +8,37 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Transform playerArm;
-        [SerializeField] private Transform _shootingPoint;
-
-        [SerializeField] private float _range = 1000f;
-        [SerializeField] private int _damage = 25;
-
 
         public Transform PlayerArm => playerArm;
 
-        private float _shootingCooldown;
         private IInputService _inputService;
+        private IWeapon _weapon;
 
-        public void Init(IInputService inputService)
+        public void Init(IInputService inputService, IWeapon weapon)
         {
             _inputService = inputService;
-        }
-
-        public void Shoot()
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(_shootingPoint.transform.position, _shootingPoint.transform.forward, out hit, _range))
-            {
-                if (hit.transform.TryGetComponent(out IDamageable damageable))
-                {
-                    damageable.TakeDamage(_damage);
-                    Debug.Log(_damage);
-                }
-                else
-                {
-                    Debug.Log(hit.transform.name);
-                }
-            }
-            else
-            {
-                Debug.Log("не попал");
-            }
+            _weapon = weapon;
         }
 
         private void Update()
         {
             if (_inputService.GetInputAction<IFireAction>().FirePressed)
             {
-                if (_shootingCooldown > 0.5)
-                {
-                    _playerAnimator.PlayShootAnimation();
-                    Shoot();
-                    _shootingCooldown = 0;
-                }
+                _playerAnimator.PlayShootAnimation();
+                Shoot();
             }
             else
             {
                 _playerAnimator.PlayRunWithWeaponAnimation();
             }
+        }
 
-            _shootingCooldown += Time.deltaTime;
+        private void Shoot()
+        {
+            if (_weapon.CanShoot)
+                _weapon.ShootBullet(transform.forward);
+            else
+                _weapon.Reload();
         }
     }
 }

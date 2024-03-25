@@ -42,6 +42,14 @@ namespace Code.Factories.GameplayFactoies
             return weapon;
         }
 
+        public Bullet CreateBullet(Vector3 spawnPosition, int damage, Vector3 direction)
+        {
+            WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);
+            Bullet bullet = Object.Instantiate(weaponData.Bullet, spawnPosition, Quaternion.identity);
+            bullet.Init(damage, direction);
+            return bullet;
+        }
+
         public CinemachineVirtualCamera CreatePlayerCamera()
         {
             CinemachineVirtualCamera playerCameraPrefab =
