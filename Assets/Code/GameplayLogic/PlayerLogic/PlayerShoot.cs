@@ -1,4 +1,3 @@
-using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
