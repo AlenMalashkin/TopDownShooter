@@ -7,6 +7,7 @@ using Code.Services;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
+using Code.Services.TimerService;
 
 namespace Code.Infrastructure.GameStateMachineNamespace
 {
@@ -15,9 +16,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         private Dictionary<Type, IExitableState> _states = new Dictionary<Type, IExitableState>();
         private IExitableState _currentState;
 
-        public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService, LoadingScreen loadingScreen)
+        public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService,
+            LoadingScreen loadingScreen, ITimerService timerService)
         {
-            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen);
+            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, timerService);
             _states[typeof(MenuState)] = new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IUIFactory>());
             _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), serviceLocator.Resolve<IStaticDataService>(), loadingScreen, ServiceLocator.Container.Resolve<IInputService>(), serviceLocator.Resolve<IGameFactory>());
         }
