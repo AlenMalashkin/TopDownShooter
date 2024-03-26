@@ -27,7 +27,7 @@ namespace Code.GameplayLogic.EnemiesLogic
             if (_playerTransform != null)
             {
                 _agent.destination = _playerTransform.position;
-                _rigidbody.rotation.SetLookRotation(_playerTransform.position, Vector3.forward);
+                _rigidbody.rotation.SetLookRotation(_playerTransform.position);
             }
         }
         

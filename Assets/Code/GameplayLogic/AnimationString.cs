@@ -19,5 +19,7 @@ namespace Code.GameplayLogic
         public const string Vertical = "Vertical";
         public const string Attack = "Attack";
         public const string Death = "Death";
+        public const string Run = "Run";
+        public const string PlayerDetected = "PlayerDetected";
     }
 }

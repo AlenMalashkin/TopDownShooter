@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Weapons;
 using Code.Level;
@@ -51,7 +52,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _loadingScreen.Hide();
 
             GameObject player = InitializePlayerAndCamera();
-            InitializeEnemy(player.transform);
+            // InitializeEnemy(player.transform);
+            InitializeRangeEnemy(player.transform);
         }
 
         private GameObject InitializePlayerAndCamera()
@@ -84,6 +86,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
             enemy.GetComponent<EnemyMovement>()
                 .Init(playerTransform);
+        }
+
+        private void InitializeRangeEnemy(Transform playerTransform)
+        {
+            GameObject rangeEnemy = _gameFactory.CreateRangeEnemy(_levelStaticData
+                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
+            rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
         }
     }
 }
