@@ -35,7 +35,6 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(enemyPrefab, position, Quaternion.identity);
         }
 
- RangeEnemyAnimations/MAIN-T-63
         public GameObject CreateRangeEnemy(Vector3 position)
         {
             GameObject rangeEnemyPrefab = _assetProvider.LoadAsset(AssetPaths.RangeEnemy);
@@ -44,7 +43,6 @@ namespace Code.Factories.GameplayFactoies
 
 
         public Weapon CreatePlayerWeapon()
- master
         {
             WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);
             PlayerWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<PlayerWeapon>();

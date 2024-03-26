@@ -21,7 +21,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         private float _shootCooldown;
         private int _bulletsInClip;
         private IGameFactory _gameFactory;
-        
+
         public void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
@@ -37,7 +37,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         {
             transform.SetParent(parent);
             transform.localPosition = _weaponPositionInHand;
-            transform.localRotation = Quaternion.Euler(_weaponRotationInHand.x, 
+            transform.localRotation = Quaternion.Euler(_weaponRotationInHand.x,
                 _weaponRotationInHand.y, _weaponRotationInHand.z);
         }
 
