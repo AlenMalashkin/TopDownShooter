@@ -54,6 +54,9 @@ namespace Code.GameplayLogic.PlayerLogic
             => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory),
                 _animator.GetLayerIndex("Upper Body"));
 
+        public void PlayReloadAnimation()
+            => _animator.Play("Reload", _animator.GetLayerIndex("Upper Body"));
+
         private void OnMove(InputAction.CallbackContext context)
         {
             UpdateMovementAnimations(context.ReadValue<Vector2>());

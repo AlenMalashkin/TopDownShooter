@@ -24,22 +24,23 @@ namespace Code.GameplayLogic.PlayerLogic
         private void Update()
         {
             if (_inputService.GetInputAction<IFireAction>().FirePressed)
-            {
-                _playerAnimator.PlayShootAnimation();
                 Shoot();
-            }
             else
-            {
                 _playerAnimator.PlayRunWithWeaponAnimation();
-            }
         }
 
         private void Shoot()
         {
             if (_weapon.CanShoot)
+            {
                 _weapon.ShootBullet(transform.forward);
+                _playerAnimator.PlayShootAnimation();
+            }
             else
+            {
                 _weapon.Reload();
+                _playerAnimator.PlayReloadAnimation();
+            }
         }
     }
 }
