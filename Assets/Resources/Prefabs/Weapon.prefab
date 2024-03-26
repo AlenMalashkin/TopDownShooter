@@ -73,12 +73,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6662779086400649341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26676efffb544508b09dae23d28cf034, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a5d093be99142d5981ce2cd2b8f3613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPositionInHand: {x: 0, y: 0, z: 0}
-  _weaponRotationInHand: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
-  _damage: 20
+  _weaponRotationInHand: {x: 90, y: 0, z: 0}
+  _fireRate: 0.5
+  _reloadTime: 1
+  _maxBullets: 12
+  _damage: 10
   _shootPoint: {fileID: 6662779085964614009}
 --- !u!1 &6834690155204266015
 GameObject:

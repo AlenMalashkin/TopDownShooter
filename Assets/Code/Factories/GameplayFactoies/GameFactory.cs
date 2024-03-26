@@ -2,6 +2,7 @@ using Cinemachine;
 using Code.Data;
 using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
+using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Services.AssetProvider;
 using Code.Services.EquipmentService;
 using Code.Services.StaticDataService;
@@ -27,7 +28,6 @@ namespace Code.Factories.GameplayFactoies
             GameObject playerPrefab = _assetProvider.LoadAsset(AssetPaths.Player);
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
         }
-        
 
         public GameObject CreateEnemy(Vector3 position)
         {
@@ -35,16 +35,20 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(enemyPrefab, position, Quaternion.identity);
         }
 
+ RangeEnemyAnimations/MAIN-T-63
         public GameObject CreateRangeEnemy(Vector3 position)
         {
             GameObject rangeEnemyPrefab = _assetProvider.LoadAsset(AssetPaths.RangeEnemy);
             return Object.Instantiate(rangeEnemyPrefab, position, Quaternion.identity);
         }
 
-        public IWeapon CreateWeapon()
+
+        public Weapon CreatePlayerWeapon()
+ master
         {
             WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);
-            IWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<IWeapon>();
+            PlayerWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<PlayerWeapon>();
+            weapon.Init(this);
             return weapon;
         }
 
@@ -63,6 +67,5 @@ namespace Code.Factories.GameplayFactoies
             
              return Object.Instantiate(playerCameraPrefab);
         }
-        
     }
 }

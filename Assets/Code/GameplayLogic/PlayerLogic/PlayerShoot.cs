@@ -13,9 +13,9 @@ namespace Code.GameplayLogic.PlayerLogic
         public Transform PlayerArm => playerArm;
 
         private IInputService _inputService;
-        private IWeapon _weapon;
+        private Weapon _weapon;
 
-        public void Init(IInputService inputService, IWeapon weapon)
+        public void Init(IInputService inputService, Weapon weapon)
         {
             _inputService = inputService;
             _weapon = weapon;
@@ -24,22 +24,23 @@ namespace Code.GameplayLogic.PlayerLogic
         private void Update()
         {
             if (_inputService.GetInputAction<IFireAction>().FirePressed)
-            {
-                _playerAnimator.PlayShootAnimation();
                 Shoot();
-            }
             else
-            {
                 _playerAnimator.PlayRunWithWeaponAnimation();
-            }
         }
 
         private void Shoot()
         {
             if (_weapon.CanShoot)
+            {
                 _weapon.ShootBullet(transform.forward);
+                _playerAnimator.PlayShootAnimation();
+            }
             else
+            {
                 _weapon.Reload();
+                _playerAnimator.PlayReloadAnimation();
+            }
         }
     }
 }

@@ -58,8 +58,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            Weapon weapon = _gameFactory.CreateWeapon() as Weapon;
-            weapon.Init(ServiceLocator.Container.Resolve<IGameFactory>());
+            Weapon weapon = _gameFactory.CreatePlayerWeapon();
 
             Camera mainCamera = Camera.main;
 
