@@ -1,3 +1,4 @@
+using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace Code.GameplayLogic.PlayerLogic
         public Transform PlayerArm => playerArm;
 
         private IInputService _inputService;
-        private IWeapon _weapon;
+        private Weapon _weapon;
 
-        public void Init(IInputService inputService, IWeapon weapon)
+        public void Init(IInputService inputService, Weapon weapon)
         {
             _inputService = inputService;
             _weapon = weapon;

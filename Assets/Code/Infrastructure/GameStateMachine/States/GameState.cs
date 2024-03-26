@@ -1,6 +1,5 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
-using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Weapons;
@@ -57,8 +56,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            Weapon weapon = _gameFactory.CreateWeapon() as Weapon;
-            weapon.Init(ServiceLocator.Container.Resolve<IGameFactory>());
+            Weapon weapon = _gameFactory.CreatePlayerWeapon();
 
             Camera mainCamera = Camera.main;
 
