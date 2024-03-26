@@ -10,6 +10,14 @@ namespace Code.GameplayLogic
 
         public event Action Death;
 
+        private void OnValidate()
+        {
+            if (_health > _maxHealth)
+            {
+                _maxHealth = _health + 1;
+            }
+        }
+
         public int Health
         {
             get => _health;

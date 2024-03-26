@@ -10,6 +10,7 @@ namespace Code.Factories.GameplayFactoies
     {
         GameObject CreatePlayer(Vector3 position);
         GameObject CreateEnemy(Vector3 position);
+        GameObject CreateRangeEnemy(Vector3 position);
         IWeapon CreateWeapon();
         Bullet CreateBullet(Vector3 spawnPosition, int damage, Vector3 direction);
         CinemachineVirtualCamera CreatePlayerCamera();
