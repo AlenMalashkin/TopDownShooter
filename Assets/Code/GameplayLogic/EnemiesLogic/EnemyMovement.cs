@@ -1,4 +1,4 @@
-using Code.GameplayLogic.PlayerLogic;
+using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using UnityEngine;
 using UnityEngine.AI;
 
