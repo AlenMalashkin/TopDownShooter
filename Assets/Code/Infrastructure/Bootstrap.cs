@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Code.Infrastructure.GameStateMachine.States;
 using Code.Infrastructure.GameStateMachineNamespace;
-using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.SceneLoadService;
-using Code.Services.TimerService;
 using UnityEngine;
 
 namespace Code.Infrastructure
@@ -12,21 +10,21 @@ namespace Code.Infrastructure
     {
         [SerializeField] private LoadingScreen _loadingScreen;
 
-        private ITimerService _timerService; 
+        private IUpdater _updater;
         
         private void Awake()
         {
             ServiceLocator serviceLocator = ServiceLocator.Container;
             ISceneLoadService sceneLoadService = new SceneLoadService(this);
-            _timerService = new TimerService();
-            IGameStateMachine gameStateMachine = new GameStateMachine(serviceLocator, sceneLoadService, Instantiate(_loadingScreen), _timerService);
+            _updater = new Updater();
+            IGameStateMachine gameStateMachine = new GameStateMachineNamespace.GameStateMachine(serviceLocator, sceneLoadService, Instantiate(_loadingScreen), _updater);
             gameStateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(gameObject);
         }
 
         private void Update()
         {
-            _timerService.Tick();
+            _updater.Update();
         }
     }
 }

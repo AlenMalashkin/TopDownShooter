@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
+using Code.Infrastructure.GameStateMachine.States;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
-using Code.Services.TimerService;
 
 namespace Code.Infrastructure.GameStateMachineNamespace
 {
@@ -17,11 +17,11 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         private IExitableState _currentState;
 
         public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService,
-            LoadingScreen loadingScreen, ITimerService timerService)
+            LoadingScreen loadingScreen, IUpdater updater)
         {
-            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, timerService);
+            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
             _states[typeof(MenuState)] = new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IUIFactory>());
-            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), serviceLocator.Resolve<IStaticDataService>(), loadingScreen, ServiceLocator.Container.Resolve<IInputService>(), serviceLocator.Resolve<IGameFactory>());
+            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), serviceLocator.Resolve<IStaticDataService>(), loadingScreen, serviceLocator.Resolve<IInputService>(), serviceLocator.Resolve<IGameFactory>(), updater);
         }
         
         public void Enter<TState>() where TState : class, IGameState

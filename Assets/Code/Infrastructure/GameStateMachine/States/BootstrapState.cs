@@ -1,15 +1,16 @@
 ﻿using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
+using Code.Infrastructure.GameStateMachineNamespace;
+using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.AssetProvider;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
-using Code.Services.TimerService;
-using UnityEngine;
+using Code.Utils.Timer;
 
-namespace Code.Infrastructure.GameStateMachineNamespace.States
+namespace Code.Infrastructure.GameStateMachine.States
 {
     public class BootstrapState : IGameState
     {
@@ -17,17 +18,17 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IGameStateMachine _gameStateMachine;
         private ISceneLoadService _sceneLoadService;
         private LoadingScreen _loadingScreen;
-        private ITimerService _timerService;
+        private IUpdater _updater;
         private ITimer _timer;
 
         public BootstrapState(ServiceLocator serviceLocator, IGameStateMachine gameStateMachine,
-            ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, ITimerService timerService)
+            ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IUpdater updater)
         {
             _serviceLocator = serviceLocator;
             _gameStateMachine = gameStateMachine;
             _sceneLoadService = sceneLoadService;
             _loadingScreen = loadingScreen;
-            _timerService = timerService;
+            _updater = updater;
 
             RegisterAllServices();
         }
@@ -45,32 +46,11 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void OnLoad()
         {
             _gameStateMachine.Enter<MenuState>();
-            _timerService.StartTimer(5, OnTimerFinishedOne);
-            _timerService.StartTimer(6, OnTimerFinishedTwo);
-            _timer = _timerService.StartTimer(7, OnTimerFinishedThree);
-            _timerService.StartTimer(8);
-            
-            _timerService.StopTimer(_timer);
-        }
-
-        private void OnTimerFinishedOne()
-        {
-            Debug.Log("Tiemr 1 finished");
-        }
-
-        private void OnTimerFinishedTwo()
-        {
-            Debug.Log("Tiemr 2 finished");
-        }
-
-        private void OnTimerFinishedThree()
-        {
-            Debug.Log("Tiemr 3 finished");
         }
 
         private void RegisterAllServices()
         {
-            _serviceLocator.RegisterService(_timerService);
+            _serviceLocator.RegisterService(_updater);
             _serviceLocator.RegisterService(_gameStateMachine);
             _serviceLocator.RegisterService(_sceneLoadService);
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());

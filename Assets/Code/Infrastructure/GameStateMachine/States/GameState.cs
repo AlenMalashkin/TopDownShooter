@@ -3,6 +3,7 @@ using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
+using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
 using Code.Level;
 using Code.Services;
@@ -11,6 +12,7 @@ using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
+using Code.Utils.Timer;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -22,17 +24,22 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private LoadingScreen _loadingScreen;
         private IInputService _inputService;
         private IGameFactory _gameFactory;
-
+        private IUpdater _updater;
+        
         private LevelStaticData _levelStaticData;
+        private ITimer _timer;
+        private Spawner _spawner;
 
-        public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService, LoadingScreen loadingScreen, IInputService inputService,
-            IGameFactory gameFactory)
+        public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
+            LoadingScreen loadingScreen, IInputService inputService,
+            IGameFactory gameFactory, IUpdater updater)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
             _loadingScreen = loadingScreen;
             _inputService = inputService;
             _gameFactory = gameFactory;
+            _updater = updater;
         }
 
         public void Enter()
@@ -45,6 +52,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         public void Exit()
         {
             _inputService.Disable();
+            _spawner.DisableSpawner();
         }
 
         private void OnLoad()
@@ -52,8 +60,12 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _loadingScreen.Hide();
 
             GameObject player = InitializePlayerAndCamera();
-            // InitializeEnemy(player.transform);
-            InitializeRangeEnemy(player.transform);
+            
+            _spawner = new EnemySpawner(_updater,
+                ServiceLocator.Container.Resolve<IGameFactory>(), 
+                ServiceLocator.Container.Resolve<IStaticDataService>());
+            
+            _spawner.EnableSpawner(player.transform);
         }
 
         private GameObject InitializePlayerAndCamera()

@@ -4,6 +4,7 @@ using Code.Data;
 using Code.GameplayLogic;
 using Code.Level;
 using Code.StaticData.LevelStaticData;
+using Code.StaticData.SpawnerStaticData;
 using Code.StaticData.WeaponStaticData;
 using Code.StaticData.WindowStaticData;
 using Code.UI.Windows;
@@ -16,6 +17,7 @@ namespace Code.Services.StaticDataService
         private Dictionary<WeaponType, WeaponData> _weaponsData = new Dictionary<WeaponType, WeaponData>();
         private Dictionary<LevelType, LevelStaticData> _levelsData = new Dictionary<LevelType, LevelStaticData>();
         private Dictionary<WindowType, WindowData> _windowsData = new Dictionary<WindowType, WindowData>();
+        private Dictionary<LevelType, SpawnerStaticData> _spawnersStaticData = new Dictionary<LevelType, SpawnerStaticData>();
         
         public void Load()
         {
@@ -29,6 +31,9 @@ namespace Code.Services.StaticDataService
             _windowsData = Resources.Load<WindowStaticData>("StaticData/WindowConfig")
                 .Windows
                 .ToDictionary(x => x.Type);
+
+            _spawnersStaticData = Resources.LoadAll<SpawnerStaticData>("StaticData/SpawnerStaticData")
+                .ToDictionary(x => x.LevelType);
         }
 
         public WeaponData ForWeapon(WeaponType type)
@@ -39,5 +44,8 @@ namespace Code.Services.StaticDataService
 
         public WindowData ForWindow(WindowType type)
             => _windowsData[type];
+
+        public SpawnerStaticData ForSpawner(LevelType type)
+            => _spawnersStaticData[type];
     }
 }
