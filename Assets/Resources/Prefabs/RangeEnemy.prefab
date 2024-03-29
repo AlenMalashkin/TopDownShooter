@@ -151,7 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d5454d53654780bfea713da479c56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rayCastRange: 500
+  _sightRange: 500
+  _whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  _whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1419839085663861394
 MonoBehaviour:
   m_ObjectHideFlags: 0
