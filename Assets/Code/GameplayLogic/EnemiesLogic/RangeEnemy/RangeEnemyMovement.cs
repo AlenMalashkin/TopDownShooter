@@ -1,20 +1,29 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
     [RequireComponent(typeof(RangeEnemyPlayerDetector))]
     public class RangeEnemyMovement : MonoBehaviour
     {
-        [SerializeField] private float _rayCastRange = 500f;
+        [SerializeField] private float _sightRange = 500f;
+        [SerializeField] private LayerMask _whatIsGround, _whatIsPlayer;
         
-        private Transform _playerTransform;
+        private bool _playerInSightRange;
         private NavMeshAgent _agent;
-        private Rigidbody _rigidbody;
+        private Transform _playerTransform;
+
+        private Vector3 _walkPoint;
+        private bool _walkPointSet;
+        private bool playerInSightRange;
+        private float _walkPointRange;
         private RangeEnemyPlayerDetector _playerDetector;
         private RangeEnemyAnimator _animator;
 
-        
+
         public void Init(Transform playerTransform)
         {
             _playerTransform = playerTransform;
@@ -25,23 +34,42 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
             _animator = GetComponent<RangeEnemyAnimator>();
             _playerDetector = GetComponent<RangeEnemyPlayerDetector>();
             _agent = GetComponent<NavMeshAgent>();
-            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
         {
-            if (_playerTransform != null)
-            {
-                _animator.PlayRunAnimation();
-                
-                _agent.destination = _playerTransform.position;
-                _agent.isStopped = _playerDetector.HasNoObstaclesToPlayer(_rayCastRange);
-                
-                Debug.Log(_playerDetector.HasNoObstaclesToPlayer());
-                transform.LookAt(_playerTransform);
+            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
 
-                // transform.LookAt(_playerTransform);
-            }
+            if (!playerInSightRange) Patrolling();
+            if (playerInSightRange) ChasePlayer();
+
+        }
+
+        private void Patrolling()
+        {
+            if (!_walkPointSet) SearchWalkPoint();
+            
+            else
+                _agent.SetDestination(_walkPoint);
+
+            Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+
+            _walkPointSet = distanceToWalkPoint.magnitude > 1f;
+        }
+
+        private void SearchWalkPoint()
+        {
+            float randomZ = Random.Range(-_walkPointRange, _walkPointRange);
+            float randomX = Random.Range(-_walkPointRange, _walkPointRange);
+
+            _walkPointSet = Physics.Raycast(_walkPoint, -transform.up, 2f, _whatIsGround);
+            
+        }
+        
+        private void ChasePlayer()
+        {
+            _agent.SetDestination(_playerTransform.position);
+            transform.LookAt(_playerTransform);
         }
         
         
