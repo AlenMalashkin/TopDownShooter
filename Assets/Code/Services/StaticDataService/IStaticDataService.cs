@@ -2,6 +2,7 @@ using Code.Data;
 using Code.GameplayLogic;
 using Code.Level;
 using Code.StaticData.LevelStaticData;
+using Code.StaticData.SpawnerStaticData;
 using Code.UI.Windows;
 
 namespace Code.Services.StaticDataService
@@ -12,5 +13,6 @@ namespace Code.Services.StaticDataService
         WeaponData ForWeapon(WeaponType type);
         LevelStaticData ForLevel(LevelType type);
         WindowData ForWindow(WindowType type);
+        SpawnerStaticData ForSpawner(LevelType type);
     }
 }
