@@ -2,18 +2,10 @@ using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic
 {
-    [RequireComponent(typeof(Animator))]
-    public class EnemyAnimator : MonoBehaviour
+    public class EnemyAnimator : AnimatorComponent
     {
         [SerializeField] private DetectionZone _detectionZone;
         [SerializeField] private Collider _collider;
-        
-        private Animator _animator;
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
 
         private void OnEnable()
         {
@@ -28,16 +20,16 @@ namespace Code.GameplayLogic.EnemiesLogic
         }
         
         public void PlayDeathAnimation()
-            => _animator.Play(AnimationStrings.Death);
+            => PlayAnimationByName(AnimationStrings.Death);
 
         private void OnPlayerDetected()
         {
-            _animator.SetBool(AnimationStrings.Attack, true);
+            SetBool(AnimationStrings.Attack, true);
         }
 
         private void OnPlayerLeft()
         {
-            _animator.SetBool(AnimationStrings.Attack, false);
+            SetBool(AnimationStrings.Attack, false);
         }
 
         public void ActivateFist()

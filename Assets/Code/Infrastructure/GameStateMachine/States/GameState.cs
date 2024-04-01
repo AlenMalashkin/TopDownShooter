@@ -1,7 +1,5 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
-using Code.GameplayLogic.EnemiesLogic;
-using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -62,7 +60,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject player = InitializePlayerAndCamera();
             
             _spawner = new EnemySpawner(_updater,
-                ServiceLocator.Container.Resolve<IGameFactory>(), 
+                ServiceLocator.Container.Resolve<IEnemyFactory>(), 
                 ServiceLocator.Container.Resolve<IStaticDataService>());
             
             _spawner.EnableSpawner(player.transform);
@@ -90,21 +88,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             camera.Follow = player.transform;
 
             return player;
-        }
-
-        private void InitializeEnemy(Transform playerTransform)
-        {
-            GameObject enemy = _gameFactory.CreateEnemy(_levelStaticData
-                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
-            enemy.GetComponent<EnemyMovement>()
-                .Init(playerTransform);
-        }
-
-        private void InitializeRangeEnemy(Transform playerTransform)
-        {
-            GameObject rangeEnemy = _gameFactory.CreateRangeEnemy(_levelStaticData
-                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
-            rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
         }
     }
 }

@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
 using Code.GameplayLogic;
+using Code.GameplayLogic.EnemiesLogic;
 using Code.Level;
+using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
 using Code.StaticData.SpawnerStaticData;
 using Code.StaticData.WeaponStaticData;
@@ -18,6 +20,7 @@ namespace Code.Services.StaticDataService
         private Dictionary<LevelType, LevelStaticData> _levelsData = new Dictionary<LevelType, LevelStaticData>();
         private Dictionary<WindowType, WindowData> _windowsData = new Dictionary<WindowType, WindowData>();
         private Dictionary<LevelType, SpawnerStaticData> _spawnersStaticData = new Dictionary<LevelType, SpawnerStaticData>();
+        private Dictionary<EnemyType, EnemyStaticData> _enemiesStaticData = new Dictionary<EnemyType, EnemyStaticData>();
         
         public void Load()
         {
@@ -34,6 +37,9 @@ namespace Code.Services.StaticDataService
 
             _spawnersStaticData = Resources.LoadAll<SpawnerStaticData>("StaticData/SpawnerStaticData")
                 .ToDictionary(x => x.LevelType);
+
+            _enemiesStaticData = Resources.LoadAll<EnemyStaticData>("StaticData/EnemyStaticData")
+                .ToDictionary(x => x.Type);
         }
 
         public WeaponData ForWeapon(WeaponType type)
@@ -47,5 +53,8 @@ namespace Code.Services.StaticDataService
 
         public SpawnerStaticData ForSpawner(LevelType type)
             => _spawnersStaticData[type];
+
+        public EnemyStaticData ForEnemy(EnemyType type)
+            => _enemiesStaticData[type];
     }
 }

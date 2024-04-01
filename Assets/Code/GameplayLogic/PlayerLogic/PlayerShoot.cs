@@ -7,7 +7,7 @@ namespace Code.GameplayLogic.PlayerLogic
 {
     public class PlayerShoot : MonoBehaviour
     {
-        [SerializeField] private PlayerAnimator _playerAnimator;
+        [SerializeField] private PlayerAnimator playerAnimator;
         [SerializeField] private Transform playerArm;
 
         public Transform PlayerArm => playerArm;
@@ -26,7 +26,7 @@ namespace Code.GameplayLogic.PlayerLogic
             if (_inputService.GetInputAction<IFireAction>().FirePressed)
                 Shoot();
             else
-                _playerAnimator.PlayRunWithWeaponAnimation();
+                playerAnimator.PlayRunWithWeaponAnimation();
         }
 
         private void Shoot()
@@ -34,12 +34,12 @@ namespace Code.GameplayLogic.PlayerLogic
             if (_weapon.CanShoot)
             {
                 _weapon.ShootBullet(transform.forward);
-                _playerAnimator.PlayShootAnimation();
+                playerAnimator.PlayShootAnimation();
             }
             else
             {
                 _weapon.Reload();
-                _playerAnimator.PlayReloadAnimation();
+                playerAnimator.PlayReloadAnimation();
             }
         }
     }
