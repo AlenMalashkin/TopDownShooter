@@ -29,19 +29,6 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
         }
 
-        public GameObject CreateEnemy(Vector3 position)
-        {
-            GameObject enemyPrefab = _assetProvider.LoadAsset(AssetPaths.Enemy);
-            return Object.Instantiate(enemyPrefab, position, Quaternion.identity);
-        }
-
-        public GameObject CreateRangeEnemy(Vector3 position)
-        {
-            GameObject rangeEnemyPrefab = _assetProvider.LoadAsset(AssetPaths.RangeEnemy);
-            return Object.Instantiate(rangeEnemyPrefab, position, Quaternion.identity);
-        }
-
-
         public Weapon CreatePlayerWeapon()
         {
             WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);

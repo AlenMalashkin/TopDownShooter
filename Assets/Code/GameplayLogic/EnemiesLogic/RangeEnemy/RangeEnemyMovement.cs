@@ -9,36 +9,27 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
     [RequireComponent(typeof(RangeEnemyPlayerDetector))]
     public class RangeEnemyMovement : MonoBehaviour
     {
+        [SerializeField] private Enemy _enemy;
         [SerializeField] private float _sightRange = 500f;
         [SerializeField] private LayerMask _whatIsGround, _whatIsPlayer;
-        
-        private bool _playerInSightRange;
+
         private NavMeshAgent _agent;
-        private Transform _playerTransform;
 
         private Vector3 _walkPoint;
         private bool _walkPointSet;
         private bool playerInSightRange;
         private float _walkPointRange;
-        private RangeEnemyPlayerDetector _playerDetector;
-        private RangeEnemyAnimator _animator;
-
-
-        public void Init(Transform playerTransform)
-        {
-            _playerTransform = playerTransform;
-        }
 
         private void Awake()
         {
-            _animator = GetComponent<RangeEnemyAnimator>();
-            _playerDetector = GetComponent<RangeEnemyPlayerDetector>();
+            GetComponent<RangeEnemyAnimator>();
+            GetComponent<RangeEnemyPlayerDetector>();
             _agent = GetComponent<NavMeshAgent>();
         }
 
         private void Update()
         {
-            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
+            Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
 
             if (!playerInSightRange) Patrolling();
             if (playerInSightRange) ChasePlayer();
@@ -68,8 +59,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         
         private void ChasePlayer()
         {
-            _agent.SetDestination(_playerTransform.position);
-            transform.LookAt(_playerTransform);
+            _agent.SetDestination(_enemy.FollowTarget.position);
+            transform.LookAt(_enemy.FollowTarget);
         }
         
         

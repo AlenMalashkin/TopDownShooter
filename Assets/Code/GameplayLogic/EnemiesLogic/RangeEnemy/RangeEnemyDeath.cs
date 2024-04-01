@@ -1,54 +1,27 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
-    [RequireComponent(typeof(Damageable))]
-    [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(RangeEnemyMovement))]
-    [RequireComponent(typeof(RangeEnemyAnimator))]
-    public class RangeEnemyDeath : MonoBehaviour
+    public class RangeEnemyDeath : Death
     {
-        [SerializeField] private float _timeToDestroy = 3f;
-
-        private NavMeshAgent _agent;
-        private Damageable _damageable;
-        private RangeEnemyMovement _movement;
-        private RangeEnemyAnimator _animator;
-
-        private void Awake()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-            _damageable = GetComponent<Damageable>();
-            _animator = GetComponent<RangeEnemyAnimator>();
-            _movement = GetComponent<RangeEnemyMovement>();
-        }
+        [SerializeField] private AnimatorComponent _animator;
 
         private void OnEnable()
         {
-            _damageable.Death += OnDeath;
+            SubscribeOnDeath();
         }
 
         private void OnDisable()
         {
-            _damageable.Death -= OnDeath;
+            UnsubscribeOnDeath();
         }
 
-        private void OnDeath()
+        public override void OnDeath()
         {
-            _animator.PlayDeathAnimation();
-            _movement.enabled = false;
-            _agent.enabled = false;
-            _damageable.enabled = false;
-
-            StartCoroutine(DeathRoutine());
-        }
-
-        private IEnumerator DeathRoutine()
-        {
-            yield return new WaitForSeconds(_timeToDestroy);
-            Destroy(gameObject);
+            base.OnDeath();
+            
+            if (_animator is RangeEnemyAnimator rangeEnemyAnimator)
+                rangeEnemyAnimator.PlayDeathAnimation();
         }
     }
 }

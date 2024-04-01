@@ -7,10 +7,9 @@ using UnityEngine.InputSystem;
 
 namespace Code.GameplayLogic.PlayerLogic
 {
-    [RequireComponent(typeof(PlayerMovement), typeof(Animator))]
-    public class PlayerAnimator : MonoBehaviour
+    [RequireComponent(typeof(PlayerMovement))]
+    public class PlayerAnimator : AnimatorComponent
     {
-        private Animator _animator;
         private bool _isMoving;
         private bool _isMovingBackwards;
 
@@ -25,11 +24,6 @@ namespace Code.GameplayLogic.PlayerLogic
             _cameraTransform = cameraTransform;
         }
 
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
-
         private void Start()
         {
             _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
@@ -42,20 +36,20 @@ namespace Code.GameplayLogic.PlayerLogic
 
         public void PlayDeathAnimation()
         {
-            _animator.SetLayerWeight(_animator.GetLayerIndex("Upper Body"), 0f);
-            _animator.Play(AnimationStrings.Death, _animator.GetLayerIndex("Base Layer"));
+            SetLayerWeight(GetLayerIndex("Upper Body"), 0f);
+            PlayAnimationByName(AnimationStrings.Death, GetLayerIndex("Base Layer"));
         }
 
         public void PlayShootAnimation()    
-            => _animator.Play(GetShootAnimationName(_equipmentService.CurrentWeaponCategory),
-                _animator.GetLayerIndex("Upper Body"));
+            => PlayAnimationByName(GetShootAnimationName(_equipmentService.CurrentWeaponCategory),
+                GetLayerIndex("Upper Body"));
 
         public void PlayRunWithWeaponAnimation()
-            => _animator.Play(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory),
-                _animator.GetLayerIndex("Upper Body"));
+            => PlayAnimationByName(GetRunWithWeaponAnimationName(_equipmentService.CurrentWeaponCategory),
+                GetLayerIndex("Upper Body"));
 
         public void PlayReloadAnimation()
-            => _animator.Play("Reload", _animator.GetLayerIndex("Upper Body"));
+            => PlayAnimationByName("Reload", GetLayerIndex("Upper Body"));
 
         private void OnMove(InputAction.CallbackContext context)
         {
@@ -76,8 +70,8 @@ namespace Code.GameplayLogic.PlayerLogic
 
             Vector3 relativeVector = transform.InverseTransformDirection(movementVector);
 
-            _animator.SetFloat(AnimationStrings.Horizontal, relativeVector.x);
-            _animator.SetFloat(AnimationStrings.Vertical, relativeVector.z);
+            SetFloat(AnimationStrings.Horizontal, relativeVector.x);
+            SetFloat(AnimationStrings.Vertical, relativeVector.z);
         }
 
         private string GetShootAnimationName(WeaponCategory category)
