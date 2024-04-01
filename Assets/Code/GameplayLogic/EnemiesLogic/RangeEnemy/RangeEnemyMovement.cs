@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
@@ -12,14 +10,16 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private float _sightRange = 500f;
         [SerializeField] private LayerMask _whatIsGround, _whatIsPlayer;
         
-        private bool _playerInSightRange;
         private NavMeshAgent _agent;
         private Transform _playerTransform;
 
         private Vector3 _walkPoint;
+        
+        private bool _playerInSightRange;
         private bool _walkPointSet;
-        private bool playerInSightRange;
-        private float _walkPointRange;
+        private bool _playerInrightRange;
+        
+        private float _walkPointRange = 2f;
         private RangeEnemyPlayerDetector _playerDetector;
         private RangeEnemyAnimator _animator;
 
@@ -38,11 +38,13 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         private void Update()
         {
-            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
+            _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer.value);
 
-            if (!playerInSightRange) Patrolling();
-            if (playerInSightRange) ChasePlayer();
+            if (!_playerInSightRange) Patrolling();
+            if (_playerInSightRange) ChasePlayer();
 
+            Debug.Log(_playerInSightRange);
+            Debug.Log($"walkpointset {_walkPointSet}");
         }
 
         private void Patrolling()
@@ -60,7 +62,10 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private void SearchWalkPoint()
         {
             float randomZ = Random.Range(-_walkPointRange, _walkPointRange);
-            float randomX = Random.Range(-_walkPointRange, _walkPointRange);
+            float randomX = Random.Range(_walkPointRange, -_walkPointRange);
+
+            _walkPoint = new Vector3(transform.position.x + randomX, transform.position.y,
+                _playerTransform.position.z + randomZ);
 
             _walkPointSet = Physics.Raycast(_walkPoint, -transform.up, 2f, _whatIsGround);
             
@@ -70,8 +75,16 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             _agent.SetDestination(_playerTransform.position);
             transform.LookAt(_playerTransform);
+
+            if (Vector3.Distance(_playerTransform.position, _playerTransform.position) < _sightRange)
+            {
+                _agent.isStopped = true;
+            }
+            else
+            {
+                _agent.isStopped = false;
+            }
         }
-        
         
     }
 }
