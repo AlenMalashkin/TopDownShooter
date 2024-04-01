@@ -1,5 +1,7 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
+using Code.Factories.UIFactory;
+using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
@@ -12,6 +14,7 @@ using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
+using Code.UI.HUD;
 using Code.Utils.Timer;
 using UnityEngine;
 
@@ -25,6 +28,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IInputService _inputService;
         private IGameFactory _gameFactory;
         private IUpdater _updater;
+        private IUIFactory _uiFactory;
         
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -32,7 +36,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
-            IGameFactory gameFactory, IUpdater updater)
+            IGameFactory gameFactory, IUpdater updater, IUIFactory uiFactory)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
@@ -40,6 +44,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _inputService = inputService;
             _gameFactory = gameFactory;
             _updater = updater;
+            _uiFactory = uiFactory;
         }
 
         public void Enter()
@@ -60,6 +65,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _loadingScreen.Hide();
 
             GameObject player = InitializePlayerAndCamera();
+            
+            InitializeHUD(player.GetComponent<Damageable>());
             
             _spawner = new EnemySpawner(_updater,
                 ServiceLocator.Container.Resolve<IGameFactory>(), 
@@ -105,6 +112,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject rangeEnemy = _gameFactory.CreateRangeEnemy(_levelStaticData
                 .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
             rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
+        }
+
+        private void InitializeHUD(Damageable damageable)
+        {
+            _uiFactory.CreateRoot();
+            HealthBar healthBar = _uiFactory.CreateProgressBar();
+            
+            healthBar.Init(damageable);
         }
     }
 }

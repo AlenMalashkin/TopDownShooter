@@ -41,7 +41,6 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(rangeEnemyPrefab, position, Quaternion.identity);
         }
 
-
         public Weapon CreatePlayerWeapon()
         {
             WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);

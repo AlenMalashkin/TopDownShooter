@@ -1,8 +1,8 @@
-using Code.Infrastructure.GameStateMachine;
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services;
 using Code.Services.AssetProvider;
 using Code.Services.StaticDataService;
+using Code.UI.HUD;
 using Code.UI.Windows;
 using Code.UI.Windows.MainMenu;
 using UnityEngine;
@@ -34,6 +34,13 @@ namespace Code.Factories.UIFactory
             MainMenuWindow menuWindow = Object.Instantiate(window, _root) as MainMenuWindow;
             menuWindow.TestPlayButton.Init(ServiceLocator.Container.Resolve<IGameStateMachine>());
             return menuWindow;
+        }
+
+        public HealthBar CreateProgressBar()
+        {
+            HealthBar healthBar = _assetProvider.LoadAsset<HealthBar>("Prefabs/ProgressBar");
+
+            return Object.Instantiate(healthBar, _root);
         }
     }
 }

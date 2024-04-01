@@ -8,7 +8,13 @@ namespace Code.GameplayLogic
         [SerializeField] private int _health;
         [SerializeField] private int _maxHealth;
 
+        public event Action<float> HealthChanged;
         public event Action Death;
+
+        private void Awake()
+        {
+            _health = _maxHealth;
+        }
 
         private void OnValidate()
         {
@@ -38,6 +44,8 @@ namespace Code.GameplayLogic
         public void TakeDamage(int damage)
         {
             Health -= damage;
+            
+            HealthChanged?.Invoke(Health);
             
             if (_health <= 0)
                 Death?.Invoke();
