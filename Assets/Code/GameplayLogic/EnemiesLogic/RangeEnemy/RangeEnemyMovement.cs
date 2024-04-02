@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
     [RequireComponent(typeof(RangeEnemyPlayerDetector))]
-    public class RangeEnemyMovement : MonoBehaviour
+    public class RangeEnemyMovement : EnemyMovement
     {
         [SerializeField] private Enemy _enemy;
         [SerializeField] private float _sightRange = 500f;
@@ -31,9 +31,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
 
-            if (!playerInSightRange) Patrolling();
-            if (playerInSightRange) ChasePlayer();
-
+            if (!playerInSightRange) 
+                Patrolling();
         }
 
         private void Patrolling()
@@ -54,15 +53,12 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
             float randomX = Random.Range(-_walkPointRange, _walkPointRange);
 
             _walkPointSet = Physics.Raycast(_walkPoint, -transform.up, 2f, _whatIsGround);
-            
         }
-        
-        private void ChasePlayer()
+
+        public override void MoveTo(Transform target)
         {
-            _agent.SetDestination(_enemy.FollowTarget.position);
-            transform.LookAt(_enemy.FollowTarget);
+            _agent.SetDestination(target.position);
+            transform.LookAt(target);
         }
-        
-        
     }
 }

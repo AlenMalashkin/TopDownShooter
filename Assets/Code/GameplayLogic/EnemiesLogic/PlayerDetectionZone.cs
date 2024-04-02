@@ -1,20 +1,19 @@
+using System;
 using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Code.GameplayLogic.EnemiesLogic
 {
-    [RequireComponent(typeof(BoxCollider))]
-    public class DetectionZone : MonoBehaviour
+    public class PlayerDetectionZone : MonoBehaviour
     {
-        public UnityAction PlayerDetected;
-        public UnityAction PlayerLeft;
+        public event Action<Collider> PlayerDetected;
+        public event Action<Collider> PlayerLeft;
         
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out PlayerMovement playerMovement))
             {
-                PlayerDetected?.Invoke();
+                PlayerDetected?.Invoke(other);
             }
         }
 
@@ -22,7 +21,7 @@ namespace Code.GameplayLogic.EnemiesLogic
         {
             if (other.TryGetComponent(out PlayerMovement playerMovement))
             {
-                PlayerLeft?.Invoke();
+                PlayerLeft?.Invoke(other);
             }
         }
     }

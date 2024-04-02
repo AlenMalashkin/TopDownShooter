@@ -2,19 +2,9 @@ using UnityEngine;
 
 namespace Code.GameplayLogic.PlayerLogic
 {
-    public class PlayerDeath : Death
+    public class PlayerDeath : DeathComponent
     {
         [SerializeField] private AnimatorComponent _animator;
-        
-        private void OnEnable()
-        {
-            SubscribeOnDeath();
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeOnDeath();
-        }
 
         public override void OnDeath()
         {

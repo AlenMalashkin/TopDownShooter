@@ -2,19 +2,9 @@ using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
-    public class RangeEnemyDeath : Death
+    public class RangeEnemyDeath : DeathComponent
     {
         [SerializeField] private AnimatorComponent _animator;
-
-        private void OnEnable()
-        {
-            SubscribeOnDeath();
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeOnDeath();
-        }
 
         public override void OnDeath()
         {

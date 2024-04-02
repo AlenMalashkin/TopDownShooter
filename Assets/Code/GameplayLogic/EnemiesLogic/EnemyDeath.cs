@@ -3,19 +3,9 @@ using UnityEngine;
 namespace Code.GameplayLogic.EnemiesLogic
 {
 
-    public class EnemyDeath : Death
+    public class EnemyDeath : DeathComponent
     {
         [SerializeField] private AnimatorComponent _animator;
-        
-        private void OnEnable()
-        {
-            SubscribeOnDeath();
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeOnDeath();
-        }
 
         public override void OnDeath()
         {
