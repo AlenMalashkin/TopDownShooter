@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Code.Factories.GameplayFactoies;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
 {
     public class PlayerWeapon : Weapon
     {
+        public override event Action<int> AmmoChanged;
+        
         [SerializeField] private Vector3 _weaponPositionInHand = Vector3.zero;
         [SerializeField] private Vector3 _weaponRotationInHand;
         [SerializeField] private float _fireRate;
@@ -15,12 +18,20 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         [SerializeField] private Transform _shootPoint;
 
         public override bool CanShoot => !IsClipEmpty && !_isReloading;
+        
         private bool IsClipEmpty => _bulletsInClip == 0;
 
         private bool _isReloading;
         private float _shootCooldown;
         private int _bulletsInClip;
         private IGameFactory _gameFactory;
+        
+        public int BulletsInClip => _bulletsInClip;
+
+        private void Start()
+        {
+            AmmoChanged?.Invoke(_bulletsInClip);
+        }
 
         public void Init(IGameFactory gameFactory)
         {
@@ -48,12 +59,15 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
                 _gameFactory.CreateBullet(_shootPoint.position, _damage, shootDirection);
                 _bulletsInClip--;
                 _shootCooldown = 0f;
+                
+                AmmoChanged?.Invoke(_bulletsInClip);
             }
         }
 
         public override void Reload()
         {
             StartCoroutine(ReloadingRoutine());
+            
         }
 
         private IEnumerator ReloadingRoutine()
@@ -62,6 +76,8 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
             yield return new WaitForSeconds(_reloadTime);
             _bulletsInClip = _maxBullets;
             _isReloading = false;
+            
+            AmmoChanged?.Invoke(_bulletsInClip);
         }
     }
 }

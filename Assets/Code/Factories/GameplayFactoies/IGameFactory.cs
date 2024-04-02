@@ -1,5 +1,4 @@
 using Cinemachine;
-using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
 using Code.Services;
 using UnityEngine;

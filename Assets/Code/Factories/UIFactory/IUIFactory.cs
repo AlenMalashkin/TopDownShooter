@@ -1,4 +1,5 @@
 using Code.Services;
+using Code.UI.HUD;
 using Code.UI.Windows.MainMenu;
 
 namespace Code.Factories.UIFactory
@@ -7,5 +8,7 @@ namespace Code.Factories.UIFactory
     {
         void CreateRoot();
         MainMenuWindow CreateMainMenu();
+        HealthBar CreateProgressBar();
+        AmmoBar CreateAmmoBar();
     }
 }

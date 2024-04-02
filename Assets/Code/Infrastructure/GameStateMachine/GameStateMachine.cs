@@ -21,7 +21,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         {
             _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
             _states[typeof(MenuState)] = new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IUIFactory>());
-            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>(), serviceLocator.Resolve<IStaticDataService>(), loadingScreen, serviceLocator.Resolve<IInputService>(), serviceLocator.Resolve<IGameFactory>(), updater);
+            _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>()
+                , serviceLocator.Resolve<IStaticDataService>()
+                , loadingScreen, serviceLocator.Resolve<IInputService>()
+                , serviceLocator.Resolve<IGameFactory>(), updater, serviceLocator.Resolve<IUIFactory>());
         }
         
         public void Enter<TState>() where TState : class, IGameState
