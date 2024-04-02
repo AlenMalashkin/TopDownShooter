@@ -20,11 +20,6 @@ namespace Code.UI.HUD
             _healthSlider = GetComponent<Slider>();
         }
 
-        private void Start()
-        {
-            // _damageable.HealthChanged += OnHealthChanged;
-        }
-
         private void OnDisable()
         {
             _damageable.HealthChanged -= OnHealthChanged;

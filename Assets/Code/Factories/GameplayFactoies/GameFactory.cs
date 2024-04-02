@@ -1,6 +1,5 @@
 using Cinemachine;
 using Code.Data;
-using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
 using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Services.AssetProvider;

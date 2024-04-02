@@ -7,6 +7,7 @@ using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
+using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
@@ -33,6 +34,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
         private Spawner _spawner;
+
+        private Weapon _playerWeapon;
 
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
@@ -66,7 +69,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             GameObject player = InitializePlayerAndCamera();
             
-            InitializeHUD(player.GetComponent<Damageable>());
+            InitializeHealthBar(player.GetComponent<Damageable>());
+            InitializeAmmoBar(_playerWeapon);
             
             _spawner = new EnemySpawner(_updater,
                 ServiceLocator.Container.Resolve<IGameFactory>(), 
@@ -77,19 +81,19 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            Weapon weapon = _gameFactory.CreatePlayerWeapon();
+            _playerWeapon = _gameFactory.CreatePlayerWeapon();
 
             Camera mainCamera = Camera.main;
 
             GameObject player = _gameFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
-                .Init(ServiceLocator.Container.Resolve<IInputService>(), weapon);
+                .Init(ServiceLocator.Container.Resolve<IInputService>(), _playerWeapon);
             player.GetComponent<PlayerLook>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>());
-            weapon.AttachToHand(playerShoot.PlayerArm);
+            _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
 
@@ -114,12 +118,20 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
         }
 
-        private void InitializeHUD(Damageable damageable)
+        private void InitializeHealthBar(Damageable damageable)
         {
             _uiFactory.CreateRoot();
             HealthBar healthBar = _uiFactory.CreateProgressBar();
             
             healthBar.Init(damageable);
+        }
+
+        private void InitializeAmmoBar(Weapon playerWeapon)
+        {
+            _uiFactory.CreateRoot();
+            AmmoBar ammoBar = _uiFactory.CreateAmmoBar();
+            
+            ammoBar.Init(playerWeapon);
         }
     }
 }

@@ -38,9 +38,16 @@ namespace Code.Factories.UIFactory
 
         public HealthBar CreateProgressBar()
         {
-            HealthBar healthBar = _assetProvider.LoadAsset<HealthBar>("Prefabs/ProgressBar");
+            HealthBar healthBar = _assetProvider.LoadAsset<HealthBar>("Prefabs/HealthBar");
 
             return Object.Instantiate(healthBar, _root);
+        }
+
+        public AmmoBar CreateAmmoBar()
+        {
+            AmmoBar ammoBar = _assetProvider.LoadAsset<AmmoBar>("Prefabs/AmmoBar");
+
+                return Object.Instantiate(ammoBar, _root);
         }
     }
 }

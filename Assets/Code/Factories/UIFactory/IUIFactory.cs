@@ -9,5 +9,6 @@ namespace Code.Factories.UIFactory
         void CreateRoot();
         MainMenuWindow CreateMainMenu();
         HealthBar CreateProgressBar();
+        AmmoBar CreateAmmoBar();
     }
 }
