@@ -13,7 +13,7 @@ namespace Code.GameplayLogic.Spawners
     public class EnemySpawner : Spawner
     {
         private IUpdater _upater;
-        private IGameFactory _gameFactory;
+        private IEnemyFactory _enemyFactory;
         private IStaticDataService _staticDataService;
 
         private ITimer _timer;
@@ -21,10 +21,10 @@ namespace Code.GameplayLogic.Spawners
         private SpawnerStaticData _spawnerStaticData;
         private Transform _target;
 
-        public EnemySpawner(IUpdater upater, IGameFactory gameFactory, IStaticDataService staticDataService)
+        public EnemySpawner(IUpdater upater, IEnemyFactory enemyFactory, IStaticDataService staticDataService)
         {
             _upater = upater;
-            _gameFactory = gameFactory;
+            _enemyFactory = enemyFactory;
             _staticDataService = staticDataService;
         }
 
@@ -52,10 +52,8 @@ namespace Code.GameplayLogic.Spawners
 
         private void Spawn()
         {
-            _gameFactory.CreateEnemy(
-                    _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)])
-                .GetComponent<EnemyMovement>()
-                .Init(_target);
+            _enemyFactory.CreateEnemy(_target, EnemyType.Melee,
+                _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
 
             _timer.StartTimer(_spawnerStaticData.SpawnTime);
         }

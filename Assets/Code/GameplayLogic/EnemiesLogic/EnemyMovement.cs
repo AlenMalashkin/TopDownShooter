@@ -1,4 +1,3 @@
-using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,14 +6,10 @@ namespace Code.GameplayLogic.EnemiesLogic
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMovement : MonoBehaviour
     {
-        private Transform _playerTransform;
+        [SerializeField] private Enemy _enemy;
+        
         private NavMeshAgent _agent;
         private Rigidbody _rigidbody;
-
-        public void Init(Transform playerTransform)
-        {
-            _playerTransform = playerTransform;
-        }
 
         private void Awake()
         {
@@ -24,12 +19,11 @@ namespace Code.GameplayLogic.EnemiesLogic
 
         private void Update()
         {
-            if (_playerTransform != null)
+            if (_enemy.FollowTarget != null)
             {
-                _agent.destination = _playerTransform.position;
-                _rigidbody.rotation.SetLookRotation(_playerTransform.position);
+                _agent.destination = _enemy.FollowTarget.position;
+                _rigidbody.rotation.SetLookRotation(_enemy.FollowTarget.position);
             }
         }
-        
     }
 }

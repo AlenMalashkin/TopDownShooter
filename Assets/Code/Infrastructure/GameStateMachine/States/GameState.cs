@@ -1,9 +1,11 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
+
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
+
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -73,7 +75,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             InitializeAmmoBar(_playerWeapon);
             
             _spawner = new EnemySpawner(_updater,
-                ServiceLocator.Container.Resolve<IGameFactory>(), 
+                ServiceLocator.Container.Resolve<IEnemyFactory>(), 
                 ServiceLocator.Container.Resolve<IStaticDataService>());
             
             _spawner.EnableSpawner(player.transform);
@@ -102,6 +104,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             return player;
         }
+
 
         private void InitializeEnemy(Transform playerTransform)
         {
@@ -133,5 +136,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             
             ammoBar.Init(playerWeapon);
         }
+
+
     }
 }

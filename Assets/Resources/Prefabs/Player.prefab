@@ -118,9 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8b23f9f46344f6aaa7c2b252b56447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAnimator: {fileID: 6917467311574802575}
+  playerAnimator: {fileID: 6917467311574802575}
   playerArm: {fileID: 3396605725178930342}
-  _shootingPoint: {fileID: 3673542332112053539}
 --- !u!114 &9166475989338961789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bf105b51f7444da48c8ae2a5a102d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 6221892715674344849}
 --- !u!114 &4290737681227849139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +171,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ab803f0cd4ce6b6dca3d2da2f4c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentsToDisalbe:
+  - {fileID: 4290737681227849139}
+  - {fileID: 6917467311574802575}
+  - {fileID: 9166475989338961789}
+  - {fileID: 2891484462921024806}
+  - {fileID: 1463331391845523324}
+  _collidersToDisable:
+  - {fileID: 2824888104418228948}
   _timeToDestroy: 3
+  _damageable: {fileID: 4290737681227849139}
+  _animator: {fileID: 6917467311574802575}
 --- !u!1 &3396605725179295872
 GameObject:
   m_ObjectHideFlags: 0
