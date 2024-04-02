@@ -19,7 +19,7 @@ namespace Code.Factories.GameplayFactoies
         {
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(type);
             Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
-            enemy.Init(followTarget);
+            enemy.GetComponent<Enemy>().Init(followTarget);
             return enemy;
         }
     }

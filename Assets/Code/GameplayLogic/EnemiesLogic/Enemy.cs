@@ -4,12 +4,9 @@ namespace Code.GameplayLogic
 {
     public abstract class Enemy : MonoBehaviour
     {
-        private Transform _followTarget;
-        public Transform FollowTarget => _followTarget;
-        
-        public void Init(Transform followTarget)
-        {
-            _followTarget = followTarget;
-        }
+        public abstract void Init(Transform followTarget);
+        public abstract void OnEnable();
+        public abstract  void OnDisable();
+        public abstract void Update();
     }
 }

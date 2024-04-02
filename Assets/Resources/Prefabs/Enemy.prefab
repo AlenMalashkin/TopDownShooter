@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7457019540083022889}
   - component: {fileID: 5838747064332571589}
-  - component: {fileID: 8228173662736407095}
+  - component: {fileID: 3329372442825506655}
   m_Layer: 0
   m_Name: FistCollider
   m_TagString: Untagged
@@ -46,7 +46,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.17871901
   m_Center: {x: 0.44648823, y: 0, z: 0}
---- !u!114 &8228173662736407095
+--- !u!114 &3329372442825506655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,10 +55,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 65267719712453610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3163c3d0522424e82b9b2947c915628, type: 3}
+  m_Script: {fileID: 11500000, guid: 392a951a938046979b5c31ee9a8711a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 50
 --- !u!1 &2493423625050779392
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +102,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.54, y: 0.72, z: 0.45}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1170996462485512865
 MonoBehaviour:
@@ -135,6 +134,7 @@ GameObject:
   - component: {fileID: 1352223920500435026}
   - component: {fileID: 8898709849649301426}
   - component: {fileID: 1336908729458590237}
+  - component: {fileID: 6403328226255743756}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -189,7 +189,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 0.6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -244,6 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe6e28597dc42bdaae965eb2365ea35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyDeath: {fileID: 1336908729458590237}
+  _damageable: {fileID: 8898709849649301426}
+  _movement: {fileID: 7061240678110524167}
 --- !u!114 &7061240678110524167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,10 +256,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061240678110524161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 512fa51e04af4e258a5a70400585453f, type: 3}
+  m_Script: {fileID: 11500000, guid: f86cd1f8ed83420cbcfdfd5b9d044930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 5525871848005710543}
+  _agent: {fileID: 7061240678110524166}
 --- !u!114 &1352223920500435026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,8 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6720669604623967439}
-  _detectionZone: {fileID: 1170996462485512865}
-  _collider: {fileID: 5838747064332571589}
+  playerDetectionZone: {fileID: 1170996462485512865}
 --- !u!114 &8898709849649301426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,9 +307,25 @@ MonoBehaviour:
   _collidersToDisable:
   - {fileID: -8294816619135043573}
   - {fileID: 2497463988144253448}
+  - {fileID: 5838747064332571589}
   _timeToDestroy: 3
   _damageable: {fileID: 8898709849649301426}
   _animator: {fileID: 1352223920500435026}
+--- !u!114 &6403328226255743756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7061240678110524161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4855fee1fe2f4ac79a2316bb24a2c254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 20
+  playerDetectionZone: {fileID: 3329372442825506655}
+  _fistCollider: {fileID: 5838747064332571589}
 --- !u!1001 &575917959085391205
 PrefabInstance:
   m_ObjectHideFlags: 0
