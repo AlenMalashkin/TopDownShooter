@@ -1,8 +1,15 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
+
+using Code.Factories.UIFactory;
+using Code.GameplayLogic;
+using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
+
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
+using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
@@ -10,6 +17,7 @@ using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
+using Code.UI.HUD;
 using Code.Utils.Timer;
 using UnityEngine;
 
@@ -23,14 +31,17 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IInputService _inputService;
         private IGameFactory _gameFactory;
         private IUpdater _updater;
+        private IUIFactory _uiFactory;
         
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
         private Spawner _spawner;
 
+        private Weapon _playerWeapon;
+
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
-            IGameFactory gameFactory, IUpdater updater)
+            IGameFactory gameFactory, IUpdater updater, IUIFactory uiFactory)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
@@ -38,6 +49,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _inputService = inputService;
             _gameFactory = gameFactory;
             _updater = updater;
+            _uiFactory = uiFactory;
         }
 
         public void Enter()
@@ -59,6 +71,9 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             GameObject player = InitializePlayerAndCamera();
             
+            InitializeHealthBar(player.GetComponent<Damageable>());
+            InitializeAmmoBar(_playerWeapon);
+            
             _spawner = new EnemySpawner(_updater,
                 ServiceLocator.Container.Resolve<IEnemyFactory>(), 
                 ServiceLocator.Container.Resolve<IStaticDataService>());
@@ -68,19 +83,19 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            Weapon weapon = _gameFactory.CreatePlayerWeapon();
+            _playerWeapon = _gameFactory.CreatePlayerWeapon();
 
             Camera mainCamera = Camera.main;
 
             GameObject player = _gameFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
-                .Init(ServiceLocator.Container.Resolve<IInputService>(), weapon);
+                .Init(ServiceLocator.Container.Resolve<IInputService>(), _playerWeapon);
             player.GetComponent<PlayerLook>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
                 .Init(ServiceLocator.Container.Resolve<IInputService>());
-            weapon.AttachToHand(playerShoot.PlayerArm);
+            _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
 
@@ -89,5 +104,39 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             return player;
         }
+
+
+        private void InitializeEnemy(Transform playerTransform)
+        {
+            GameObject enemy = _gameFactory.CreateEnemy(_levelStaticData
+                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
+            enemy.GetComponent<EnemyMovement>()
+                .Init(playerTransform);
+        }
+
+        private void InitializeRangeEnemy(Transform playerTransform)
+        {
+            GameObject rangeEnemy = _gameFactory.CreateRangeEnemy(_levelStaticData
+                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
+            rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
+        }
+
+        private void InitializeHealthBar(Damageable damageable)
+        {
+            _uiFactory.CreateRoot();
+            HealthBar healthBar = _uiFactory.CreateProgressBar();
+            
+            healthBar.Init(damageable);
+        }
+
+        private void InitializeAmmoBar(Weapon playerWeapon)
+        {
+            _uiFactory.CreateRoot();
+            AmmoBar ammoBar = _uiFactory.CreateAmmoBar();
+            
+            ammoBar.Init(playerWeapon);
+        }
+
+
     }
 }
