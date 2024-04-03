@@ -8,7 +8,6 @@ namespace Code.GameplayLogic
         [SerializeField] private MonoBehaviour[] _componentsToDisalbe;
         [SerializeField] private Collider[] _collidersToDisable;
         [SerializeField] private float _timeToDestroy;
-        [SerializeField] private Damageable _damageable;
 
         public override void OnDeath()
         {

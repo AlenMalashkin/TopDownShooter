@@ -3,9 +3,6 @@ using Code.Factories.GameplayFactoies;
 
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
-using Code.GameplayLogic.EnemiesLogic;
-using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
-
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -105,21 +102,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             return player;
         }
 
-
-        private void InitializeEnemy(Transform playerTransform)
-        {
-            GameObject enemy = _gameFactory.CreateEnemy(_levelStaticData
-                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
-            enemy.GetComponent<EnemyMovement>()
-                .Init(playerTransform);
-        }
-
-        private void InitializeRangeEnemy(Transform playerTransform)
-        {
-            GameObject rangeEnemy = _gameFactory.CreateRangeEnemy(_levelStaticData
-                .EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
-            rangeEnemy.GetComponent<RangeEnemyMovement>().Init(playerTransform);
-        }
 
         private void InitializeHealthBar(Damageable damageable)
         {
