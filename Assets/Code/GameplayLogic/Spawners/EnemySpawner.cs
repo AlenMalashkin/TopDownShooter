@@ -52,7 +52,7 @@ namespace Code.GameplayLogic.Spawners
 
         private void Spawn()
         {
-            _enemyFactory.CreateEnemy(_target, EnemyType.Melee,
+            _enemyFactory.CreateEnemy(_target, EnemyType.Range,
                 _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
 
             _timer.StartTimer(_spawnerStaticData.SpawnTime);
