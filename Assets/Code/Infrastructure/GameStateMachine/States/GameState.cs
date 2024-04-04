@@ -3,9 +3,6 @@ using Code.Factories.GameplayFactoies;
 
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
-using Code.GameplayLogic.EnemiesLogic;
-using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
-
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -104,7 +101,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             return player;
         }
-
         
 
         private void InitializeHealthBar(Damageable damageable)
