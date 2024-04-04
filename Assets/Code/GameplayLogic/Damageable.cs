@@ -5,8 +5,8 @@ namespace Code.GameplayLogic
 {
     public class Damageable : MonoBehaviour, IDamageable
     {
-        [SerializeField] private int _health;
-        [SerializeField] private int _maxHealth;
+        [SerializeField] private float _health;
+        [SerializeField] private float _maxHealth;
 
         public event Action<float> HealthChanged;
         public event Action Death;
@@ -24,7 +24,7 @@ namespace Code.GameplayLogic
             }
         }
 
-        public int Health
+        public float Health
         {
             get => _health;
             private set
@@ -41,11 +41,14 @@ namespace Code.GameplayLogic
             }
         }
 
-        public void TakeDamage(int damage)
+        public float MaxHealth => _maxHealth;
+        
+        public void TakeDamage(float damage)
         {
             Health -= damage;
             
             HealthChanged?.Invoke(Health);
+            Debug.Log(_health);
             
             if (_health <= 0)
                 Death?.Invoke();
