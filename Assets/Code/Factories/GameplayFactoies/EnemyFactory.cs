@@ -2,6 +2,7 @@ using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.Services.StaticDataService;
 using Code.StaticData.EnemyStaticData;
+using Code.UI.HUD;
 using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
@@ -20,6 +21,9 @@ namespace Code.Factories.GameplayFactoies
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(type);
             Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
             enemy.GetComponent<Enemy>().Init(followTarget);
+            
+            enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
+            
             return enemy;
         }
     }

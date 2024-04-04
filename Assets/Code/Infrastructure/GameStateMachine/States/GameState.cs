@@ -3,6 +3,7 @@ using Code.Factories.GameplayFactoies;
 
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
+using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -97,6 +98,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
 
             CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
+            
             camera.Follow = player.transform;
 
             return player;
