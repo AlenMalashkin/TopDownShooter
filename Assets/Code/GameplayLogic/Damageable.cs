@@ -48,7 +48,6 @@ namespace Code.GameplayLogic
             Health -= damage;
             
             HealthChanged?.Invoke(Health);
-            Debug.Log(_health);
             
             if (_health <= 0)
                 Death?.Invoke();

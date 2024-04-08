@@ -1,5 +1,6 @@
 using Cinemachine;
 using Code.Data;
+using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
 using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Services.AssetProvider;
@@ -28,9 +29,9 @@ namespace Code.Factories.GameplayFactoies
             return Object.Instantiate(playerPrefab, position, Quaternion.identity);
         }
 
-        public Weapon CreatePlayerWeapon()
+        public Weapon CreateWeapon(WeaponType type)
         {
-            WeaponData weaponData = _staticDataService.ForWeapon(_equipmentService.CurrentEquippedWeapon);
+            WeaponData weaponData = _staticDataService.ForWeapon(type);
             PlayerWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<PlayerWeapon>();
             weapon.Init(this);
             return weapon;

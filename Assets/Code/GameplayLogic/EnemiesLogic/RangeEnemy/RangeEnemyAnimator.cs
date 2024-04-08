@@ -8,8 +8,10 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         public void PlayDeathAnimation()
             => PlayAnimationByName(AnimationStrings.Death);
         
-
         public void PlayRunAnimation()
             => PlayAnimationByName(AnimationStrings.Run);
+
+        public void PlayAttackAnimation()
+            => PlayAnimationByName(AnimationStrings.Attack);
     }
 }

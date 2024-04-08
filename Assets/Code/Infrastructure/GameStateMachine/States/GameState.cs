@@ -81,7 +81,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            _playerWeapon = _gameFactory.CreatePlayerWeapon();
+            IEquipmentService equipmentService = ServiceLocator.Container.Resolve<IEquipmentService>();
+            
+            _playerWeapon = _gameFactory
+                .CreateWeapon(equipmentService.CurrentEquippedWeapon);
 
             Camera mainCamera = Camera.main;
 
@@ -103,7 +106,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             return player;
         }
-        
 
         private void InitializeHealthBar(Damageable damageable)
         {
@@ -120,7 +122,5 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             
             ammoBar.Init(playerWeapon);
         }
-
-
     }
 }

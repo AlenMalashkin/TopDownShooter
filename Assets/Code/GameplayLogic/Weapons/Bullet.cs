@@ -24,10 +24,9 @@ namespace Code.GameplayLogic.Weapons
             StartCoroutine(DestroyBulletRoutine());
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.collider.TryGetComponent(out IDamageable damageable) 
-                && !other.collider.TryGetComponent(out PlayerDeath playerDeath))
+            if (other.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(_damage);
                 Destroy(gameObject);
