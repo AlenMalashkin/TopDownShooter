@@ -7,24 +7,26 @@ namespace Code.UI.HUD
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Damageable _damageable;
+        
         private Slider _healthSlider;
-
+            
         public void Init(Damageable damageable)
         {
             _damageable = damageable;
             _damageable.HealthChanged += OnHealthChanged;
         }
 
-        public void Awake()
+        public virtual void Awake()
         {
             _healthSlider = GetComponent<Slider>();
+            
         }
 
         private void Start()
         {
             _healthSlider.maxValue = _damageable.MaxHealth;
         }
-
+        
         private void OnDisable()
         {
             _damageable.HealthChanged -= OnHealthChanged;
@@ -34,6 +36,5 @@ namespace Code.UI.HUD
         {
             _healthSlider.value = newHealth;
         }
-        
     }
 }
