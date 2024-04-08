@@ -1,33 +1,40 @@
-
+using Code.GameplayLogic.Weapons;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
     public class RangeEnemyAttack : EnemyAttack
     {
-        [SerializeField] private float _shootDistance = 5f;
+        [SerializeField] private Transform _enemyArm;
 
-        public float ShootDistance => _shootDistance;
-        
+        public Transform EnemyArm => _enemyArm;
+
+        private NavMeshAgent _agent;
         private RangeEnemyAnimator _animator;
-        private RangeEnemyPlayerDetector _playerDetector;
-        private RangeEnemyMovement _movement;
+        private Weapon _weapon;
+
+        public void Init(Weapon weapon)
+        {
+            _weapon = weapon;
+        }
 
         private void Awake()
         {
             _animator = GetComponent<RangeEnemyAnimator>();
-            _playerDetector = GetComponent<RangeEnemyPlayerDetector>();
-            _movement = GetComponent<RangeEnemyMovement>();
+            _agent = GetComponent<NavMeshAgent>();
         }
 
         public override void ActivateAttack()
         {
-            Debug.Log("Range attack activate test");
+            _animator.PlayAttackAnimation();
+            _agent.isStopped = true;
+            _weapon.ShootBullet(transform.forward);
         }
 
         public override void DisableAttack()
         {
-            Debug.Log("Range attack disable test");
+            _agent.isStopped = false;
         }
     }
 }

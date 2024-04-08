@@ -7,6 +7,7 @@ namespace Code.Factories.GameplayFactoies
 {
     public interface IEnemyFactory : IService
     {
-        Enemy CreateEnemy(Transform followTarget, EnemyType type, Vector3 position);
+        Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position);
+        Enemy CreateRangeEnemy(Transform followTarget, Vector3 position);
     }
 }

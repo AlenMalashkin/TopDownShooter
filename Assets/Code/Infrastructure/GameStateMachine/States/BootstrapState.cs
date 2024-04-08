@@ -62,7 +62,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
-            _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(_serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IGameFactory>()));
         }
 
         private void RegisterStaticDataService()

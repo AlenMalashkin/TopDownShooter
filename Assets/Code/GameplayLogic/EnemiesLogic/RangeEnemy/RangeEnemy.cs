@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
@@ -6,6 +7,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
     {
         [SerializeField] private RangeEnemyMovement _movement;
         [SerializeField] private RangeEnemyAttack _attack;
+        [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
         [SerializeField] private Damageable _damageable;
         [SerializeField] private DeathComponent _deathComponent;
         
@@ -28,9 +30,12 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         public override void Update()
         {
+            if (_target == null)
+                return;
+
             _movement.MoveTo(_target);
             
-            if (_movement.CanAttack)
+            if (_playerDetector.CanAttackPlayer(_target))
                 _attack.ActivateAttack();
             else
                 _attack.DisableAttack();
