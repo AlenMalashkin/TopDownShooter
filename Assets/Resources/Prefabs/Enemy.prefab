@@ -734,6 +734,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6672412818362345287}
     m_Modifications:
+    - target: {fileID: -794413528068710266, guid: 5f382aa15d4224e45a35f73670e6d1e4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -794413528068710266, guid: 5f382aa15d4224e45a35f73670e6d1e4, type: 3}
+      propertyPath: _damageable
+      value: 
+      objectReference: {fileID: 8898709849649301426}
     - target: {fileID: 26392795292855036, guid: 5f382aa15d4224e45a35f73670e6d1e4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -974,6 +982,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transformToRotate: {fileID: 6871866975001422049}
+--- !u!114 &6463061079203234573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871866975001422048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76c6de565b946bb9d197c0342189150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageable: {fileID: 8898709849649301426}
 --- !u!224 &6871866975001422049 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 26392796657296680, guid: 5f382aa15d4224e45a35f73670e6d1e4, type: 3}
