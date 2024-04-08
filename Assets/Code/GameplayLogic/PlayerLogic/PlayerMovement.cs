@@ -14,7 +14,6 @@ namespace Code.GameplayLogic.PlayerLogic
         private IInputService _inputService;
         private Rigidbody _rigidbody;
 
-
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
