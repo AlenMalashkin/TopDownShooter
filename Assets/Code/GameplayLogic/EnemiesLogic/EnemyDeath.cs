@@ -11,7 +11,7 @@ namespace Code.GameplayLogic.EnemiesLogic
         {
             base.OnDeath();
             
-            if (_animator is EnemyAnimator enemyAnimator)
+            if (_animator is MeleeEnemyAnimator enemyAnimator)
                 enemyAnimator.PlayDeathAnimation();
         }
     }
