@@ -8,11 +8,15 @@ namespace Code.GameplayLogic
         [SerializeField] private float _health;
         [SerializeField] private float _maxHealth;
 
+        private AnimatorComponent _animator;
+
         public event Action<float> HealthChanged;
+        public event Action Hit; 
         public event Action Death;
 
         private void Awake()
         {
+            _animator = GetComponent<AnimatorComponent>();
             _health = _maxHealth;
         }
 
@@ -51,6 +55,9 @@ namespace Code.GameplayLogic
             
             if (_health <= 0)
                 Death?.Invoke();
+            
+            Hit?.Invoke();
         }
+        
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
@@ -21,6 +22,11 @@ namespace Code.GameplayLogic.PlayerLogic
         }
 
         private void Start()
+        {
+            _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
+        }
+
+        private void OnEnable()
         {
             _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
         }
