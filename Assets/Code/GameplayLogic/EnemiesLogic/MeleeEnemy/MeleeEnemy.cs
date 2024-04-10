@@ -6,29 +6,32 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
     {
         [SerializeField] private EnemyDeath _enemyDeath;
         [SerializeField] private Damageable _damageable;
-        [SerializeField] private EnemyMovement _movement;
-
-        private Transform _target;
-        
-        public override void Init(Transform followTarget)
-        {
-            _target = followTarget;
-        }
+        [SerializeField] private AIStateMachineBase _aiStateMachine;
+        [SerializeField] private PlayerDetectionZone _playerDetectionZone;
 
         public override void OnEnable()
         {
             _damageable.Death += _enemyDeath.OnDeath;
+            _playerDetectionZone.PlayerDetected += OnPlayerDetected;
+            _playerDetectionZone.PlayerLeft += OnPlayerLeft;
         }
 
         public override void OnDisable()
         {
             _damageable.Death -= _enemyDeath.OnDeath;
+            _playerDetectionZone.PlayerDetected -= OnPlayerDetected;
+            _playerDetectionZone.PlayerLeft -= OnPlayerLeft;
         }
 
         public override void Update()
         {
-            if (_target != null)
-                _movement.MoveTo(_target);
+            _aiStateMachine.UpdateState();
         }
+
+        private void OnPlayerDetected(Collider other)
+            => _aiStateMachine.EnterState<MeleeAttackState>();
+
+        private void OnPlayerLeft(Collider other)
+            => _aiStateMachine.EnterState<MeleeMovementState>();
     }
 }

@@ -4,37 +4,40 @@ using UnityEngine.AI;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
-    public class RangeEnemyAttack : EnemyAttack
+    public class RangeEnemyAttack : AIState
     {
         [SerializeField] private Transform _enemyArm;
 
         public Transform EnemyArm => _enemyArm;
 
-        private NavMeshAgent _agent;
         private RangeEnemyAnimator _animator;
         private Weapon _weapon;
+        private Transform _target;
 
-        public void Init(Weapon weapon)
+        public void Init(Weapon weapon, Transform target)
         {
             _weapon = weapon;
+            _target = target;
         }
 
         private void Awake()
         {
             _animator = GetComponent<RangeEnemyAnimator>();
-            _agent = GetComponent<NavMeshAgent>();
         }
 
-        public override void ActivateAttack()
+        public override void EnterState()
         {
             _animator.PlayAttackAnimation();
-            _agent.isStopped = true;
-            _weapon.ShootBullet(transform.forward);
         }
 
-        public override void DisableAttack()
+        public override void UpdateState()
         {
-            _agent.isStopped = false;
+            _weapon.ShootBullet(transform.forward);
+            transform.LookAt(_target);
+        }
+
+        public override void ExitState()
+        {
         }
     }
 }

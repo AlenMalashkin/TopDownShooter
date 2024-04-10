@@ -8,11 +8,17 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private float _shootDistance;
         
         private bool _isInShootDistance;
-        
-        public bool CanAttackPlayer(Transform target)
+        private Transform _target;
+
+        public void Init(Transform target)
         {
-            _isInShootDistance = Vector3.Distance(transform.position, target.position) <= _shootDistance;
-            return CheckObstaclesInPlayerDirection(-(transform.position - target.position)) && _isInShootDistance;
+            _target = target;
+        }
+        
+        public bool CanAttackPlayer()
+        {
+            _isInShootDistance = Vector3.Distance(transform.position, _target.position) <= _shootDistance;
+            return CheckObstaclesInPlayerDirection(-(transform.position - _target.position)) && _isInShootDistance;
         }
 
         private bool CheckObstaclesInPlayerDirection(Vector3 directon)

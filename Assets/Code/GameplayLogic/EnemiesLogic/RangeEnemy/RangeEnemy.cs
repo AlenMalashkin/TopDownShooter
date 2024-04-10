@@ -1,22 +1,13 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
     public class RangeEnemy : Enemy
     {
-        [SerializeField] private RangeEnemyMovement _movement;
-        [SerializeField] private RangeEnemyAttack _attack;
         [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
         [SerializeField] private Damageable _damageable;
         [SerializeField] private DeathComponent _deathComponent;
-        
-        private Transform _target;
-        
-        public override void Init(Transform followTarget)
-        {
-            _target = followTarget;
-        }
+        [SerializeField] private AIStateMachine _aiStateMachine;
 
         public override void OnEnable()
         {
@@ -30,15 +21,12 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         public override void Update()
         {
-            if (_target == null)
-                return;
-
-            _movement.MoveTo(_target);
+            _aiStateMachine.UpdateState();
             
-            if (_playerDetector.CanAttackPlayer(_target))
-                _attack.ActivateAttack();
-            else
-                _attack.DisableAttack();
+            _aiStateMachine.EnterState<RangeEnemyMovement>();
+            
+            if (_playerDetector.CanAttackPlayer())
+                _aiStateMachine.EnterState<RangeEnemyAttack>();
         }
     }
 }
