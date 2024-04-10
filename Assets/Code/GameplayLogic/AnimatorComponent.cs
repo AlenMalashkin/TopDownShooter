@@ -24,5 +24,6 @@ namespace Code.GameplayLogic
 
         public void SetBool(string boolName, bool value)
             => _animator.SetBool(boolName, value);
+        
     }
 }
