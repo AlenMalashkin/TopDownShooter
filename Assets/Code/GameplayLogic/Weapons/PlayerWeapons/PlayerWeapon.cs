@@ -21,10 +21,11 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         
         private bool IsClipEmpty => _bulletsInClip == 0;
 
+        private WeaponType _type;
         private bool _isReloading;
         private float _shootCooldown;
         private int _bulletsInClip;
-        private IGameFactory _gameFactory;
+        private IWeaponFactory _weaponFactory;
         
         public int BulletsInClip => _bulletsInClip;
 
@@ -33,9 +34,10 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
             AmmoChanged?.Invoke(_bulletsInClip);
         }
 
-        public void Init(IGameFactory gameFactory)
+        public void Init(IWeaponFactory gameFactory, WeaponType type)
         {
-            _gameFactory = gameFactory;
+            _weaponFactory = gameFactory;
+            _type = type;
             _bulletsInClip = _maxBullets;
         }
 
@@ -56,7 +58,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         {
             if (_shootCooldown > _fireRate)
             {
-                _gameFactory.CreateBullet(_shootPoint.position, _damage, shootDirection);
+                _weaponFactory.CreateBullet(_shootPoint.position, _damage, shootDirection);
                 _bulletsInClip--;
                 _shootCooldown = 0f;
                 

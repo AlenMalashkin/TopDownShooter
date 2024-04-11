@@ -1,13 +1,10 @@
 ﻿using Cinemachine;
 using Code.Factories.GameplayFactoies;
-
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
-using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
-using Code.GameplayLogic.Weapons.PlayerWeapons;
 using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
@@ -27,10 +24,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IStaticDataService _staticDataService;
         private LoadingScreen _loadingScreen;
         private IInputService _inputService;
-        private IGameFactory _gameFactory;
         private IUpdater _updater;
+        private IFactoryProvider _factoryProvider;
+        private IPlayerFactory _playerFactory;
+        private IWeaponFactory _weaponFactory;
         private IUIFactory _uiFactory;
-        
+        private IHUDFactory _hudFactory;
+
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
         private Spawner _spawner;
@@ -39,19 +39,23 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
-            IGameFactory gameFactory, IUpdater updater, IUIFactory uiFactory)
+            IUpdater updater, IFactoryProvider factoryProvider)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
             _loadingScreen = loadingScreen;
             _inputService = inputService;
-            _gameFactory = gameFactory;
             _updater = updater;
-            _uiFactory = uiFactory;
+            _factoryProvider = factoryProvider;
         }
 
         public void Enter()
         {
+            _playerFactory = _factoryProvider.GetFactory<IPlayerFactory>();
+            _weaponFactory = _factoryProvider.GetFactory<IWeaponFactory>();
+            _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
+            _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
+            
             _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
             _sceneLoadService.LoadScene(_levelStaticData.LevelName, OnLoad);
             _inputService.Enable();
@@ -68,27 +72,27 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _loadingScreen.Hide();
 
             GameObject player = InitializePlayerAndCamera();
-            
+
             InitializeHealthBar(player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
-            
+
             _spawner = new EnemySpawner(_updater,
-                ServiceLocator.Container.Resolve<IEnemyFactory>(), 
+                ServiceLocator.Container.Resolve<IEnemyFactory>(),
                 ServiceLocator.Container.Resolve<IStaticDataService>());
-            
+
             _spawner.EnableSpawner(player.transform);
         }
 
         private GameObject InitializePlayerAndCamera()
         {
             IEquipmentService equipmentService = ServiceLocator.Container.Resolve<IEquipmentService>();
-            
-            _playerWeapon = _gameFactory
+
+            _playerWeapon = _weaponFactory
                 .CreateWeapon(equipmentService.CurrentEquippedWeapon);
 
             Camera mainCamera = Camera.main;
 
-            GameObject player = _gameFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
+            GameObject player = _playerFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(ServiceLocator.Container.Resolve<IInputService>(), _playerWeapon);
@@ -100,8 +104,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             player.GetComponent<PlayerAnimator>()
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
 
-            CinemachineVirtualCamera camera = _gameFactory.CreatePlayerCamera();
-            
+            CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();
+
             camera.Follow = player.transform;
 
             return player;
@@ -109,17 +113,15 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void InitializeHealthBar(Damageable damageable)
         {
-            _uiFactory.CreateRoot();
-            HealthBar healthBar = _uiFactory.CreateProgressBar();
-            
+            GameObject root = _uiFactory.CreateRoot();
+            HealthBar healthBar = _hudFactory.CreateProgressBar(root.transform);
             healthBar.Init(damageable);
         }
 
         private void InitializeAmmoBar(Weapon playerWeapon)
         {
-            _uiFactory.CreateRoot();
-            AmmoBar ammoBar = _uiFactory.CreateAmmoBar();
-            
+            GameObject root = _uiFactory.CreateRoot();
+            AmmoBar ammoBar = _hudFactory.CreateAmmoBar(root.transform);
             ammoBar.Init(playerWeapon);
         }
     }

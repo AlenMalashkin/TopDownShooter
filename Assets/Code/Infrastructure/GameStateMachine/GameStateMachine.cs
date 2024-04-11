@@ -19,21 +19,24 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         public GameStateMachine(ServiceLocator serviceLocator, ISceneLoadService sceneLoadService,
             LoadingScreen loadingScreen, IUpdater updater)
         {
-            _states[typeof(BootstrapState)] = new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
-            _states[typeof(MenuState)] = new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IUIFactory>());
+            _states[typeof(BootstrapState)] =
+                new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
+            _states[typeof(MenuState)] =
+                new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>());
             _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>()
                 , serviceLocator.Resolve<IStaticDataService>()
-                , loadingScreen, serviceLocator.Resolve<IInputService>()
-                , serviceLocator.Resolve<IGameFactory>(), updater, serviceLocator.Resolve<IUIFactory>());
+                , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
+                serviceLocator.Resolve<IFactoryProvider>());
         }
-        
+
         public void Enter<TState>() where TState : class, IGameState
         {
             IGameState gameState = ChangeState<TState>();
             gameState.Enter();
         }
 
-        public void Enter<TPayloadState, TPayload>(TPayload payload) where TPayloadState : class, IPayloadState<TPayload>
+        public void Enter<TPayloadState, TPayload>(TPayload payload)
+            where TPayloadState : class, IPayloadState<TPayload>
         {
             TPayloadState state = ChangeState<TPayloadState>();
             state.Enter(payload);
@@ -42,7 +45,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace
         private TState ChangeState<TState>() where TState : class, IExitableState
         {
             _currentState?.Exit();
-            
+
             TState newState = GetState<TState>();
             _currentState = newState;
 

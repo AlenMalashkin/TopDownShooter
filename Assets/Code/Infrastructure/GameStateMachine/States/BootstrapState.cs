@@ -1,4 +1,5 @@
-﻿using Code.Factories.GameplayFactoies;
+﻿using Code.Factories;
+using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Infrastructure.GameStateMachineNamespace.States;
@@ -57,12 +58,10 @@ namespace Code.Infrastructure.GameStateMachine.States
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>()));
-            _serviceLocator.RegisterService<IGameFactory>(new GameFactory(_serviceLocator.Resolve<IAssetProvider>(),
-                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
-            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>(),
-                _serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
-            _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(_serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IGameFactory>()));
+            RegisterGameFactories();
+            RegisterUIFactories();
+            RegisterFactoryProvider();
         }
 
         private void RegisterStaticDataService()
@@ -70,6 +69,39 @@ namespace Code.Infrastructure.GameStateMachine.States
             IStaticDataService staticDataService = new StaticDataService();
             staticDataService.Load();
             _serviceLocator.RegisterService(staticDataService);
+        }
+
+        private void RegisterFactoryProvider()
+        {
+            IFactoryProvider factoryProvider = new FactoryProvider();
+
+            factoryProvider.AddFactory<IUIFactory>(_serviceLocator.Resolve<IUIFactory>());
+            factoryProvider.AddFactory<IHUDFactory>(_serviceLocator.Resolve<IHUDFactory>());
+            factoryProvider.AddFactory<IWindowFactory>(_serviceLocator.Resolve<IWindowFactory>());
+
+            factoryProvider.AddFactory<IPlayerFactory>(_serviceLocator.Resolve<IPlayerFactory>());
+            factoryProvider.AddFactory<IWeaponFactory>(_serviceLocator.Resolve<IWeaponFactory>());
+            factoryProvider.AddFactory<IEnemyFactory>(_serviceLocator.Resolve<IEnemyFactory>());
+
+            _serviceLocator.RegisterService(factoryProvider);
+        }
+
+        private void RegisterGameFactories()
+        {
+            _serviceLocator.RegisterService<IPlayerFactory>(
+                new PlayerFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IWeaponFactory>(
+                new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
+                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>()));
+        }
+
+        private void RegisterUIFactories()
+        {
+            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IWindowFactory>(
+                new WindowFactory(_serviceLocator.Resolve<IStaticDataService>()));
         }
     }
 }

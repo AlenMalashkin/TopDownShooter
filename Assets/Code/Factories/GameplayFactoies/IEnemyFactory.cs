@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
 {
-    public interface IEnemyFactory : IService
+    public interface IEnemyFactory : IFactory
     {
         Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position);
         Enemy CreateRangeEnemy(Transform followTarget, Vector3 position);

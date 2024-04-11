@@ -26,11 +26,6 @@ namespace Code.GameplayLogic.PlayerLogic
             _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
         }
 
-        private void OnEnable()
-        {
-            _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
-        }
-
         private void OnDisable()
         {
             _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
