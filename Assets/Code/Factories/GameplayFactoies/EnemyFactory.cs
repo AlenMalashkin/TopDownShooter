@@ -13,12 +13,12 @@ namespace Code.Factories.GameplayFactoies
     public class EnemyFactory : IEnemyFactory
     {
         private IStaticDataService _staticDataService;
-        private IGameFactory _gameFactory;
+        private IWeaponFactory _weaponFactory;
 
-        public EnemyFactory(IStaticDataService staticDataService, IGameFactory gameFactory)
+        public EnemyFactory(IStaticDataService staticDataService, IWeaponFactory weaponFactory)
         {
             _staticDataService = staticDataService;
-            _gameFactory = gameFactory;
+            _weaponFactory = weaponFactory;
         }
 
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
@@ -37,7 +37,7 @@ namespace Code.Factories.GameplayFactoies
             rangeEnemy.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
             RangeEnemyAttack rangeEnemyAttack = rangeEnemy.GetComponent<RangeEnemyAttack>();
-            Weapon weapon = _gameFactory.CreateWeapon(WeaponType.Pistol);
+            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.Pistol);
             weapon.AttachToHand(rangeEnemyAttack.EnemyArm);
             rangeEnemyAttack.Init(weapon, followTarget);
             return rangeEnemy;
