@@ -5,7 +5,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
     public class MeleeAttackState : AIState
     {
         [SerializeField] private float _damage = 20;
-        [SerializeField] private MeleeEnemyAnimator _meleeEnemyAnimator;
+        [SerializeField] private AnimatorComponent _meleeEnemyAnimator;
         [SerializeField] private PlayerDetectionZone _playerDetectionZone;
         [SerializeField] private Collider _fistCollider;
         private Transform _target;
@@ -27,7 +27,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         public override void EnterState()
         {
-            _meleeEnemyAnimator.PlayAttackAnimation();
+            _meleeEnemyAnimator.PlayAnimationByName(AnimationStrings.Attack);
         }
 
         public override void UpdateState()

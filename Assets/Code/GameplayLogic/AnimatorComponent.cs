@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Code.GameplayLogic
 {
     [RequireComponent(typeof(Animator))]
-    public abstract class AnimatorComponent : MonoBehaviour
+    public class AnimatorComponent : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
         

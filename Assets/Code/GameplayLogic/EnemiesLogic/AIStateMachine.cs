@@ -9,6 +9,8 @@ namespace Code.GameplayLogic.EnemiesLogic
         [SerializeField] private AIState[] _states;
         [SerializeField] private AIState _startState;
 
+        public Type CurrentStateType =>_currentState.GetType();
+        
         private Dictionary<Type, AIState> _statesMap = new Dictionary<Type, AIState>();
         private AIState _currentState;
 

@@ -20,7 +20,6 @@ namespace Code.GameplayLogic
         public const string Attack = "Attack";
         public const string Death = "Death";
         public const string Run = "Run";
-        public const string PlayerDetected = "PlayerDetected";
         public const string HitReaction = "HitReaction";
     }
 }

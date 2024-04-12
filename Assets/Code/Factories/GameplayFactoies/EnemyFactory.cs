@@ -24,22 +24,25 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy enemy = CreateBaseEnemy(EnemyType.Melee, position);
-            enemy.GetComponent<MeleeMovementState>().Init(followTarget);
+            enemy.GetComponent<EnemyMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeAttackState>().Init(followTarget);
+            enemy.GetComponent<MeleeEnemy>().Init(followTarget.GetComponent<Damageable>());
             return enemy;
         }
 
         public Enemy CreateRangeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy rangeEnemy = CreateBaseEnemy(EnemyType.Range, position);
-            rangeEnemy.GetComponent<RangeEnemyMovement>()
+            rangeEnemy.GetComponent<EnemyMovementState>()
                 .Init(followTarget);
             rangeEnemy.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
-            RangeEnemyAttack rangeEnemyAttack = rangeEnemy.GetComponent<RangeEnemyAttack>();
+            rangeEnemy.GetComponent<RangeEnemy>()
+                .Init(followTarget.GetComponent<Damageable>());
+            RangeAttackState rangeAttackState = rangeEnemy.GetComponent<RangeAttackState>();
             Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.Pistol);
-            weapon.AttachToHand(rangeEnemyAttack.EnemyArm);
-            rangeEnemyAttack.Init(weapon, followTarget);
+            weapon.AttachToHand(rangeAttackState.EnemyArm);
+            rangeAttackState.Init(weapon, followTarget);
             return rangeEnemy;
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.GameplayLogic
 {
-    public abstract class DeathComponent : Death
+    public class DeathComponent : Death
     {
         [SerializeField] private MonoBehaviour[] _componentsToDisalbe;
         [SerializeField] private Collider[] _collidersToDisable;

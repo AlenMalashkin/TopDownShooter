@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
+namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 {
-    public class RangeEnemyMovement : AIState
+    public class EnemyMovementState : AIState
     {
         [SerializeField] private NavMeshAgent _agent;
-        [SerializeField] private RangeEnemyAnimator _animator;
+        [SerializeField] private AnimatorComponent _enemyAnimator;
+
+        public bool HasTarget => _target != null;
         
         private Transform _target;
 
@@ -18,11 +20,11 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         public override void EnterState()
         {
             _agent.isStopped = false;
+            _enemyAnimator.PlayAnimationByName(AnimationStrings.Run);
         }
 
         public override void UpdateState()
         {
-            _animator.PlayRunAnimation();
             MoveTo(_target);
         }
 
