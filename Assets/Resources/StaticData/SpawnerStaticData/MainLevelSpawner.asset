@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MainLevelSpawner
   m_EditorClassIdentifier: 
   _levelType: 0
-  _spawnTime: 15
+  _spawnTime: 10

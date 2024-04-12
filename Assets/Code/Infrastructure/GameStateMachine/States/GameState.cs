@@ -9,6 +9,7 @@ using Code.Level;
 using Code.Services;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
+using Code.Services.RandomService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
@@ -55,7 +56,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _weaponFactory = _factoryProvider.GetFactory<IWeaponFactory>();
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
-            
+
             _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
             _sceneLoadService.LoadScene(_levelStaticData.LevelName, OnLoad);
             _inputService.Enable();
@@ -78,7 +79,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             _spawner = new EnemySpawner(_updater,
                 ServiceLocator.Container.Resolve<IEnemyFactory>(),
-                ServiceLocator.Container.Resolve<IStaticDataService>());
+                ServiceLocator.Container.Resolve<IStaticDataService>(),
+                ServiceLocator.Container.Resolve<IRandomService>());
 
             _spawner.EnableSpawner(player.transform);
         }
