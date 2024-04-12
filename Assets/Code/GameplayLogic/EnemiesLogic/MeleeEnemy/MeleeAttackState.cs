@@ -36,14 +36,15 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         public override void UpdateState()
         {
-            Ray cameraRay = _camera.ScreenPointToRay(_target.position);
+            /*Ray cameraRay = _camera.ScreenPointToRay(_target.position);
             Plane plane = new Plane(Vector3.up,
                 new Vector2(transform.position.x, transform.position.z));
             if(plane.Raycast(cameraRay, out _rayLength))
             {
                 Vector3 pointToLook = cameraRay.GetPoint(_rayLength);
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
+            }*/
+            transform.LookAt(_target);
         }
 
         public override void ExitState()

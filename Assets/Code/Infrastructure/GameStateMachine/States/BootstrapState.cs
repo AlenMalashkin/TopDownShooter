@@ -1,4 +1,5 @@
-﻿using Code.Factories;
+﻿using System;
+using Code.Factories;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachineNamespace;
@@ -7,6 +8,7 @@ using Code.Services;
 using Code.Services.AssetProvider;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
+using Code.Services.RandomService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Utils.Timer;
@@ -51,6 +53,7 @@ namespace Code.Infrastructure.GameStateMachine.States
 
         private void RegisterAllServices()
         {
+            _serviceLocator.RegisterService<IRandomService>(new RandomService(new Random()));
             _serviceLocator.RegisterService(_updater);
             _serviceLocator.RegisterService(_gameStateMachine);
             _serviceLocator.RegisterService(_sceneLoadService);
