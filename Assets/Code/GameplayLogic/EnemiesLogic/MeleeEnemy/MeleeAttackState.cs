@@ -8,7 +8,11 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         [SerializeField] private MeleeEnemyAnimator _meleeEnemyAnimator;
         [SerializeField] private PlayerDetectionZone _playerDetectionZone;
         [SerializeField] private Collider _fistCollider;
+        [SerializeField] private Camera _camera;
+        
         private Transform _target;
+        private float _rayLength;
+        
 
         public void Init(Transform target)
         {
@@ -32,7 +36,14 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         public override void UpdateState()
         {
-            transform.LookAt(_target);
+            Ray cameraRay = _camera.ScreenPointToRay(_target.position);
+            Plane plane = new Plane(Vector3.up,
+                new Vector2(transform.position.x, transform.position.z));
+            if(plane.Raycast(cameraRay, out _rayLength))
+            {
+                Vector3 pointToLook = cameraRay.GetPoint(_rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
         }
 
         public override void ExitState()
