@@ -234,7 +234,8 @@ GameObject:
   - component: {fileID: 6984520124256575680}
   - component: {fileID: 7061240678110524167}
   - component: {fileID: 6403328226255743756}
-  - component: {fileID: 1352223920500435026}
+  - component: {fileID: 878183084066271265}
+  - component: {fileID: 3421331023965387897}
   - component: {fileID: 8898709849649301426}
   - component: {fileID: 1336908729458590237}
   m_Layer: 0
@@ -366,6 +367,7 @@ MonoBehaviour:
   _states:
   - {fileID: 7061240678110524167}
   - {fileID: 6403328226255743756}
+  - {fileID: 878183084066271265}
   _startState: {fileID: 7061240678110524167}
 --- !u!114 &7061240678110524167
 MonoBehaviour:
@@ -380,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 7061240678110524166}
-  _meleeEnemyAnimator: {fileID: 1352223920500435026}
+  _enemyAnimator: {fileID: 3421331023965387897}
 --- !u!114 &6403328226255743756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,10 +396,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 20
-  _meleeEnemyAnimator: {fileID: 1352223920500435026}
+  _meleeEnemyAnimator: {fileID: 3421331023965387897}
   _playerDetectionZone: {fileID: 3329372442825506655}
   _fistCollider: {fileID: 5838747064332571589}
---- !u!114 &1352223920500435026
+--- !u!114 &878183084066271265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -406,7 +408,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061240678110524161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd42084099c4ddfa796d04673037f6f, type: 3}
+  m_Script: {fileID: 11500000, guid: fd5f92faa126417c83015267b30c69ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 3421331023965387897}
+--- !u!114 &3421331023965387897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7061240678110524161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d8e163818c478faf646a6bd8b66b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6720669604623967439}
@@ -438,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentsToDisalbe:
   - {fileID: 8898709849649301426}
-  - {fileID: 1352223920500435026}
+  - {fileID: 0}
   - {fileID: 7061240678110524167}
   - {fileID: 5525871848005710543}
   _collidersToDisable:
@@ -446,7 +461,7 @@ MonoBehaviour:
   - {fileID: 1707697326831973506}
   - {fileID: 5838747064332571589}
   _timeToDestroy: 3
-  _animator: {fileID: 1352223920500435026}
+  _animator: {fileID: 3421331023965387897}
 --- !u!1001 &575917959085391205
 PrefabInstance:
   m_ObjectHideFlags: 0

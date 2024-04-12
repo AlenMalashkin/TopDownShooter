@@ -1,3 +1,4 @@
+using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
@@ -9,24 +10,50 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private DeathComponent _deathComponent;
         [SerializeField] private AIStateMachine _aiStateMachine;
 
-        public override void OnEnable()
+        private Damageable _playerDamageable;
+
+        public void Init(Damageable playerDamageable)
+        {
+            _playerDamageable = playerDamageable;
+        }
+        
+        private void Start()
         {
             _damageable.Death += _deathComponent.OnDeath;
+            _playerDetector.PlayerDetected += OnPlayerDetected;
+            _playerDetector.PlayerLeft += OnPlayerLeft;
+            _playerDamageable.Death += OnPlayerDeath;
         }
 
-        public override void OnDisable()
+        private void OnDisable()
         {
             _damageable.Death -= _deathComponent.OnDeath;
+            _playerDetector.PlayerDetected -= OnPlayerDetected;
+            _playerDetector.PlayerLeft -= OnPlayerLeft;
+            _playerDamageable.Death -= OnPlayerDeath;
         }
 
-        public override void Update()
+        private void Update()
         {
             _aiStateMachine.UpdateState();
             
-            _aiStateMachine.EnterState<RangeEnemyMovement>();
-            
-            if (_playerDetector.CanAttackPlayer())
-                _aiStateMachine.EnterState<RangeEnemyAttack>();
+            if (_aiStateMachine.CurrentStateType != typeof(EnemyIdleState))
+                _playerDetector.CanAttackPlayer();
+        }
+
+        private void OnPlayerDetected()
+        {
+            _aiStateMachine.EnterState<RangeAttackState>();
+        }
+
+        private void OnPlayerLeft()
+        {
+            _aiStateMachine.EnterState<EnemyMovementState>();
+        }
+
+        private void OnPlayerDeath()
+        {
+            _aiStateMachine.EnterState<EnemyIdleState>();
         }
     }
 }
