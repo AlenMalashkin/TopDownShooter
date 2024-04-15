@@ -1,3 +1,4 @@
+using System;
 using Code.GameplayLogic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ namespace Code.UI.HUD
         private void Start()
         {
             _healthSlider.maxValue = _damageable.MaxHealth;
+            _healthSlider.value = _damageable.MaxHealth;
         }
         
         private void OnDisable()

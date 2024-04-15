@@ -1,34 +1,35 @@
+using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 {
     public class MeleeEnemy : Enemy
     {
-        [SerializeField] private EnemyDeath _enemyDeath;
+        [SerializeField] private DeathComponent _enemyDeath;
         [SerializeField] private Damageable _damageable;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
-        [SerializeField] private PlayerDetectionZone _playerDetectionZone;
+        [SerializeField] private TriggerObserver _triggerObserver;
 
         private Damageable _playerDamageable;
-        
+
         public void Init(Damageable playerDamageable)
         {
             _playerDamageable = playerDamageable;
         }
-        
+
         private void Start()
         {
             _damageable.Death += _enemyDeath.OnDeath;
-            _playerDetectionZone.PlayerDetected += OnPlayerDetected;
-            _playerDetectionZone.PlayerLeft += OnPlayerLeft;
+            _triggerObserver.TriggerEntered += OnTriggerEntered;
+            _triggerObserver.TriggerLeft += OnTriggerLeft;
             _playerDamageable.Death += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
             _damageable.Death -= _enemyDeath.OnDeath;
-            _playerDetectionZone.PlayerDetected -= OnPlayerDetected;
-            _playerDetectionZone.PlayerLeft -= OnPlayerLeft;
+            _triggerObserver.TriggerEntered -= OnTriggerEntered;
+            _triggerObserver.TriggerLeft -= OnTriggerLeft;
             _playerDamageable.Death -= OnPlayerDeath;
         }
 
@@ -37,11 +38,17 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
             _aiStateMachine.UpdateState();
         }
 
-        private void OnPlayerDetected(Collider other)
-            => _aiStateMachine.EnterState<MeleeAttackState>();
+        private void OnTriggerEntered(Collider other)
+        {
+            if (other.TryGetComponent(out Player player))
+                _aiStateMachine.EnterState<MeleeAttackState>();
+        }
 
-        private void OnPlayerLeft(Collider other)
-            => _aiStateMachine.EnterState<EnemyMovementState>();
+        private void OnTriggerLeft(Collider other)
+        {
+            if (other.TryGetComponent(out Player player))
+                _aiStateMachine.EnterState<EnemyMovementState>();
+        }
 
         private void OnPlayerDeath()
             => _aiStateMachine.EnterState<EnemyIdleState>();
