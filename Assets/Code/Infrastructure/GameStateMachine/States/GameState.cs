@@ -35,6 +35,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
         private Spawner _spawner;
+        private Transform _hudRoot;
 
         private Weapon _playerWeapon;
 
@@ -74,13 +75,15 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             GameObject player = InitializePlayerAndCamera();
 
-            InitializeHealthBar(player.GetComponent<Damageable>());
-            InitializeAmmoBar(_playerWeapon);
-
-            _spawner = new EnemySpawner(_updater,
+            _hudRoot = _uiFactory.CreateRoot().transform;
+            
+            _spawner = new EnemySpawner(_updater, _hudRoot,
                 ServiceLocator.Container.Resolve<IEnemyFactory>(),
                 ServiceLocator.Container.Resolve<IStaticDataService>(),
                 ServiceLocator.Container.Resolve<IRandomService>());
+            
+            InitializeHealthBar(player.GetComponent<Damageable>());
+            InitializeAmmoBar(_playerWeapon);
 
             _spawner.EnableSpawner(player.transform);
         }
@@ -115,15 +118,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void InitializeHealthBar(Damageable damageable)
         {
-            GameObject root = _uiFactory.CreateRoot();
-            HealthBar healthBar = _hudFactory.CreateProgressBar(root.transform);
+            HealthBar healthBar = _hudFactory.CreateProgressBar(_hudRoot);
             healthBar.Init(damageable);
         }
 
         private void InitializeAmmoBar(Weapon playerWeapon)
         {
-            GameObject root = _uiFactory.CreateRoot();
-            AmmoBar ammoBar = _hudFactory.CreateAmmoBar(root.transform);
+            AmmoBar ammoBar = _hudFactory.CreateAmmoBar(_hudRoot);
             ammoBar.Init(playerWeapon);
         }
     }

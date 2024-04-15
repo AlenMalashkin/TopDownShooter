@@ -62,8 +62,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
-            RegisterGameFactories();
             RegisterUIFactories();
+            RegisterGameFactories();
             RegisterFactoryProvider();
         }
 
@@ -85,6 +85,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             factoryProvider.AddFactory<IPlayerFactory>(_serviceLocator.Resolve<IPlayerFactory>());
             factoryProvider.AddFactory<IWeaponFactory>(_serviceLocator.Resolve<IWeaponFactory>());
             factoryProvider.AddFactory<IEnemyFactory>(_serviceLocator.Resolve<IEnemyFactory>());
+            factoryProvider.AddFactory<IPickupFactory>(_serviceLocator.Resolve<IPickupFactory>());
 
             _serviceLocator.RegisterService(factoryProvider);
         }
@@ -95,8 +96,10 @@ namespace Code.Infrastructure.GameStateMachine.States
                 new PlayerFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWeaponFactory>(
                 new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IPickupFactory>(new PickupFactory(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
-                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>()));
+                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
+                _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>()));
         }
 
         private void RegisterUIFactories()

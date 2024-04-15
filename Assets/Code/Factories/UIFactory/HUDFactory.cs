@@ -1,3 +1,4 @@
+using Code.GameplayLogic;
 using Code.Services.AssetProvider;
 using Code.UI.HUD;
 using UnityEngine;
@@ -23,6 +24,14 @@ namespace Code.Factories.UIFactory
         {
             AmmoBar ammoBar = _assetProvider.LoadAsset<AmmoBar>("Prefabs/AmmoBar");
             return Object.Instantiate(ammoBar, root);
+        }
+
+        public HealthBar CreateBossHealthBar(Transform root, Damageable bossDamageable)
+        {
+            HealthBar healthBarPrefab = _assetProvider.LoadAsset<HealthBar>("Prefabs/BossHealthBar");
+            HealthBar healthBar = Object.Instantiate(healthBarPrefab, root);
+            healthBar.Init(bossDamageable);
+            return healthBar;
         }
     }
 }

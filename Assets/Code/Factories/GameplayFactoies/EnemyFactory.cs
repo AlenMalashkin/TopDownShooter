@@ -1,5 +1,7 @@
+using Code.Factories.UIFactory;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.Weapons;
@@ -14,11 +16,16 @@ namespace Code.Factories.GameplayFactoies
     {
         private IStaticDataService _staticDataService;
         private IWeaponFactory _weaponFactory;
+        private IHUDFactory _hudFactory;
+        private IPickupFactory _pickupFactory;
 
-        public EnemyFactory(IStaticDataService staticDataService, IWeaponFactory weaponFactory)
+        public EnemyFactory(IStaticDataService staticDataService, IWeaponFactory weaponFactory, IHUDFactory hudFactory,
+            IPickupFactory pickupFactory)
         {
             _staticDataService = staticDataService;
             _weaponFactory = weaponFactory;
+            _hudFactory = hudFactory;
+            _pickupFactory = pickupFactory;
         }
 
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
@@ -44,6 +51,18 @@ namespace Code.Factories.GameplayFactoies
             weapon.AttachToHand(rangeAttackState.EnemyArm);
             rangeAttackState.Init(weapon, followTarget);
             return rangeEnemy;
+        }
+
+        public Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
+        {
+            EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(EnemyType.MeleeBoss);
+            Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
+            enemy.GetComponent<EnemyMovementState>().Init(followTarget);
+            enemy.GetComponent<MeleeAttackState>().Init(followTarget);
+            enemy.GetComponent<MeleeEnemy>().Init(followTarget.GetComponent<Damageable>());
+            HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, enemy.GetComponent<Damageable>());
+            enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
+            return enemy;
         }
 
         private Enemy CreateBaseEnemy(EnemyType type, Vector3 position)
