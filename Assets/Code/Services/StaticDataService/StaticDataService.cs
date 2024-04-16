@@ -5,8 +5,10 @@ using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.Weapons;
 using Code.Level;
+using Code.Pickups;
 using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
+using Code.StaticData.PickupStaticData;
 using Code.StaticData.SpawnerStaticData;
 using Code.StaticData.WeaponStaticData;
 using Code.StaticData.WindowStaticData;
@@ -20,9 +22,15 @@ namespace Code.Services.StaticDataService
         private Dictionary<WeaponType, WeaponData> _weaponsData = new Dictionary<WeaponType, WeaponData>();
         private Dictionary<LevelType, LevelStaticData> _levelsData = new Dictionary<LevelType, LevelStaticData>();
         private Dictionary<WindowType, WindowData> _windowsData = new Dictionary<WindowType, WindowData>();
-        private Dictionary<LevelType, SpawnerStaticData> _spawnersStaticData = new Dictionary<LevelType, SpawnerStaticData>();
-        private Dictionary<EnemyType, EnemyStaticData> _enemiesStaticData = new Dictionary<EnemyType, EnemyStaticData>();
-        
+
+        private Dictionary<LevelType, SpawnerStaticData> _spawnersStaticData =
+            new Dictionary<LevelType, SpawnerStaticData>();
+
+        private Dictionary<EnemyType, EnemyStaticData>
+            _enemiesStaticData = new Dictionary<EnemyType, EnemyStaticData>();
+
+        private Dictionary<WeaponType, Pickup> _weaponPickups = new Dictionary<WeaponType, Pickup>();
+
         public void Load()
         {
             _weaponsData = Resources.Load<WeaponStaticData>("StaticData/WeaponsConfig")
@@ -41,6 +49,9 @@ namespace Code.Services.StaticDataService
 
             _enemiesStaticData = Resources.LoadAll<EnemyStaticData>("StaticData/EnemyStaticData")
                 .ToDictionary(x => x.Type);
+
+            _weaponPickups = Resources.Load<PickupStaticData>("StaticData/PickupStaticData/PickupsConfig").WeaponPickupData
+                .ToDictionary(x => x.Type, x => x.Prefab);
         }
 
         public WeaponData ForWeapon(WeaponType type)
@@ -57,5 +68,8 @@ namespace Code.Services.StaticDataService
 
         public EnemyStaticData ForEnemy(EnemyType type)
             => _enemiesStaticData[type];
+
+        public Pickup ForWeaponPickup(WeaponType type)
+            => _weaponPickups[type];
     }
 }

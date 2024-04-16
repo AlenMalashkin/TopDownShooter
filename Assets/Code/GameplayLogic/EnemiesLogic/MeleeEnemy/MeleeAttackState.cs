@@ -1,3 +1,4 @@
+using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
@@ -6,7 +7,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
     {
         [SerializeField] private float _damage = 20;
         [SerializeField] private AnimatorComponent _meleeEnemyAnimator;
-        [SerializeField] private PlayerDetectionZone _playerDetectionZone;
+        [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private Collider _fistCollider;
         [SerializeField] private Camera _camera;
         
@@ -21,12 +22,12 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         
         private void OnEnable()
         {
-            _playerDetectionZone.PlayerDetected += OnAttack;
+            _triggerObserver.TriggerEntered += OnAttack;
         }
 
         private void OnDisable()
         {
-            _playerDetectionZone.PlayerDetected -= OnAttack;
+            _triggerObserver.TriggerEntered -= OnAttack;
         }
 
         public override void EnterState()
@@ -59,8 +60,11 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         private void OnAttack(Collider other)
         {
-            if (other.TryGetComponent(out Damageable damageable))
+            if (other.TryGetComponent(out Damageable damageable) && other.TryGetComponent(out Player player))
+            {
                 damageable.TakeDamage(_damage);
+                DisableFistCollider();
+            }
         }
     }
 }

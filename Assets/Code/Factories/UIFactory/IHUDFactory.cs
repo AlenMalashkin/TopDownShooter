@@ -1,3 +1,4 @@
+using Code.GameplayLogic;
 using Code.UI.HUD;
 using UnityEngine;
 
@@ -7,5 +8,6 @@ namespace Code.Factories.UIFactory
     {
         HealthBar CreateProgressBar(Transform root);
         AmmoBar CreateAmmoBar(Transform root);
+        HealthBar CreateBossHealthBar(Transform root, Damageable bossDamageable);
     }
 }

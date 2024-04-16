@@ -17,16 +17,19 @@ namespace Code.GameplayLogic.Spawners
         private IEnemyFactory _enemyFactory;
         private IStaticDataService _staticDataService;
         private IRandomService _randomService;
+        private Transform _hudRoot;
 
         private ITimer _timer;
         private LevelStaticData _levelStaticData;
         private SpawnerStaticData _spawnerStaticData;
         private Transform _target;
 
-        public EnemySpawner(IUpdater upater, IEnemyFactory enemyFactory, IStaticDataService staticDataService,
+        public EnemySpawner(IUpdater upater, Transform hudRoot, IEnemyFactory enemyFactory,
+            IStaticDataService staticDataService,
             IRandomService randomService)
         {
             _upater = upater;
+            _hudRoot = hudRoot;
             _enemyFactory = enemyFactory;
             _staticDataService = staticDataService;
             _randomService = randomService;
@@ -59,13 +62,16 @@ namespace Code.GameplayLogic.Spawners
             if (_randomService.RandomByNumber(0, 100) < 52)
             {
                 _enemyFactory.CreateRangeEnemy(_target,
-                    _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
+                    _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)]);
             }
             else
             {
                 _enemyFactory.CreateMeleeEnemy(_target,
-                    _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);
+                    _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)]);
             }
+
+            _enemyFactory.CreateMeleeBoss(_target,
+                _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _hudRoot);
 
             _timer.StartTimer(_spawnerStaticData.SpawnTime);
         }

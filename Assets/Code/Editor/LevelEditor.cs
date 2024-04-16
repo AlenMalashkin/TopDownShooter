@@ -20,7 +20,7 @@ namespace Code.Editor
             if (GUILayout.Button("Collect"))
             {
                 levelStaticData.LevelName = SceneManager.GetActiveScene().name;
-                levelStaticData.EnemySpanwers = FindObjectsOfType<EnemySpawnMarker>()
+                levelStaticData.EnemySpawners = FindObjectsOfType<EnemySpawnMarker>()
                     .Select(x => x.transform.position)
                     .ToList();
                 levelStaticData.PlayerPositionOnLevel = FindObjectOfType<PlayerSpawnMarker>().transform.position;
