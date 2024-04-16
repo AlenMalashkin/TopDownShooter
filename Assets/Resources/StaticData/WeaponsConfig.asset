@@ -25,3 +25,7 @@ MonoBehaviour:
     Category: 1
     Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     Prefab: {fileID: 707861973409315246, guid: d24dd15cba9440c4e984ea7386225cce, type: 3}
+  - Type: 3
+    Category: 0
+    Bullet: {fileID: 6626827583623060268, guid: 4c6952e418649fa4ba20e9de312be463, type: 3}
+    Prefab: {fileID: 6662779086400649341, guid: bb7d17dfe35805c4692616dad0b11e2f, type: 3}

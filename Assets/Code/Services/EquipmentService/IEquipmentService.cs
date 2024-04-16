@@ -1,4 +1,5 @@
 using Code.GameplayLogic;
+using Code.GameplayLogic.Weapons;
 
 namespace Code.Services.EquipmentService
 {

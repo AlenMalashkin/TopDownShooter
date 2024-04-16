@@ -56,7 +56,7 @@ namespace Code.GameplayLogic.Spawners
 
         private void Spawn()
         {
-            if (_randomService.RandomByNumber(0, 100) < 20)
+            if (_randomService.RandomByNumber(0, 100) < 52)
             {
                 _enemyFactory.CreateRangeEnemy(_target,
                     _levelStaticData.EnemySpanwers[Random.Range(0, _levelStaticData.EnemySpanwers.Count)]);

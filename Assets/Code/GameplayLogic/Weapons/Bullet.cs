@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
 namespace Code.GameplayLogic.Weapons
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private float _bulletSpeed;
@@ -12,11 +12,17 @@ namespace Code.GameplayLogic.Weapons
 
         private int _damage;
         private Vector3 _direction;
+        private Rigidbody _rigidbody;
 
         public void Init(int damage, Vector3 direction)
         {
             _damage = damage;
             _direction = direction;
+        }
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Start()
@@ -31,12 +37,20 @@ namespace Code.GameplayLogic.Weapons
                 damageable.TakeDamage(_damage);
                 Destroy(gameObject);
             }
+            else
+            {
+                Debug.Log(other.name);
+                Destroy(gameObject);
+            }
         }
 
         private void Update()
         {
-            transform.position += _direction * (_bulletSpeed * Time.deltaTime);
+            MoveBullet();
         }
+
+        private void MoveBullet() =>
+            _rigidbody.velocity = _direction * _bulletSpeed;
 
         private IEnumerator DestroyBulletRoutine()
         {
