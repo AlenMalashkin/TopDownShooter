@@ -1,5 +1,6 @@
 using System;
 using Code.GameplayLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Pickups;
 
 namespace Code.Data

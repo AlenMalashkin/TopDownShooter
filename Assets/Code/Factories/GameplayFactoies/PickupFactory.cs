@@ -1,4 +1,5 @@
 using Code.GameplayLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Pickups;
 using Code.Services.StaticDataService;
 using UnityEngine;
