@@ -59,7 +59,7 @@ namespace Code.GameplayLogic.Spawners
 
         private void Spawn()
         {
-            /*if (_randomService.RandomByNumber(0, 100) < 20)
+            if (_randomService.RandomByNumber(0, 100) < 20)
             {
                 _enemyFactory.CreateRangeEnemy(_target,
                     _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)]);
@@ -68,7 +68,7 @@ namespace Code.GameplayLogic.Spawners
             {
                 _enemyFactory.CreateMeleeEnemy(_target,
                     _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)]);
-            }*/
+            }
 
             _enemyFactory.CreateMeleeBoss(_target,
                 _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _hudRoot);
