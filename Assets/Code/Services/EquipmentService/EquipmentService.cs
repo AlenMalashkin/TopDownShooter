@@ -1,5 +1,6 @@
 using Code.Data;
 using Code.GameplayLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Services.StaticDataService;
 
 namespace Code.Services.EquipmentService

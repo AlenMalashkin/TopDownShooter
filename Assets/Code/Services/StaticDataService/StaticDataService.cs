@@ -3,6 +3,7 @@ using System.Linq;
 using Code.Data;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Level;
 using Code.Pickups;
 using Code.StaticData.EnemyStaticData;

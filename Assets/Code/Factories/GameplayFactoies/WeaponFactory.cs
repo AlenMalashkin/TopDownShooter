@@ -20,16 +20,13 @@ namespace Code.Factories.GameplayFactoies
         {
             WeaponData weaponData = _staticDataService.ForWeapon(type);
             PlayerWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<PlayerWeapon>();
-            weapon.Init(this, type);
+            weapon.Init(this, weaponData.Bullet);
             return weapon;
         }
 
-        public Bullet CreateBullet(Vector3 spawnPosition, int damage, Vector3 direction)
+        public Bullet CreateBullet(Vector3 spawnPosition, Bullet bulletPrefab)
         {
-            WeaponData weaponData = _staticDataService.ForWeapon(WeaponType.Pistol);
-            Bullet bullet = Object.Instantiate(weaponData.Bullet, spawnPosition, Quaternion.identity);
-            bullet.Init(damage, direction);
-            return bullet;
+            return Object.Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
         }
     }
 }

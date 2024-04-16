@@ -7,6 +7,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
     public class RangeEnemyPlayerDetector : MonoBehaviour
     {
         [SerializeField] private float _shootDistance;
+        [SerializeField] private LayerMask _layerMask;
 
         public event Action PlayerDetected;
         public event Action PlayerLeft;
@@ -14,6 +15,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private bool _isInShootDistance;
         private Transform _target;
 
+        
+        
         public void Init(Transform target)
         {
             _target = target;
@@ -33,10 +36,11 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             Physics.Raycast(transform.position,
                 directon, out RaycastHit hit,
-                5f);
+                5f, _layerMask);
 
             if (hit.collider == null)
                 return false;
+            
             
             return hit.collider.TryGetComponent(out Player player);
         }
