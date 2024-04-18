@@ -7,6 +7,7 @@ using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
 using Code.Level;
 using Code.Services;
+using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.RandomService;
@@ -31,11 +32,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IWeaponFactory _weaponFactory;
         private IUIFactory _uiFactory;
         private IHUDFactory _hudFactory;
+        private IWindowFactory _windowFactory;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
         private Spawner _spawner;
-        private Transform _hudRoot;
+        private Spawner _bossSpawner;
+        private Transform _uiRoot;
 
         private Weapon _playerWeapon;
 
@@ -57,6 +60,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _weaponFactory = _factoryProvider.GetFactory<IWeaponFactory>();
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
+            _windowFactory = _factoryProvider.GetFactory<IWindowFactory>();
 
             _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
             _sceneLoadService.LoadScene(_levelStaticData.LevelName, OnLoad);
@@ -67,6 +71,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _inputService.Disable();
             _spawner.DisableSpawner();
+            _bossSpawner.DisableSpawner();
         }
 
         private void OnLoad()
@@ -75,17 +80,32 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             GameObject player = InitializePlayerAndCamera();
 
-            _hudRoot = _uiFactory.CreateRoot().transform;
-            
-            _spawner = new EnemySpawner(_updater, _hudRoot,
-                ServiceLocator.Container.Resolve<IEnemyFactory>(),
-                ServiceLocator.Container.Resolve<IStaticDataService>(),
-                ServiceLocator.Container.Resolve<IRandomService>());
-            
+            _uiRoot = _uiFactory.CreateRoot().transform;
+
+            InitializeSpawners(player);
+
             InitializeHealthBar(player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
 
             _spawner.EnableSpawner(player.transform);
+            _bossSpawner.EnableSpawner(player.transform);
+        }
+
+        private void InitializeSpawners(GameObject player)
+        {
+            _spawner = new EnemySpawner(_updater,
+                ServiceLocator.Container.Resolve<IFactoryProvider>(),
+                ServiceLocator.Container.Resolve<IStaticDataService>(),
+                ServiceLocator.Container.Resolve<IRandomService>(),
+                ServiceLocator.Container.Resolve<IEnemiesProvider>());
+
+            if (_levelStaticData.IsBossLevel)
+            {
+                _bossSpawner = new BossSpawner((EnemySpawner) _spawner,
+                    ServiceLocator.Container.Resolve<IEnemiesProvider>(),
+                    ServiceLocator.Container.Resolve<IFactoryProvider>(),
+                    ServiceLocator.Container.Resolve<IStaticDataService>(), _uiRoot, player.transform);
+            }
         }
 
         private GameObject InitializePlayerAndCamera()
@@ -108,6 +128,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
+            player.GetComponent<PlayerDeath>().Init(_windowFactory, _uiRoot);
 
             CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();
 
@@ -118,13 +139,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private void InitializeHealthBar(Damageable damageable)
         {
-            HealthBar healthBar = _hudFactory.CreateProgressBar(_hudRoot);
+            HealthBar healthBar = _hudFactory.CreateProgressBar(_uiRoot);
             healthBar.Init(damageable);
         }
 
         private void InitializeAmmoBar(Weapon playerWeapon)
         {
-            AmmoBar ammoBar = _hudFactory.CreateAmmoBar(_hudRoot);
+            AmmoBar ammoBar = _hudFactory.CreateAmmoBar(_uiRoot);
             ammoBar.Init(playerWeapon);
         }
     }

@@ -18,9 +18,9 @@ namespace Code.GameplayLogic.EnemiesLogic.Bosses
             _pickupFactory = pickupFactory;
         }
         
-        public override void OnDeath()
+        public override void OnDeath(Damageable damageable)
         {
-            base.OnDeath();
+            base.OnDeath(damageable);
 
             _animator.PlayAnimationByName(AnimationStrings.Death);
             _pickupFactory.CreateWeaponPickup(transform.position, _dropType);

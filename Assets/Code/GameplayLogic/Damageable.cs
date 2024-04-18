@@ -12,7 +12,7 @@ namespace Code.GameplayLogic
 
         public event Action<float> HealthChanged;
         public event Action Hit; 
-        public event Action Death;
+        public event Action<Damageable> Death;
 
         private void Awake()
         {
@@ -54,7 +54,7 @@ namespace Code.GameplayLogic
             HealthChanged?.Invoke(Health);
             
             if (_health <= 0)
-                Death?.Invoke();
+                Death?.Invoke(this);
             
             Hit?.Invoke();
         }

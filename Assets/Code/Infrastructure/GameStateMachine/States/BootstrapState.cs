@@ -6,6 +6,7 @@ using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.AssetProvider;
+using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.InputService;
 using Code.Services.RandomService;
@@ -57,6 +58,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService(_updater);
             _serviceLocator.RegisterService(_gameStateMachine);
             _serviceLocator.RegisterService(_sceneLoadService);
+            _serviceLocator.RegisterService<IEnemiesProvider>(new EnemiesProvider());
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(
@@ -96,10 +98,12 @@ namespace Code.Infrastructure.GameStateMachine.States
                 new PlayerFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWeaponFactory>(
                 new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
-            _serviceLocator.RegisterService<IPickupFactory>(new PickupFactory(_serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IPickupFactory>(
+                new PickupFactory(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
-                _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>()));
+                _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
+                _serviceLocator.Resolve<IEnemiesProvider>()));
         }
 
         private void RegisterUIFactories()

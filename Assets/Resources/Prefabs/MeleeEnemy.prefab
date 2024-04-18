@@ -463,6 +463,7 @@ MonoBehaviour:
   - {fileID: 5838747064332571589}
   _timeToDestroy: 3
   _animator: {fileID: 3421331023965387897}
+  _enemy: {fileID: 5525871848005710543}
 --- !u!1001 &575917959085391205
 PrefabInstance:
   m_ObjectHideFlags: 0

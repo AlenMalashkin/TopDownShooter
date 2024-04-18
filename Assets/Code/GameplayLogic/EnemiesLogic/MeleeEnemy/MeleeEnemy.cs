@@ -50,7 +50,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
                 _aiStateMachine.EnterState<EnemyMovementState>();
         }
 
-        private void OnPlayerDeath()
+        private void OnPlayerDeath(Damageable damageable)
             => _aiStateMachine.EnterState<EnemyIdleState>();
     }
 }

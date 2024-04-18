@@ -44,14 +44,16 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private void OnPlayerDetected()
         {
             _aiStateMachine.EnterState<RangeAttackState>();
+            Debug.Log("Range Attack");
         }
 
         private void OnPlayerLeft()
         {
             _aiStateMachine.EnterState<EnemyMovementState>();
+            Debug.Log("Range Move");
         }
 
-        private void OnPlayerDeath()
+        private void OnPlayerDeath(Damageable damageable)
         {
             _aiStateMachine.EnterState<EnemyIdleState>();
         }

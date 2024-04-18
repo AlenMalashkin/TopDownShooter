@@ -1284,7 +1284,7 @@ GameObject:
   - component: {fileID: 6868351697413478763}
   - component: {fileID: 222222532668509666}
   - component: {fileID: 3193232972196216384}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TriggerObserver
   m_TagString: Untagged
   m_Icon: {fileID: 0}

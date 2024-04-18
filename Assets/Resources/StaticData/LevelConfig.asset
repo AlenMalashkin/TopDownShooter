@@ -17,3 +17,4 @@ MonoBehaviour:
   EnemySpawners:
   - {x: -0.5, y: 0, z: -2}
   PlayerPositionOnLevel: {x: 0.75, y: 0.551, z: 1}
+  IsBossLevel: 1
