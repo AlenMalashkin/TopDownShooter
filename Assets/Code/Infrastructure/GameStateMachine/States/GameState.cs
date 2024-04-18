@@ -9,10 +9,12 @@ using Code.Level;
 using Code.Services;
 using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
+using Code.Services.GameResultService;
 using Code.Services.InputService;
 using Code.Services.RandomService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
+using Code.Services.UIProvider;
 using Code.StaticData.LevelStaticData;
 using Code.UI.HUD;
 using Code.Utils.Timer;
@@ -33,6 +35,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IUIFactory _uiFactory;
         private IHUDFactory _hudFactory;
         private IWindowFactory _windowFactory;
+        private IUIProvider _uiProvider;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -44,7 +47,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
-            IUpdater updater, IFactoryProvider factoryProvider)
+            IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
@@ -52,6 +55,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _inputService = inputService;
             _updater = updater;
             _factoryProvider = factoryProvider;
+            _uiProvider = uiProvider;
         }
 
         public void Enter()
@@ -81,6 +85,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject player = InitializePlayerAndCamera();
 
             _uiRoot = _uiFactory.CreateRoot().transform;
+            _uiProvider.ChangeUIRoot(_uiRoot);
 
             InitializeSpawners(player);
 
@@ -104,7 +109,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 _bossSpawner = new BossSpawner((EnemySpawner) _spawner,
                     ServiceLocator.Container.Resolve<IEnemiesProvider>(),
                     ServiceLocator.Container.Resolve<IFactoryProvider>(),
-                    ServiceLocator.Container.Resolve<IStaticDataService>(), _uiRoot, player.transform);
+                    ServiceLocator.Container.Resolve<IStaticDataService>(),
+                    ServiceLocator.Container.Resolve<IUIProvider>(), player.transform);
             }
         }
 
@@ -128,7 +134,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
                 .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
-            player.GetComponent<PlayerDeath>().Init(_windowFactory, _uiRoot);
+            player.GetComponent<PlayerDeath>().Init(ServiceLocator.Container.Resolve<IGameFinishService>());
 
             CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();
 

@@ -19,6 +19,6 @@ namespace Code.Services.StaticDataService
         WindowData ForWindow(WindowType type);
         SpawnerStaticData ForSpawner(LevelType type);
         EnemyStaticData ForEnemy(EnemyType type);
-        Pickup ForWeaponPickup(WeaponType type);
+        WeaponPickup ForWeaponPickup(WeaponType type);
     }
 }

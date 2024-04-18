@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65267719712453610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.069, y: 0.2756, z: 0.332}
+  m_LocalPosition: {x: -0.069, y: 0.361, z: 0.332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,7 +95,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.65}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 0.5127, y: 0.0508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7021428364894823571
@@ -311,10 +311,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.14993252
-  m_Height: 0.8226102
+  m_Radius: 0.15
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.012038946, y: 0.18523613, z: 0.05297269}
+  m_Center: {x: 0.012038946, y: 0.43, z: 0.05297269}
 --- !u!95 &6720669604623967439
 Animator:
   serializedVersion: 5
@@ -351,7 +351,7 @@ MonoBehaviour:
   _enemyDeath: {fileID: 1336908729458590237}
   _damageable: {fileID: 8898709849649301426}
   _aiStateMachine: {fileID: 6984520124256575680}
-  _triggerObserver: {fileID: 0}
+  _triggerObserver: {fileID: 2638950641129587660}
 --- !u!114 &6984520124256575680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 20
   _meleeEnemyAnimator: {fileID: 3421331023965387897}
-  _triggerObserver: {fileID: 0}
+  _triggerObserver: {fileID: 3329372442825506655}
   _fistCollider: {fileID: 5838747064332571589}
   _camera: {fileID: 0}
 --- !u!114 &878183084066271265

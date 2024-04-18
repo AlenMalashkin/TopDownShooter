@@ -3,6 +3,7 @@ using Code.Factories.UIFactory;
 using Code.Level;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
+using Code.Services.UIProvider;
 using Code.StaticData.LevelStaticData;
 using UnityEngine;
 
@@ -15,13 +16,13 @@ namespace Code.GameplayLogic.Spawners
         private IFactoryProvider _factoryProvider;
         private IEnemyFactory _enemyFactory;
         private IStaticDataService _staticDataService;
-        private Transform _uiRoot;
+        private IUIProvider _uiProvider;
         private Transform _followTarget;
 
         private LevelStaticData _levelStaticData;
 
         public BossSpawner(EnemySpawner enemySpawner, IEnemiesProvider enemiesProvider,
-            IFactoryProvider factoryProvider, IStaticDataService staticDataService, Transform uiRoot,
+            IFactoryProvider factoryProvider, IStaticDataService staticDataService, IUIProvider uiProvider,
             Transform followTarget)
         {
             _enemySpawner = enemySpawner;
@@ -29,7 +30,7 @@ namespace Code.GameplayLogic.Spawners
             _factoryProvider = factoryProvider;
             _enemyFactory = factoryProvider.GetFactory<IEnemyFactory>();
             _staticDataService = staticDataService;
-            _uiRoot = uiRoot;
+            _uiProvider = uiProvider;
             _followTarget = followTarget;
         }
 
@@ -47,8 +48,6 @@ namespace Code.GameplayLogic.Spawners
 
         private void OnEnemiesChanged()
         {
-            Debug.Log(_enemySpawner.EnemiesRemaining);
-            Debug.Log(_enemiesProvider.Enemies.Count);
             if (_enemiesProvider.Enemies.Count == 0 && _enemySpawner.EnemiesRemaining <= 0)
                 SpawnBoss();
         }
@@ -56,7 +55,7 @@ namespace Code.GameplayLogic.Spawners
         private void SpawnBoss()
         {
             _enemyFactory.CreateMeleeBoss(_followTarget,
-                _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiRoot);
+                _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
         }
     }
 }

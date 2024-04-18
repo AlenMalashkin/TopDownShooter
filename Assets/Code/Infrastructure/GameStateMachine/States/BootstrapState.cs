@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Factories;
+﻿using Code.Factories;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachineNamespace;
@@ -8,11 +7,15 @@ using Code.Services;
 using Code.Services.AssetProvider;
 using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
+using Code.Services.GameResultService;
 using Code.Services.InputService;
 using Code.Services.RandomService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
+using Code.Services.UIProvider;
 using Code.Utils.Timer;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Code.Infrastructure.GameStateMachine.States
 {
@@ -58,7 +61,9 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService(_updater);
             _serviceLocator.RegisterService(_gameStateMachine);
             _serviceLocator.RegisterService(_sceneLoadService);
+            _serviceLocator.RegisterService<IGameFinishService>(new GameFinishService(_gameStateMachine));
             _serviceLocator.RegisterService<IEnemiesProvider>(new EnemiesProvider());
+            _serviceLocator.RegisterService<IUIProvider>(new UIProvider());
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(
@@ -99,7 +104,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IWeaponFactory>(
                 new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IPickupFactory>(
-                new PickupFactory(_serviceLocator.Resolve<IStaticDataService>()));
+                new PickupFactory(_serviceLocator.Resolve<IStaticDataService>(),
+                    _serviceLocator.Resolve<IGameFinishService>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),

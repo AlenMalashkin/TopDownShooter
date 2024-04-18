@@ -29,7 +29,7 @@ namespace Code.Services.StaticDataService
         private Dictionary<EnemyType, EnemyStaticData>
             _enemiesStaticData = new Dictionary<EnemyType, EnemyStaticData>();
 
-        private Dictionary<WeaponType, Pickup> _weaponPickups = new Dictionary<WeaponType, Pickup>();
+        private Dictionary<WeaponType, WeaponPickup> _weaponPickups = new Dictionary<WeaponType, WeaponPickup>();
 
         public void Load()
         {
@@ -69,7 +69,7 @@ namespace Code.Services.StaticDataService
         public EnemyStaticData ForEnemy(EnemyType type)
             => _enemiesStaticData[type];
 
-        public Pickup ForWeaponPickup(WeaponType type)
+        public WeaponPickup ForWeaponPickup(WeaponType type)
             => _weaponPickups[type];
     }
 }

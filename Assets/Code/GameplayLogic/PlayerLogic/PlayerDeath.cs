@@ -1,4 +1,5 @@
 using Code.Factories.UIFactory;
+using Code.Services.GameResultService;
 using UnityEngine;
 
 namespace Code.GameplayLogic.PlayerLogic
@@ -7,20 +8,18 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private AnimatorComponent _animator;
 
-        private IWindowFactory _windowFactory;
-        private Transform _uiRoot;
+        private IGameFinishService _gameFinishService;
         
-        public void Init(IWindowFactory windowFactory, Transform uiRoot)
+        public void Init(IGameFinishService gameFinishService)
         {
-            _windowFactory = windowFactory;
-            _uiRoot = uiRoot;
+            _gameFinishService = gameFinishService;
         }
 
         public override void OnDeath(Damageable damageable)
         {
             base.OnDeath(damageable);
 
-            _windowFactory.CreateLoseWindow(_uiRoot);
+            _gameFinishService.FinishGameWithResult(GameResult.Lose);
             
             if (_animator is PlayerAnimator playerAnimator)
                 playerAnimator.PlayDeathAnimation();

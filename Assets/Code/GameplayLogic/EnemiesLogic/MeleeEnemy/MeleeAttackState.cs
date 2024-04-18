@@ -20,7 +20,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
             _target = target;
         }
         
-        private void OnEnable()
+        private void Start()
         {
             _triggerObserver.TriggerEntered += OnAttack;
         }

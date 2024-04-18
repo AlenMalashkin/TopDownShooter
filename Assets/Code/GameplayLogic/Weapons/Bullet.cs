@@ -39,7 +39,6 @@ namespace Code.GameplayLogic.Weapons
             }
             else
             {
-                Debug.Log(other.name);
                 Destroy(gameObject);
             }
         }
