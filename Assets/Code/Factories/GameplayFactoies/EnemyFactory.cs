@@ -58,7 +58,7 @@ namespace Code.Factories.GameplayFactoies
             rangeEnemy.GetComponent<EnemyDeath>()
                 .Init(_enemiesProvider);
             RangeAttackState rangeAttackState = rangeEnemy.GetComponent<RangeAttackState>();
-            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.Pistol);
+            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.EnemyWeapon);
             weapon.AttachToHand(rangeAttackState.EnemyArm);
             rangeAttackState.Init(weapon, followTarget);
             return rangeEnemy;

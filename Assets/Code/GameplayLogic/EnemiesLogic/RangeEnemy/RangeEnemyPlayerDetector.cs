@@ -15,6 +15,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private bool _isInShootDistance;
         private Transform _target;
 
+        
+        
         public void Init(Transform target)
         {
             _target = target;

@@ -1,4 +1,4 @@
-using Code.GameplayLogic;
+using Code.GameplayLogic.Weapons;
 using Code.Pickups;
 using UnityEngine;
 

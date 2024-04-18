@@ -1,9 +1,10 @@
-namespace Code.GameplayLogic
+namespace Code.GameplayLogic.Weapons
 {
     public enum WeaponType
     {
         Pistol,
         Rifle,
-        Blaster
+        Blaster,
+        EnemyWeapon
     }
 }
