@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279242006418108832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0119, z: -0.1342}
+  m_LocalPosition: {x: 0, y: 0.0119, z: -0.1274}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -81,7 +81,7 @@ MonoBehaviour:
   _fireRate: 0.2
   _reloadTime: 1
   _maxBullets: 10
-  _damage: 10
+  _damage: 100
   _shootPoint: {fileID: 1279242006418108835}
 --- !u!1 &9177505644808390911
 GameObject:

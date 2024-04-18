@@ -8,6 +8,7 @@ using Code.Services;
 using Code.Services.InputService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
+using Code.Services.UIProvider;
 
 namespace Code.Infrastructure.GameStateMachineNamespace
 {
@@ -26,7 +27,9 @@ namespace Code.Infrastructure.GameStateMachineNamespace
             _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>()
                 , serviceLocator.Resolve<IStaticDataService>()
                 , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
-                serviceLocator.Resolve<IFactoryProvider>());
+                serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>());
+            _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
+                serviceLocator.Resolve<IUIProvider>());
         }
 
         public void Enter<TState>() where TState : class, IGameState
