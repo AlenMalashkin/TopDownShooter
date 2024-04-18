@@ -8,7 +8,9 @@ namespace Code.StaticData.SpawnerStaticData
     {
         [SerializeField] private LevelType _levelType;
         [SerializeField] private float _spawnTime;
+        [SerializeField] private int _enemiesOnLevel;
         public LevelType LevelType => _levelType;
         public float SpawnTime => _spawnTime;
+        public int EnemiesOnLevel => _enemiesOnLevel;
     }
 }

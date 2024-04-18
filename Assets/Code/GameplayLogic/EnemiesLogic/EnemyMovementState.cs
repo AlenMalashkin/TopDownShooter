@@ -8,8 +8,6 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private AnimatorComponent _enemyAnimator;
 
-        public bool HasTarget => _target != null;
-        
         private Transform _target;
 
         public void Init(Transform target)

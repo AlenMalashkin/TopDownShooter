@@ -11,5 +11,6 @@ namespace Code.StaticData.LevelStaticData
         public string LevelName;
         public List<Vector3> EnemySpawners;
         public Vector3 PlayerPositionOnLevel;
+        public bool IsBossLevel;
     }
 }

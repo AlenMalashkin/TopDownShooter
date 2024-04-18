@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: MainLevelSpawner
   m_EditorClassIdentifier: 
   _levelType: 0
-  _spawnTime: 999
+  _spawnTime: 2
+  _enemiesOnLevel: 2

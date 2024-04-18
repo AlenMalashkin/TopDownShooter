@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootDistance: 5
-  _layerMask:
+  _mask:
     serializedVersion: 2
     m_Bits: 192
 --- !u!114 &4714415794550495517
@@ -243,6 +243,7 @@ MonoBehaviour:
   - {fileID: -8422501545310169472}
   _timeToDestroy: 3
   _animator: {fileID: 3412082766203825735}
+  _enemy: {fileID: 8993120095566950700}
 --- !u!114 &1419839085663861394
 MonoBehaviour:
   m_ObjectHideFlags: 0

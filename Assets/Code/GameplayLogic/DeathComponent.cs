@@ -9,7 +9,7 @@ namespace Code.GameplayLogic
         [SerializeField] private Collider[] _collidersToDisable;
         [SerializeField] private float _timeToDestroy;
 
-        public override void OnDeath()
+        public override void OnDeath(Damageable damageable)
         {
             foreach (var component in _componentsToDisalbe)
                 component.enabled = false;
