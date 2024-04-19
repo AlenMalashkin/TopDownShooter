@@ -26,7 +26,9 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         public override void UpdateState()
         {
             _weapon.ShootBullet(transform.forward);
-            transform.LookAt(_target);
+            var targetPosition = _target.position;
+            targetPosition.y = transform.position.y;
+            transform.LookAt(targetPosition);
         }
 
         public override void ExitState()
