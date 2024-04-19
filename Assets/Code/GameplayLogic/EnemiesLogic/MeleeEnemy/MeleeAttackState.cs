@@ -9,7 +9,6 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         [SerializeField] private AnimatorComponent _meleeEnemyAnimator;
         [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private Collider _fistCollider;
-        [SerializeField] private Camera _camera;
         
         private Transform _target;
         private float _rayLength;
@@ -37,15 +36,9 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         public override void UpdateState()
         {
-            /*Ray cameraRay = _camera.ScreenPointToRay(_target.position);
-            Plane plane = new Plane(Vector3.up,
-                new Vector2(transform.position.x, transform.position.z));
-            if(plane.Raycast(cameraRay, out _rayLength))
-            {
-                Vector3 pointToLook = cameraRay.GetPoint(_rayLength);
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }*/
-            transform.LookAt(_target);
+            var targetPosition = _target.position;
+            targetPosition.y = transform.position.y;
+            transform.LookAt(targetPosition);
         }
 
         public override void ExitState()
