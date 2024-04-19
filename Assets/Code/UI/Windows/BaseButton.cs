@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Code.UI.Windows.MainMenu.Buttons
 {
-    public abstract class BaseMenuButton : MonoBehaviour
+    public abstract class BaseButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
         

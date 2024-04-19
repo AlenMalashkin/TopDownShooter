@@ -5,7 +5,9 @@ using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachine.States;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
+using Code.Services.EnemiesProvider;
 using Code.Services.InputService;
+using Code.Services.RandomService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
@@ -27,7 +29,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace
             _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>()
                 , serviceLocator.Resolve<IStaticDataService>()
                 , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
-                serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>());
+                serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>(),
+                serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>());
             _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
                 serviceLocator.Resolve<IUIProvider>());
         }
