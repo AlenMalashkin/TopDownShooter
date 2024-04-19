@@ -36,6 +36,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IHUDFactory _hudFactory;
         private IWindowFactory _windowFactory;
         private IUIProvider _uiProvider;
+        private IEnemiesProvider _enemiesProvider;
+        private IRandomService _randomService;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -47,7 +49,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public GameState(ISceneLoadService sceneLoadService, IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
-            IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider)
+            IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
+            IEnemiesProvider enemiesProvider, IRandomService randomService)
         {
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
@@ -56,6 +59,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _updater = updater;
             _factoryProvider = factoryProvider;
             _uiProvider = uiProvider;
+            _enemiesProvider = enemiesProvider;
+            _randomService = randomService;
         }
 
         public void Enter()
@@ -73,6 +78,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         public void Exit()
         {
+            _enemiesProvider.Enemies.Clear();
             _inputService.Disable();
             _spawner.DisableSpawner();
             _bossSpawner.DisableSpawner();
@@ -99,18 +105,18 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void InitializeSpawners(GameObject player)
         {
             _spawner = new EnemySpawner(_updater,
-                ServiceLocator.Container.Resolve<IFactoryProvider>(),
-                ServiceLocator.Container.Resolve<IStaticDataService>(),
-                ServiceLocator.Container.Resolve<IRandomService>(),
-                ServiceLocator.Container.Resolve<IEnemiesProvider>());
+                _factoryProvider,
+                _staticDataService,
+                _randomService,
+                _enemiesProvider);
 
             if (_levelStaticData.IsBossLevel)
             {
                 _bossSpawner = new BossSpawner((EnemySpawner) _spawner,
-                    ServiceLocator.Container.Resolve<IEnemiesProvider>(),
-                    ServiceLocator.Container.Resolve<IFactoryProvider>(),
-                    ServiceLocator.Container.Resolve<IStaticDataService>(),
-                    ServiceLocator.Container.Resolve<IUIProvider>(), player.transform);
+                    _enemiesProvider,
+                    _factoryProvider,
+                    _staticDataService,
+                    _uiProvider, player.transform);
             }
         }
 

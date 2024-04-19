@@ -117,7 +117,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
-                new WindowFactory(_serviceLocator.Resolve<IStaticDataService>()));
+                new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
+                    _serviceLocator.Resolve<IGameStateMachine>()));
         }
     }
 }

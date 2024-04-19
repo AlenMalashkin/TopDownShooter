@@ -12,17 +12,19 @@ namespace Code.Factories.UIFactory
     public class WindowFactory : IWindowFactory
     {
         private IStaticDataService _staticDataService;
+        private IGameStateMachine _gameStateMachine;
 
-        public WindowFactory(IStaticDataService staticDataService)
+        public WindowFactory(IStaticDataService staticDataService, IGameStateMachine gameStateMachine)
         {
             _staticDataService = staticDataService;
+            _gameStateMachine = gameStateMachine;
         }
 
         public MainMenuWindow CreateMainMenu(Transform root)
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.MainMenu).WindowPrefab;
             MainMenuWindow menuWindow = Object.Instantiate(window, root) as MainMenuWindow;
-            menuWindow.TestPlayButton.Init(ServiceLocator.Container.Resolve<IGameStateMachine>());
+            menuWindow.TestPlayButton.Init(_gameStateMachine);
             return menuWindow;
         }
 
@@ -30,6 +32,7 @@ namespace Code.Factories.UIFactory
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.LoseWindow).WindowPrefab;
             LoseWindow loseWindow = Object.Instantiate(window, root) as LoseWindow;
+            loseWindow.Init(_gameStateMachine);
             return loseWindow.gameObject;
         }
 
@@ -37,6 +40,7 @@ namespace Code.Factories.UIFactory
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.WinWindow).WindowPrefab;
             WinWindow winWindow = Object.Instantiate(window, root) as WinWindow;
+            winWindow.Init(_gameStateMachine);
             return winWindow.gameObject;
         }
     }

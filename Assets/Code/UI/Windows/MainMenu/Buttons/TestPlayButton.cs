@@ -4,7 +4,7 @@ using Code.Infrastructure.GameStateMachineNamespace.States;
 
 namespace Code.UI.Windows.MainMenu.Buttons
 {
-    public class TestPlayButton : BaseMenuButton
+    public class TestPlayButton : BaseButton
     {
         private IGameStateMachine _gameStateMachine;
         
