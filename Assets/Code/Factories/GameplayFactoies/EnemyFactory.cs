@@ -7,6 +7,7 @@ using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.Weapons;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
+using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.UI.HUD;
 using Unity.VisualScripting;
@@ -66,14 +67,33 @@ namespace Code.Factories.GameplayFactoies
 
         public Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
-            EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(EnemyType.MeleeBoss);
-            Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
+            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.MeleeBoss);
+            Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
             enemy.GetComponent<EnemyMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeAttackState>().Init(followTarget);
             enemy.GetComponent<MeleeEnemy>().Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
             return enemy;
+        }
+
+        public Enemy CreateRangeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
+        {
+            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.RangeBoss);
+            Enemy rangeBoss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            rangeBoss.GetComponent<EnemyMovementState>()
+                .Init(followTarget);
+            rangeBoss.GetComponent<RangeEnemyPlayerDetector>()
+                .Init(followTarget);
+            rangeBoss.GetComponent<RangeEnemy>()
+                .Init(followTarget.GetComponent<Damageable>());
+            RangeAttackState rangeAttackState = rangeBoss.GetComponent<RangeAttackState>();
+            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.RangeBossWeapon);
+            weapon.AttachToHand(rangeAttackState.EnemyArm);
+            rangeAttackState.Init(weapon, followTarget);
+            HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, rangeBoss.GetComponent<Damageable>());
+            rangeBoss.GetComponent<BossDeath>().Init(bar, _pickupFactory);
+            return rangeBoss;
         }
 
         private Enemy CreateBaseEnemy(EnemyType type, Vector3 position)

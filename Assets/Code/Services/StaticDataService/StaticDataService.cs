@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
-using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.Weapons;
 using Code.Level;
 using Code.Pickups;
+using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
 using Code.StaticData.PickupStaticData;
@@ -29,6 +30,7 @@ namespace Code.Services.StaticDataService
         private Dictionary<EnemyType, EnemyStaticData>
             _enemiesStaticData = new Dictionary<EnemyType, EnemyStaticData>();
 
+        private Dictionary<BossType, BossStaticData> _bosses = new Dictionary<BossType, BossStaticData>();
         private Dictionary<WeaponType, WeaponPickup> _weaponPickups = new Dictionary<WeaponType, WeaponPickup>();
 
         public void Load()
@@ -50,7 +52,11 @@ namespace Code.Services.StaticDataService
             _enemiesStaticData = Resources.LoadAll<EnemyStaticData>("StaticData/EnemyStaticData")
                 .ToDictionary(x => x.Type);
 
-            _weaponPickups = Resources.Load<PickupStaticData>("StaticData/PickupStaticData/PickupsConfig").WeaponPickupData
+            _bosses = Resources.LoadAll<BossStaticData>("StaticData/BossStaticData")
+                .ToDictionary(x => x.Type);
+
+            _weaponPickups = Resources.Load<PickupStaticData>("StaticData/PickupStaticData/PickupsConfig")
+                .WeaponPickupData
                 .ToDictionary(x => x.Type, x => x.Prefab);
         }
 
@@ -68,6 +74,9 @@ namespace Code.Services.StaticDataService
 
         public EnemyStaticData ForEnemy(EnemyType type)
             => _enemiesStaticData[type];
+
+        public BossStaticData ForBoss(BossType type)
+            => _bosses[type];
 
         public WeaponPickup ForWeaponPickup(WeaponType type)
             => _weaponPickups[type];

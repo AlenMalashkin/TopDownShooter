@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RangeEnemyController
+  m_Name: RangeBossController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: PlayerDetected
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 362dd9a3b2ab62b429f692fef22e5f11, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 25e047602b401124fbe3ad4ac08a931e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -100,7 +100,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 489f5897ef9cc5d4fbcc9b98cd930e3e, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 14a3f25339001e4498f117305651b928, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

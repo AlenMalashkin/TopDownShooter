@@ -8,5 +8,6 @@ namespace Code.Factories.GameplayFactoies
         Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position);
         Enemy CreateRangeEnemy(Transform followTarget, Vector3 position);
         Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot);
+        Enemy CreateRangeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot);
     }
 }

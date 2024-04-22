@@ -2,6 +2,7 @@
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Spawners;
 using Code.GameplayLogic.Weapons;
@@ -110,7 +111,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 _randomService,
                 _enemiesProvider);
 
-            if (_levelStaticData.IsBossLevel)
+            if (_levelStaticData.BossType != BossType.None)
             {
                 _bossSpawner = new BossSpawner((EnemySpawner) _spawner,
                     _enemiesProvider,

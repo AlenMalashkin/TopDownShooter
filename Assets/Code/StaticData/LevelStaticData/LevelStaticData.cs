@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Level;
 using UnityEngine;
 
@@ -11,6 +13,6 @@ namespace Code.StaticData.LevelStaticData
         public string LevelName;
         public List<Vector3> EnemySpawners;
         public Vector3 PlayerPositionOnLevel;
-        public bool IsBossLevel;
+        public BossType BossType;
     }
 }

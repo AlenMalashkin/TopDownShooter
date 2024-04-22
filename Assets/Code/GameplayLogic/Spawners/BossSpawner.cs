@@ -1,11 +1,15 @@
+using System;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
+using Code.GameplayLogic.EnemiesLogic;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Level;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.StaticData.LevelStaticData;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.GameplayLogic.Spawners
 {
@@ -49,13 +53,24 @@ namespace Code.GameplayLogic.Spawners
         private void OnEnemiesChanged()
         {
             if (_enemiesProvider.Enemies.Count == 0 && _enemySpawner.EnemiesRemaining <= 0)
-                SpawnBoss();
+                SpawnBoss(_levelStaticData.BossType);
         }
 
-        private void SpawnBoss()
+        private void SpawnBoss(BossType type)
         {
-            _enemyFactory.CreateMeleeBoss(_followTarget,
-                _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+            switch (type)
+            {
+                case BossType.MeleeBoss:
+                    _enemyFactory.CreateMeleeBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    break;
+                case BossType.RangeBoss:
+                    _enemyFactory.CreateRangeBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
     }
 }
