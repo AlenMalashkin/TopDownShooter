@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3667295762031435175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -399,7 +399,6 @@ MonoBehaviour:
   _meleeEnemyAnimator: {fileID: 3421331023965387897}
   _triggerObserver: {fileID: 3329372442825506655}
   _fistCollider: {fileID: 5838747064332571589}
-  _camera: {fileID: 0}
 --- !u!114 &878183084066271265
 MonoBehaviour:
   m_ObjectHideFlags: 0
