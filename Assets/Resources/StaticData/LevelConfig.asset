@@ -15,6 +15,6 @@ MonoBehaviour:
   Type: 0
   LevelName: Main
   EnemySpawners:
-  - {x: -0.5, y: 0, z: -2}
-  PlayerPositionOnLevel: {x: 0.75, y: 0.551, z: 1}
-  BossType: 3
+  - {x: -0.5, y: 0.5, z: -2}
+  PlayerPositionOnLevel: {x: 0.75, y: 0.5, z: 1}
+  BossType: 1

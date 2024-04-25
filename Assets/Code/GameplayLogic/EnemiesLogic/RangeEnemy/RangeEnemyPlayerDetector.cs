@@ -36,7 +36,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             Physics.Raycast(transform.position,
                 direction, out RaycastHit hit,
-                5f, _mask);
+                _shootDistance, _mask);
 
             if (hit.collider == null)
                 return false;
