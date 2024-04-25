@@ -96,6 +96,19 @@ namespace Code.Factories.GameplayFactoies
             return rangeBoss;
         }
 
+        public Enemy CreateUniqueBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
+        {
+            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.UniqueBoss);
+            Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            enemy.GetComponent<EnemyMovementState>().Init(followTarget);
+            enemy.GetComponent<MeleeComboState>().Init(followTarget);
+            enemy.GetComponent<UniqueEnemy>().Init(followTarget.GetComponent<Damageable>());
+            HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot
+                , enemy.GetComponent<Damageable>());
+            enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
+            return enemy;
+        }
+
         private Enemy CreateBaseEnemy(EnemyType type, Vector3 position)
         {
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(type);
