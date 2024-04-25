@@ -4,6 +4,7 @@ namespace Code.GameplayLogic.EnemiesLogic.Bosses
     {
         None,
         MeleeBoss,
-        RangeBoss
+        RangeBoss,
+        UniqueBoss
     }
 }

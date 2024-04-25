@@ -1,7 +1,5 @@
 using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic.Weapons;
-using Code.Services;
-using Code.Services.GameResultService;
 using Code.UI.HUD;
 using UnityEngine;
 

@@ -68,6 +68,10 @@ namespace Code.GameplayLogic.Spawners
                     _enemyFactory.CreateRangeBoss(_followTarget,
                         _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
                     break;
+                case BossType.UniqueBoss:
+                    _enemyFactory.CreateUniqueBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
