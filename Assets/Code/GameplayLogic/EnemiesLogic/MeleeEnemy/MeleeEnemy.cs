@@ -19,6 +19,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         private void Start()
         {
+            _damageable.Hit += OnHit;
             _damageable.Death += _enemyDeath.OnDeath;
             _triggerObserver.TriggerEntered += OnTriggerEntered;
             _triggerObserver.TriggerLeft += OnTriggerLeft;
@@ -27,6 +28,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         private void OnDisable()
         {
+            _damageable.Hit -= OnHit;
             _damageable.Death -= _enemyDeath.OnDeath;
             _triggerObserver.TriggerEntered -= OnTriggerEntered;
             _triggerObserver.TriggerLeft -= OnTriggerLeft;
@@ -52,5 +54,8 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 
         private void OnPlayerDeath(Damageable damageable)
             => _aiStateMachine.EnterState<EnemyIdleState>();
+
+        private void OnHit()
+            => _aiStateMachine.EnterState<ImpactState>();
     }
 }

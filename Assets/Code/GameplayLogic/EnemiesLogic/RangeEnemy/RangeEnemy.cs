@@ -19,6 +19,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         
         private void Start()
         {
+            _damageable.Hit += OnHit;
             _damageable.Death += _deathComponent.OnDeath;
             _playerDetector.PlayerDetected += OnPlayerDetected;
             _playerDetector.PlayerLeft += OnPlayerLeft;
@@ -27,6 +28,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         private void OnDisable()
         {
+            _damageable.Hit -= OnHit;
             _damageable.Death -= _deathComponent.OnDeath;
             _playerDetector.PlayerDetected -= OnPlayerDetected;
             _playerDetector.PlayerLeft -= OnPlayerLeft;
@@ -36,6 +38,9 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private void Update()
         {
             _aiStateMachine.UpdateState();
+
+            if (_aiStateMachine.CurrentStateType == typeof(ImpactState))
+                return;
             
             if (_aiStateMachine.CurrentStateType != typeof(EnemyIdleState))
                 _playerDetector.CanAttackPlayer();
@@ -55,5 +60,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             _aiStateMachine.EnterState<EnemyIdleState>();
         }
+
+        private void OnHit()
+            => _aiStateMachine.EnterState<ImpactState>();
     }
 }
