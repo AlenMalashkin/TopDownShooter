@@ -17,6 +17,7 @@ namespace Code.Services.StaticDataService
     {
         void Load();
         WeaponData ForWeapon(WeaponType type);
+        EnemyWeaponData ForEnemyWeapon(EnemyWeaponType type);
         LevelStaticData ForLevel(LevelType type);
         WindowData ForWindow(WindowType type);
         SpawnerStaticData ForSpawner(LevelType type);

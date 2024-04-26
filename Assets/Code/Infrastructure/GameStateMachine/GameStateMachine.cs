@@ -25,7 +25,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace
             _states[typeof(BootstrapState)] =
                 new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
             _states[typeof(MenuState)] =
-                new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>());
+                new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>());
             _states[typeof(GameState)] = new GameState(serviceLocator.Resolve<ISceneLoadService>()
                 , serviceLocator.Resolve<IStaticDataService>()
                 , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,

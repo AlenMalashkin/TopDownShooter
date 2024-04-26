@@ -4,6 +4,7 @@ namespace Code.UI.Windows
     {
         MainMenu,
         WinWindow,
-        LoseWindow
+        LoseWindow,
+        EquipmentWindow
     }
 }

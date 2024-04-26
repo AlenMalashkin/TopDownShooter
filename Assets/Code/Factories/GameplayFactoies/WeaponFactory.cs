@@ -24,6 +24,14 @@ namespace Code.Factories.GameplayFactoies
             return weapon;
         }
 
+        public Weapon CreateEnemyWeapon(EnemyWeaponType type)
+        {
+            EnemyWeaponData weaponData = _staticDataService.ForEnemyWeapon(type);
+            PlayerWeapon weapon = Object.Instantiate(weaponData.Prefab).GetComponent<PlayerWeapon>();
+            weapon.Init(this, weaponData.Bullet);
+            return weapon;
+        }
+
         public Bullet CreateBullet(Vector3 spawnPosition, Bullet bulletPrefab)
         {
             return Object.Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);

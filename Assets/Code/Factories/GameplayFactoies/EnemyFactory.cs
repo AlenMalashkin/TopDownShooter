@@ -59,7 +59,7 @@ namespace Code.Factories.GameplayFactoies
             rangeEnemy.GetComponent<EnemyDeath>()
                 .Init(_enemiesProvider);
             RangeAttackState rangeAttackState = rangeEnemy.GetComponent<RangeAttackState>();
-            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.EnemyWeapon);
+            Weapon weapon = _weaponFactory.CreateEnemyWeapon(EnemyWeaponType.RangeEnemyWeapon);
             weapon.AttachToHand(rangeAttackState.EnemyArm);
             rangeAttackState.Init(weapon, followTarget);
             return rangeEnemy;
@@ -88,7 +88,7 @@ namespace Code.Factories.GameplayFactoies
             rangeBoss.GetComponent<RangeEnemy>()
                 .Init(followTarget.GetComponent<Damageable>());
             RangeAttackState rangeAttackState = rangeBoss.GetComponent<RangeAttackState>();
-            Weapon weapon = _weaponFactory.CreateWeapon(WeaponType.RangeBossWeapon);
+            Weapon weapon = _weaponFactory.CreateEnemyWeapon(EnemyWeaponType.RangeBossWeapon);
             weapon.AttachToHand(rangeAttackState.EnemyArm);
             rangeAttackState.Init(weapon, followTarget);
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, rangeBoss.GetComponent<Damageable>());

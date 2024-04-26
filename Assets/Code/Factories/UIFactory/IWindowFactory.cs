@@ -8,5 +8,6 @@ namespace Code.Factories.UIFactory
         MainMenuWindow CreateMainMenu(Transform root);
         GameObject CreateLoseWindow(Transform root);
         GameObject CreateWinWindow(Transform root);
+        GameObject CreateEquipmentWindow(Transform root);
     }
 }

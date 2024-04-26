@@ -1,5 +1,6 @@
 using Code.Factories.UIFactory;
 using Code.Services.SceneLoadService;
+using Code.Services.UIProvider;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -11,14 +12,17 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IFactoryProvider _factoryProvider;
         private IUIFactory _uiFactory;
         private IWindowFactory _windowFactory;
-        
-        public MenuState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IFactoryProvider factoryProvider)
+        private IUIProvider _uiProvider;
+
+        public MenuState(ISceneLoadService sceneLoadService, LoadingScreen loadingScreen,
+            IFactoryProvider factoryProvider, IUIProvider uiProvider)
         {
             _sceneLoadService = sceneLoadService;
             _loadingScreen = loadingScreen;
             _factoryProvider = factoryProvider;
+            _uiProvider = uiProvider;
         }
-        
+
         public void Enter()
         {
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
@@ -33,6 +37,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void OnLoad()
         {
             GameObject root = _uiFactory.CreateRoot();
+            _uiProvider.ChangeUIRoot(root.transform);
             _windowFactory.CreateMainMenu(root.transform);
             _loadingScreen.Hide();
         }
