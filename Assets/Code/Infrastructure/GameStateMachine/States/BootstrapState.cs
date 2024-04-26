@@ -114,11 +114,12 @@ namespace Code.Infrastructure.GameStateMachine.States
 
         private void RegisterUIFactories()
         {
-            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>(),
+                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameStateMachine>()));
+                    _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>()));
         }
     }
 }

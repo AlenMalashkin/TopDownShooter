@@ -7,6 +7,8 @@ namespace Code.StaticData.WeaponStaticData
     public class WeaponStaticData : ScriptableObject
     {
         [SerializeField] private WeaponData[] _weaponsData;
+        [SerializeField] private EnemyWeaponData[] _enemyWeaponsData;
         public WeaponData[] WeaponsData => _weaponsData;
+        public EnemyWeaponData[] EnemyWeaponsData => _enemyWeaponsData;
     }
 }

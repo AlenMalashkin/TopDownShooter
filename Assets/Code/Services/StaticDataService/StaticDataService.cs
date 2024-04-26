@@ -21,6 +21,7 @@ namespace Code.Services.StaticDataService
     public class StaticDataService : IStaticDataService
     {
         private Dictionary<WeaponType, WeaponData> _weaponsData = new Dictionary<WeaponType, WeaponData>();
+        private Dictionary<EnemyWeaponType, EnemyWeaponData> _enemyWeapons = new Dictionary<EnemyWeaponType, EnemyWeaponData>();
         private Dictionary<LevelType, LevelStaticData> _levelsData = new Dictionary<LevelType, LevelStaticData>();
         private Dictionary<WindowType, WindowData> _windowsData = new Dictionary<WindowType, WindowData>();
 
@@ -37,6 +38,10 @@ namespace Code.Services.StaticDataService
         {
             _weaponsData = Resources.Load<WeaponStaticData>("StaticData/WeaponsConfig")
                 .WeaponsData
+                .ToDictionary(x => x.Type);
+
+            _enemyWeapons = Resources.Load<WeaponStaticData>("StaticData/WeaponsConfig")
+                .EnemyWeaponsData
                 .ToDictionary(x => x.Type);
 
             _levelsData = Resources.LoadAll<LevelStaticData>("StaticData/LevelConfig")
@@ -63,6 +68,9 @@ namespace Code.Services.StaticDataService
         public WeaponData ForWeapon(WeaponType type)
             => _weaponsData[type];
 
+        public EnemyWeaponData ForEnemyWeapon(EnemyWeaponType type)
+            => _enemyWeapons[type];
+        
         public LevelStaticData ForLevel(LevelType type)
             => _levelsData[type];
 

@@ -11,6 +11,8 @@ namespace Code.Data
         public WeaponType Type;
         public WeaponCategory Category;
         public Bullet Bullet;
+        public Sprite PreviewSprite;
+        public string ItemName;
         public GameObject Prefab;
     }
 }

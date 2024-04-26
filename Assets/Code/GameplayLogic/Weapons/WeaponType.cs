@@ -5,7 +5,5 @@ namespace Code.GameplayLogic.Weapons
         Pistol,
         Rifle,
         Blaster,
-        EnemyWeapon,
-        RangeBossWeapon
     }
 }
