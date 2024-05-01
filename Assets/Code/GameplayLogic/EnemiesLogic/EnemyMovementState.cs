@@ -18,12 +18,12 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         public override void EnterState()
         {
             _agent.isStopped = false;
-            _enemyAnimator.PlayAnimationByName(AnimationStrings.Run);
         }
 
         public override void UpdateState()
         {
             MoveTo(_target);
+            _enemyAnimator.PlayAnimationByName(AnimationStrings.Run);
         }
 
         public override void ExitState()

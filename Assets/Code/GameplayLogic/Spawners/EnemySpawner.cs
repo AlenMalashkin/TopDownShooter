@@ -83,7 +83,7 @@ namespace Code.GameplayLogic.Spawners
 
         private Enemy SpawnRandomEnemy()
         {
-            if (_randomService.RandomByNumber(0, 100) < 20)
+            if (_randomService.RandomByNumber(0, 100) < 50)
                 return _enemyFactory.CreateRangeEnemy(_target,
                     _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)]);
 
