@@ -5,13 +5,12 @@ namespace Code.GameplayLogic
 {
     public class DeathComponent : Death
     {
-        [SerializeField] private MonoBehaviour[] _componentsToDisalbe;
         [SerializeField] private Collider[] _collidersToDisable;
         [SerializeField] private float _timeToDestroy;
 
         public override void OnDeath(Damageable damageable)
         {
-            foreach (var component in _componentsToDisalbe)
+            foreach (var component in gameObject.GetComponents<MonoBehaviour>())
                 component.enabled = false;
 
             foreach (var col in _collidersToDisable)
