@@ -22,5 +22,6 @@ namespace Code.GameplayLogic
         public const string Run = "Run";
         public const string HitReaction = "HitReaction";
         public const string MeleeCombo = "MeleeCombo";
+        public const string UltimateAttack = "UltimateAttack";
     }
 }

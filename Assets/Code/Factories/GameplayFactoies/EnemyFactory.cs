@@ -100,9 +100,9 @@ namespace Code.Factories.GameplayFactoies
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.UniqueBoss);
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<MeleeMovementState>().Init(followTarget);
+            enemy.GetComponent<FinalBossMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeComboState>().Init(followTarget);
-            enemy.GetComponent<UniqueEnemy>().Init(followTarget.GetComponent<Damageable>());
+            enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot
                 , enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
