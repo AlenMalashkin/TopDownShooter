@@ -15,14 +15,13 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         
         private Transform _target;
         private float _rayLength;
-        
 
         public void Init(Transform target)
         {
             _target = target;
         }
         
-        private void Start()
+        private void OnEnable()
         {
             _fistTriggerObserver.TriggerEntered += OnAttack;
             _attackZoneTrigger.TriggerLeft += OnTriggerLeft;
