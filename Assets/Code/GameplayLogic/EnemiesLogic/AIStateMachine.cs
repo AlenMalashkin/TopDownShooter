@@ -23,6 +23,9 @@ namespace Code.GameplayLogic.EnemiesLogic
 
             if (_currentState == null)
                 _currentState = _startState;
+
+            _currentState.enabled = true;
+            _currentState.EnterState();
         }
 
         public override void EnterState<T>()
@@ -36,9 +39,11 @@ namespace Code.GameplayLogic.EnemiesLogic
             if (typeof(T) == _currentState.GetType())
                 return;
 
+            _currentState.enabled = false;
             _currentState.ExitState();
             AIState state = GetState<T>();
             _currentState = state;
+            _currentState.enabled = true;
             state.EnterState();
         }
 

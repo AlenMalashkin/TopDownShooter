@@ -36,7 +36,7 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy enemy = CreateBaseEnemy(EnemyType.Melee, position);
-            enemy.GetComponent<EnemyMovementState>()
+            enemy.GetComponent<MeleeMovementState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeAttackState>()
                 .Init(followTarget);
@@ -50,7 +50,7 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateRangeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy rangeEnemy = CreateBaseEnemy(EnemyType.Range, position);
-            rangeEnemy.GetComponent<EnemyMovementState>()
+            rangeEnemy.GetComponent<RangeMovementState>()
                 .Init(followTarget);
             rangeEnemy.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
@@ -69,7 +69,7 @@ namespace Code.Factories.GameplayFactoies
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.MeleeBoss);
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<EnemyMovementState>().Init(followTarget);
+            enemy.GetComponent<MeleeMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeAttackState>().Init(followTarget);
             enemy.GetComponent<MeleeEnemy>().Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, enemy.GetComponent<Damageable>());
@@ -81,7 +81,7 @@ namespace Code.Factories.GameplayFactoies
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.RangeBoss);
             Enemy rangeBoss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            rangeBoss.GetComponent<EnemyMovementState>()
+            rangeBoss.GetComponent<RangeMovementState>()
                 .Init(followTarget);
             rangeBoss.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
@@ -100,7 +100,7 @@ namespace Code.Factories.GameplayFactoies
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.UniqueBoss);
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<EnemyMovementState>().Init(followTarget);
+            enemy.GetComponent<MeleeMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeComboState>().Init(followTarget);
             enemy.GetComponent<UniqueEnemy>().Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot

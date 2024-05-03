@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 692712517227800061}
   - component: {fileID: 2429993892542741166}
   - component: {fileID: 3412082766203825735}
-  - component: {fileID: 2991336191162754110}
+  - component: {fileID: 3801370063991815643}
   - component: {fileID: 7486297633516993232}
   - component: {fileID: 1419839085663861394}
   - component: {fileID: 5045958234213549505}
@@ -131,10 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21874ff2894b4f78b1bd27c7264ee426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDetector: {fileID: 7486297633516993232}
   _damageable: {fileID: 1419839085663861394}
   _deathComponent: {fileID: 5045958234213549505}
   _aiStateMachine: {fileID: 3915317570043540064}
+  _playerDetector: {fileID: 7486297633516993232}
 --- !u!114 &3915317570043540064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   - {fileID: -2864426255978095185}
   - {fileID: 692712517227800061}
   - {fileID: 2429993892542741166}
-  - {fileID: 2991336191162754110}
+  - {fileID: 3801370063991815643}
   _startState: {fileID: -2864426255978095185}
 --- !u!114 &-2864426255978095185
 MonoBehaviour:
@@ -160,13 +160,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237516459782832552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f86cd1f8ed83420cbcfdfd5b9d044930, type: 3}
+  m_Script: {fileID: 11500000, guid: 20747a8a54854b2db7b632380ba37103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aiStateMachine: {fileID: 3915317570043540064}
   _agent: {fileID: 6468380119692025381}
   _enemyAnimator: {fileID: 3412082766203825735}
+  _playerDetector: {fileID: 7486297633516993232}
+  _damageable: {fileID: 1419839085663861394}
 --- !u!114 &692712517227800061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,13 +177,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237516459782832552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a91747d096ea46d68395e623c4361bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aiStateMachine: {fileID: 3915317570043540064}
+  _playerDetector: {fileID: 7486297633516993232}
   _enemyArm: {fileID: 1402734511863485561}
   _animator: {fileID: 3412082766203825735}
+  _damageable: {fileID: 1419839085663861394}
 --- !u!114 &2429993892542741166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,16 +213,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 295936181974638420}
---- !u!114 &2991336191162754110
+--- !u!114 &3801370063991815643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237516459782832552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44af3887b4b744e38a80e1ede4a897f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 09ad7a6384df4c95bfd8d4e84058f5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _stunTime: 0.1

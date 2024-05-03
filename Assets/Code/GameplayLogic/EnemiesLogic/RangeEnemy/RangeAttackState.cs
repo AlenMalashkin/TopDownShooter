@@ -4,8 +4,11 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
     public class RangeAttackState : AIState
     {
+        [SerializeField] private AIStateMachine _aiStateMachine;
+        [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
         [SerializeField] private Transform _enemyArm;
         [SerializeField] private AnimatorComponent _animator;
+        [SerializeField] private Damageable _damageable;
 
         public Transform EnemyArm => _enemyArm;
 
@@ -16,6 +19,18 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         {
             _weapon = weapon;
             _target = target;
+        }
+
+        private void OnEnable()
+        {
+            _playerDetector.PlayerLeft += OnPlayerLeft;
+            _damageable.Hit += OnHit;
+        }
+
+        private void OnDisable()
+        {
+            _playerDetector.PlayerLeft -= OnPlayerLeft;
+            _damageable.Hit -= OnHit;
         }
 
         public override void EnterState()
@@ -33,6 +48,16 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         public override void ExitState()
         {
+        }
+
+        private void OnPlayerLeft()
+        {
+            _aiStateMachine.EnterState<RangeMovementState>();
+        }
+
+        private void OnHit()
+        {
+            _aiStateMachine.EnterState<RangeMovementState>();
         }
     }
 }

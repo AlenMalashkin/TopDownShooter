@@ -6,8 +6,11 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
     public class MeleeAttackState : AIState
     {
         [SerializeField] private float _damage = 20;
+        [SerializeField] private AIStateMachine _aiStateMachine;
         [SerializeField] private AnimatorComponent _meleeEnemyAnimator;
-        [SerializeField] private TriggerObserver _triggerObserver;
+        [SerializeField] private TriggerObserver _fistTriggerObserver;
+        [SerializeField] private TriggerObserver _attackZoneTrigger;
+        [SerializeField] private Damageable _damageable;
         [SerializeField] private Collider _fistCollider;
         
         private Transform _target;
@@ -21,12 +24,16 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         
         private void Start()
         {
-            _triggerObserver.TriggerEntered += OnAttack;
+            _fistTriggerObserver.TriggerEntered += OnAttack;
+            _attackZoneTrigger.TriggerLeft += OnTriggerLeft;
+            _damageable.Hit += OnHit;
         }
 
         private void OnDisable()
         {
-            _triggerObserver.TriggerEntered -= OnAttack;
+            _fistTriggerObserver.TriggerEntered -= OnAttack;
+            _attackZoneTrigger.TriggerLeft -= OnTriggerLeft;
+            _damageable.Hit -= OnHit;
         }
 
         public override void EnterState()
@@ -58,6 +65,17 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
                 damageable.TakeDamage(_damage);
                 DisableFistCollider();
             }
+        }
+
+        private void OnTriggerLeft(Collider other)
+        {
+            if (other.TryGetComponent(out Player player))
+                _aiStateMachine.EnterState<MeleeMovementState>();
+        }
+
+        private void OnHit()
+        {
+            _aiStateMachine.EnterState<MeleeImpactState>();
         }
     }
 }

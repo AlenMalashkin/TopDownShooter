@@ -1,11 +1,10 @@
-using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.Utils.Timer;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Code.GameplayLogic.EnemiesLogic
+namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 {
-    public class ImpactState : AIState
+    public class RangeImpactState : AIState
     {
         [SerializeField] private float _stunTime = 0.5f;
         
@@ -51,7 +50,7 @@ namespace Code.GameplayLogic.EnemiesLogic
 
         private void OnTimerFinished()
         {
-            _aiStateMachine.EnterState<EnemyMovementState>();
+            _aiStateMachine.EnterState<RangeMovementState>();
         }
     }
 }

@@ -8,20 +8,19 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
     {
         [SerializeField] private float _shootDistance;
         [SerializeField] private LayerMask _mask;
-        
+
         public event Action PlayerDetected;
         public event Action PlayerLeft;
-        
+
         private bool _isInShootDistance;
         private Transform _target;
 
-        
-        
+
         public void Init(Transform target)
         {
             _target = target;
         }
-        
+
         public void CanAttackPlayer()
         {
             _isInShootDistance = Vector3.Distance(transform.position, _target.position) <= _shootDistance;
