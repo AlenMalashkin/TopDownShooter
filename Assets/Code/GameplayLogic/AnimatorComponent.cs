@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Code.GameplayLogic
 {
-    [RequireComponent(typeof(Animator))]
     public class AnimatorComponent : MonoBehaviour
     {
         [SerializeField] private Animator _animator;

@@ -8,6 +8,7 @@ namespace Code.GameplayLogic.EnemiesLogic
     public class MeleeImpactState : AIState
     {
         [SerializeField] private float _stunTime = 0.5f;
+        [SerializeField] private Collider _triggerZone;
         
         private AIStateMachine _aiStateMachine;
         private AnimatorComponent _animator;
@@ -36,6 +37,7 @@ namespace Code.GameplayLogic.EnemiesLogic
         {
             _timer.StartTimer(_stunTime);
             _animator.PlayAnimationByName("Impact");
+            _triggerZone.enabled = false;
             _agent.isStopped = true;
         }
 
@@ -46,6 +48,7 @@ namespace Code.GameplayLogic.EnemiesLogic
 
         public override void ExitState()
         {
+            _triggerZone.enabled = true;
             _agent.isStopped = false;
         }
 

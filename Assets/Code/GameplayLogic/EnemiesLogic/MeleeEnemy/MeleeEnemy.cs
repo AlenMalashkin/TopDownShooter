@@ -4,8 +4,8 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
 {
     public class MeleeEnemy : Enemy
     {
-        [SerializeField] private DeathComponent _enemyDeath;
         [SerializeField] private Damageable _damageable;
+        [SerializeField] private DeathComponent _deathComponent;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
 
         private Damageable _playerDamageable;
@@ -14,16 +14,16 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         {
             _playerDamageable = playerDamageable;
         }
-
+        
         private void Start()
         {
-            _damageable.Death += _enemyDeath.OnDeath;
+            _damageable.Death += _deathComponent.OnDeath;
             _playerDamageable.Death += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
-            _damageable.Death -= _enemyDeath.OnDeath;
+            _damageable.Death -= _deathComponent.OnDeath;
             _playerDamageable.Death -= OnPlayerDeath;
         }
 

@@ -1425,8 +1425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe6e28597dc42bdaae965eb2365ea35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDeath: {fileID: 1336908729458590237}
   _damageable: {fileID: 8898709849649301426}
+  _deathComponent: {fileID: 1336908729458590237}
   _aiStateMachine: {fileID: 6984520124256575680}
 --- !u!114 &6984520124256575680
 MonoBehaviour:
@@ -1535,6 +1535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stunTime: 0.5
+  _triggerZone: {fileID: 1707697326831973506}
 --- !u!114 &1336908729458590237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1547,10 +1548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4260bf9a47644328690de12567e0110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentsToDisalbe:
-  - {fileID: 8898709849649301426}
-  - {fileID: 6984520124256575680}
-  - {fileID: 7061240678110524167}
   _collidersToDisable:
   - {fileID: -8294816619135043573}
   - {fileID: 1707697326831973506}
