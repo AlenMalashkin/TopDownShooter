@@ -1,10 +1,13 @@
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
+using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Infrastructure;
 using Code.Level;
+using Code.Services;
 using Code.Services.EnemiesProvider;
 using Code.Services.RandomService;
 using Code.Services.StaticDataService;
+using Code.Services.UIProvider;
 using Code.StaticData.LevelStaticData;
 using Code.StaticData.SpawnerStaticData;
 using Code.Utils.Timer;
@@ -16,6 +19,7 @@ namespace Code.GameplayLogic.Spawners
     public class EnemySpawner : Spawner
     {
         public int EnemiesRemaining => _enemiesRemaining;
+        public Transform Target => _target;
         
         private IUpdater _upater;
         private IFactoryProvider _factoryProvider;

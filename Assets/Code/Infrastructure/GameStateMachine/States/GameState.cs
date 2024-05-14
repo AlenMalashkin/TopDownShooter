@@ -82,7 +82,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _enemiesProvider.Enemies.Clear();
             _inputService.Disable();
             _spawner.DisableSpawner();
-            _bossSpawner.DisableSpawner();
+            _bossSpawner?.DisableSpawner();
         }
 
         private void OnLoad()
@@ -94,16 +94,16 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _uiRoot = _uiFactory.CreateRoot().transform;
             _uiProvider.ChangeUIRoot(_uiRoot);
 
-            InitializeSpawners(player);
+            InitializeSpawners();
 
             InitializeHealthBar(player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
 
             _spawner.EnableSpawner(player.transform);
-            _bossSpawner.EnableSpawner(player.transform);
+            _bossSpawner?.EnableSpawner(player.transform);
         }
 
-        private void InitializeSpawners(GameObject player)
+        private void InitializeSpawners()
         {
             _spawner = new EnemySpawner(_updater,
                 _factoryProvider,
@@ -117,7 +117,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                     _enemiesProvider,
                     _factoryProvider,
                     _staticDataService,
-                    _uiProvider, player.transform);
+                    _uiProvider);
             }
         }
 

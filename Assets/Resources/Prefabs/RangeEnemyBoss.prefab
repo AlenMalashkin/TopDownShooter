@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stunTime: 0.1
+  _playerDetector: {fileID: 7486297633516993232}
 --- !u!114 &7486297633516993232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,11 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2c1af55aa6421cb9be9b5ba53ed89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentsToDisalbe:
-  - {fileID: 7486297633516993232}
-  - {fileID: 1419839085663861394}
-  - {fileID: 3915317570043540064}
-  - {fileID: 8993120095566950700}
   _collidersToDisable:
   - {fileID: -8422501545310169472}
   _timeToDestroy: 3

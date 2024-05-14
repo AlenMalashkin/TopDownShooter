@@ -10,7 +10,6 @@ using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.UI.HUD;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
@@ -69,9 +68,12 @@ namespace Code.Factories.GameplayFactoies
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.MeleeBoss);
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<MeleeMovementState>().Init(followTarget);
-            enemy.GetComponent<MeleeAttackState>().Init(followTarget);
-            enemy.GetComponent<MeleeEnemy>().Init(followTarget.GetComponent<Damageable>());
+            enemy.GetComponent<MeleeMovementState>()
+                .Init(followTarget);
+            enemy.GetComponent<MeleeAttackState>()
+                .Init(followTarget);
+            enemy.GetComponent<MeleeEnemy>()
+                .Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
             return enemy;

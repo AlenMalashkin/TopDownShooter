@@ -57,7 +57,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         private void OnHit()
         {
-            _aiStateMachine.EnterState<RangeMovementState>();
+            _aiStateMachine.EnterState<RangeImpactState>();
         }
     }
 }

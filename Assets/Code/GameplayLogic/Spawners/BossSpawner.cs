@@ -26,8 +26,7 @@ namespace Code.GameplayLogic.Spawners
         private LevelStaticData _levelStaticData;
 
         public BossSpawner(EnemySpawner enemySpawner, IEnemiesProvider enemiesProvider,
-            IFactoryProvider factoryProvider, IStaticDataService staticDataService, IUIProvider uiProvider,
-            Transform followTarget)
+            IFactoryProvider factoryProvider, IStaticDataService staticDataService, IUIProvider uiProvider)
         {
             _enemySpawner = enemySpawner;
             _enemiesProvider = enemiesProvider;
@@ -35,13 +34,14 @@ namespace Code.GameplayLogic.Spawners
             _enemyFactory = factoryProvider.GetFactory<IEnemyFactory>();
             _staticDataService = staticDataService;
             _uiProvider = uiProvider;
-            _followTarget = followTarget;
         }
 
         public override void EnableSpawner(Transform target)
         {
             _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
 
+            _followTarget = target;
+            
             _enemiesProvider.EnemiesChanged += OnEnemiesChanged;
         }
 
@@ -56,22 +56,19 @@ namespace Code.GameplayLogic.Spawners
                 SpawnBoss(_levelStaticData.BossType);
         }
 
-        private void SpawnBoss(BossType type)
+        private Enemy SpawnBoss(BossType type)
         {
             switch (type)
             {
                 case BossType.MeleeBoss:
-                    _enemyFactory.CreateMeleeBoss(_followTarget,
+                    return _enemyFactory.CreateMeleeBoss(_enemySpawner.Target,
                         _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
-                    break;
                 case BossType.RangeBoss:
-                    _enemyFactory.CreateRangeBoss(_followTarget,
+                    return _enemyFactory.CreateRangeBoss(_enemySpawner.Target,
                         _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
-                    break;
                 case BossType.UniqueBoss:
-                    _enemyFactory.CreateUniqueBoss(_followTarget,
+                    return _enemyFactory.CreateUniqueBoss(_enemySpawner.Target,
                         _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

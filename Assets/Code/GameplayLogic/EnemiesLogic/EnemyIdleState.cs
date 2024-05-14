@@ -9,6 +9,9 @@ namespace Code.GameplayLogic.EnemiesLogic
         public override void EnterState()
         {
             _animator.PlayAnimationByName("Idle");
+
+            foreach (var component in GetComponents<MonoBehaviour>())
+                component.enabled = false;
         }
 
         public override void UpdateState()

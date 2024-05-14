@@ -30,8 +30,8 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         private void Update()
         {
-            _aiStateMachine.UpdateState();
             _playerDetector.CanAttackPlayer();
+            _aiStateMachine.UpdateState();
         }
 
         private void OnPlayerDeath(Damageable damageable)
