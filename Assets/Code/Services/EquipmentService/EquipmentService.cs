@@ -1,30 +1,33 @@
 using Code.Data;
 using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
+using Code.Services.ProgressService;
+using Code.Services.SaveService;
 using Code.Services.StaticDataService;
 
 namespace Code.Services.EquipmentService
 {
     public class EquipmentService : IEquipmentService
     {
-        public WeaponType CurrentEquippedWeapon => _currentEquippedWeapon;
-        public WeaponCategory CurrentWeaponCategory => _currentWeaponCategory;
-
-        private WeaponType _currentEquippedWeapon = WeaponType.Rifle;
-        private WeaponCategory _currentWeaponCategory = WeaponCategory.Rifle;
+        public WeaponType CurrentEquippedWeapon => _progressService.Progress.WeaponType;
+        public WeaponCategory CurrentWeaponCategory => _staticDataService.ForWeapon(_progressService.Progress.WeaponType).Category;
 
         private IStaticDataService _staticDataService;
+        private IProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
 
-        public EquipmentService(IStaticDataService staticDataService)
+        public EquipmentService(IStaticDataService staticDataService, IProgressService progressService,
+            ISaveLoadService saveLoadService)
         {
             _staticDataService = staticDataService;
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
         }
 
         public void EquipWeapon(WeaponType type)
         {
-            _currentEquippedWeapon = type;
-            WeaponData weaponData = _staticDataService.ForWeapon(type);
-            _currentWeaponCategory = weaponData.Category;
+            _progressService.Progress.WeaponType = type;
+            _saveLoadService.SaveProgress();
         }
     }
 }

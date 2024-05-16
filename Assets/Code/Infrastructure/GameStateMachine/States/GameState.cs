@@ -13,7 +13,9 @@ using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
 using Code.Services.InputService;
+using Code.Services.ProgressService;
 using Code.Services.RandomService;
+using Code.Services.SaveService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
@@ -41,6 +43,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IUIProvider _uiProvider;
         private IEnemiesProvider _enemiesProvider;
         private IRandomService _randomService;
+        private IProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -55,7 +59,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
             IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
-            IEnemiesProvider enemiesProvider, IRandomService randomService)
+            IEnemiesProvider enemiesProvider, IRandomService randomService, IProgressService progressService,
+            ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoadService = sceneLoadService;
@@ -67,6 +72,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _uiProvider = uiProvider;
             _enemiesProvider = enemiesProvider;
             _randomService = randomService;
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
         }
 
         public void Enter()
@@ -129,10 +136,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private GameObject InitializePlayerAndCamera()
         {
-            IEquipmentService equipmentService = ServiceLocator.Container.Resolve<IEquipmentService>();
-
             _playerWeapon = _weaponFactory
-                .CreateWeapon(equipmentService.CurrentEquippedWeapon);
+                .CreateWeapon(_progressService.Progress.WeaponType);
 
             Camera mainCamera = Camera.main;
 
@@ -171,8 +176,12 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private void OnEnemiesCountChanged(int enemiesCount)
         {
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType == BossType.None)
+            {
                 _gameStateMachine.Enter<GameResultState, GameResult>(GameResult.Win);
-                
+                _progressService.Progress.LevelsPassed = (int) _levelStaticData.Type;
+                _saveLoadService.SaveProgress();
+            }
+
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType != BossType.None)
                 _bossSpawner.EnableSpawner(_player.transform);
         }

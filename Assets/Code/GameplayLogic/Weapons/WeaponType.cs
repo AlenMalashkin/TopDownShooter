@@ -2,8 +2,8 @@ namespace Code.GameplayLogic.Weapons
 {
     public enum WeaponType
     {
-        Pistol,
-        Rifle,
-        Blaster,
+        Pistol = 0,
+        Rifle = 1,
+        Blaster = 2,
     }
 }
