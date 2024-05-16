@@ -2,6 +2,6 @@ namespace Code.Level
 {
     public enum LevelType
     {
-        Main
+        Main = 1
     }
 }

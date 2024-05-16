@@ -7,7 +7,9 @@ using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.EnemiesProvider;
 using Code.Services.InputService;
+using Code.Services.ProgressService;
 using Code.Services.RandomService;
+using Code.Services.SaveService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
@@ -25,12 +27,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace
             _states[typeof(BootstrapState)] =
                 new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
             _states[typeof(MenuState)] =
-                new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>());
+                new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>(),
+                    serviceLocator.Resolve<IUIProvider>());
             _states[typeof(GameState)] = new GameState(this, serviceLocator.Resolve<ISceneLoadService>()
                 , serviceLocator.Resolve<IStaticDataService>()
                 , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
                 serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>(),
-                serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>());
+                serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>(),
+                serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>());
             _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
                 serviceLocator.Resolve<IUIProvider>());
         }

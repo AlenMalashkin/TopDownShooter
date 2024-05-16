@@ -1,4 +1,5 @@
-﻿using Code.Factories;
+﻿using Code.Data.Progress;
+using Code.Factories;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachineNamespace;
@@ -9,7 +10,9 @@ using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
 using Code.Services.InputService;
+using Code.Services.ProgressService;
 using Code.Services.RandomService;
+using Code.Services.SaveService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
@@ -24,6 +27,8 @@ namespace Code.Infrastructure.GameStateMachine.States
         private ServiceLocator _serviceLocator;
         private IGameStateMachine _gameStateMachine;
         private ISceneLoadService _sceneLoadService;
+        private IProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
         private LoadingScreen _loadingScreen;
         private IUpdater _updater;
         private ITimer _timer;
@@ -57,6 +62,9 @@ namespace Code.Infrastructure.GameStateMachine.States
 
         private void RegisterAllServices()
         {
+            LoadProgress();
+            _serviceLocator.RegisterService(_progressService);
+            _serviceLocator.RegisterService(_saveLoadService);
             _serviceLocator.RegisterService<IRandomService>(new RandomService(new Random()));
             _serviceLocator.RegisterService(_updater);
             _serviceLocator.RegisterService(_gameStateMachine);
@@ -67,7 +75,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(
-                new EquipmentService(_serviceLocator.Resolve<IStaticDataService>()));
+                new EquipmentService(_serviceLocator.Resolve<IStaticDataService>(),
+                    _serviceLocator.Resolve<IProgressService>(), _serviceLocator.Resolve<ISaveLoadService>()));
             _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
             RegisterUIFactories();
             RegisterGameFactories();
@@ -120,6 +129,13 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>()));
+        }
+
+        private void LoadProgress()
+        {
+            _progressService = new ProgressService();
+            _saveLoadService = new SaveLoadService(_progressService);
+            _progressService.Progress = _saveLoadService.LoadProgress() ?? new Progress();
         }
     }
 }
