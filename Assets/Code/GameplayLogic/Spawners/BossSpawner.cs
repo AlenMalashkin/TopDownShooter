@@ -15,9 +15,6 @@ namespace Code.GameplayLogic.Spawners
 {
     public class BossSpawner : Spawner
     {
-        private EnemySpawner _enemySpawner;
-        private IEnemiesProvider _enemiesProvider;
-        private IFactoryProvider _factoryProvider;
         private IEnemyFactory _enemyFactory;
         private IStaticDataService _staticDataService;
         private IUIProvider _uiProvider;
@@ -25,12 +22,9 @@ namespace Code.GameplayLogic.Spawners
 
         private LevelStaticData _levelStaticData;
 
-        public BossSpawner(EnemySpawner enemySpawner, IEnemiesProvider enemiesProvider,
-            IFactoryProvider factoryProvider, IStaticDataService staticDataService, IUIProvider uiProvider)
+        public BossSpawner(IFactoryProvider factoryProvider,
+            IStaticDataService staticDataService, IUIProvider uiProvider)
         {
-            _enemySpawner = enemySpawner;
-            _enemiesProvider = enemiesProvider;
-            _factoryProvider = factoryProvider;
             _enemyFactory = factoryProvider.GetFactory<IEnemyFactory>();
             _staticDataService = staticDataService;
             _uiProvider = uiProvider;
@@ -41,19 +35,12 @@ namespace Code.GameplayLogic.Spawners
             _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
 
             _followTarget = target;
-            
-            _enemiesProvider.EnemiesChanged += OnEnemiesChanged;
+
+            SpawnBoss(_levelStaticData.BossType);
         }
 
         public override void DisableSpawner()
         {
-            _enemiesProvider.EnemiesChanged -= OnEnemiesChanged;
-        }
-
-        private void OnEnemiesChanged()
-        {
-            if (_enemiesProvider.Enemies.Count == 0 && _enemySpawner.EnemiesRemaining <= 0)
-                SpawnBoss(_levelStaticData.BossType);
         }
 
         private Enemy SpawnBoss(BossType type)
@@ -61,14 +48,17 @@ namespace Code.GameplayLogic.Spawners
             switch (type)
             {
                 case BossType.MeleeBoss:
-                    return _enemyFactory.CreateMeleeBoss(_enemySpawner.Target,
-                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    return _enemyFactory.CreateMeleeBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)],
+                        _uiProvider.GetRoot());
                 case BossType.RangeBoss:
-                    return _enemyFactory.CreateRangeBoss(_enemySpawner.Target,
-                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    return _enemyFactory.CreateRangeBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)],
+                        _uiProvider.GetRoot());
                 case BossType.UniqueBoss:
-                    return _enemyFactory.CreateUniqueBoss(_enemySpawner.Target,
-                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)], _uiProvider.GetRoot());
+                    return _enemyFactory.CreateUniqueBoss(_followTarget,
+                        _levelStaticData.EnemySpawners[Random.Range(0, _levelStaticData.EnemySpawners.Count)],
+                        _uiProvider.GetRoot());
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

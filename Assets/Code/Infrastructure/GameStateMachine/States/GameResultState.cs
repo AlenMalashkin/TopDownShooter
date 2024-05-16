@@ -2,6 +2,7 @@ using System;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services.GameResultService;
+using Code.Services.InputService;
 using Code.Services.UIProvider;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Code.Infrastructure.GameStateMachine.States
         private IFactoryProvider _factoryProvider;
         private IWindowFactory _windowFactory;
         private IUIProvider _uiProvider;
+        private IInputService _inputService;
         
         public GameResultState(IFactoryProvider factoryProvider, IUIProvider uiProvider)
         {
