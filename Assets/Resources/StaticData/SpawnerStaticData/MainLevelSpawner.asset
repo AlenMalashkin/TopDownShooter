@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec73024c50b464393c374cc14abedca, type: 3}
   m_Name: MainLevelSpawner
   m_EditorClassIdentifier: 
-  _levelType: 0
+  _levelType: 1
   _spawnTime: 2
   _enemiesOnLevel: 2

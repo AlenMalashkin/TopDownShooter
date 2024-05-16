@@ -1,4 +1,5 @@
 using System;
+using Code.Level;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using UnityEngine;
@@ -35,9 +36,9 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             _rigidbody.velocity = _moveDirection * _speed;
         }
-        
 
-        public void OnMove(InputAction.CallbackContext context)
+
+        private void OnMove(InputAction.CallbackContext context)
         {
             _moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
         }

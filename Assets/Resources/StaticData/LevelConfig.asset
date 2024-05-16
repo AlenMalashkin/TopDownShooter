@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392b598adc474f3393583a6f7791672e, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
   LevelName: Main
   EnemySpawners:
   - {x: -0.5, y: 0.5, z: -2}
   PlayerPositionOnLevel: {x: 0.75, y: 0.5, z: 1}
-  BossType: 3
+  BossType: 0
