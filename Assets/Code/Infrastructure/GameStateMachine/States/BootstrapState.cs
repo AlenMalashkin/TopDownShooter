@@ -118,7 +118,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
-                _serviceLocator.Resolve<IEnemiesProvider>()));
+                _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
         }
 
         private void RegisterUIFactories()
