@@ -5,6 +5,7 @@ using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.Weapons;
+using Code.Infrastructure;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
@@ -21,15 +22,17 @@ namespace Code.Factories.GameplayFactoies
         private IHUDFactory _hudFactory;
         private IPickupFactory _pickupFactory;
         private IEnemiesProvider _enemiesProvider;
+        private IUpdater _updater;
 
         public EnemyFactory(IStaticDataService staticDataService, IWeaponFactory weaponFactory, IHUDFactory hudFactory,
-            IPickupFactory pickupFactory, IEnemiesProvider enemiesProvider)
+            IPickupFactory pickupFactory, IEnemiesProvider enemiesProvider, IUpdater updater)
         {
             _staticDataService = staticDataService;
             _weaponFactory = weaponFactory;
             _hudFactory = hudFactory;
             _pickupFactory = pickupFactory;
             _enemiesProvider = enemiesProvider;
+            _updater = updater;
         }
 
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
@@ -103,7 +106,7 @@ namespace Code.Factories.GameplayFactoies
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.UniqueBoss);
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
             enemy.GetComponent<FinalBossMovementState>().Init(followTarget);
-            enemy.GetComponent<MeleeComboState>().Init(followTarget);
+            enemy.GetComponent<MeleeComboState>().Init(followTarget, _updater);
             enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<Damageable>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot
                 , enemy.GetComponent<Damageable>());

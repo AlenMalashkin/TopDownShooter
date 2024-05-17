@@ -1423,13 +1423,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b920da1d9a4a3a8d1b2f15b2ec6e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
+  _commonAttackDamage: 1
+  _ultimateAttackDamage: 40
   _ultimateAttackCooldown: 3
   _aiStateMachine: {fileID: 6984520124256575680}
   _meleeEnemyAnimator: {fileID: 3421331023965387897}
   _triggerObserver: {fileID: 2638950641129587660}
   _fistTrigger: {fileID: 6146956201150002198}
   _fistCollider: {fileID: 3429963766826376782}
+  _damageable: {fileID: 8898709849649301426}
 --- !u!114 &878183084066271265
 MonoBehaviour:
   m_ObjectHideFlags: 0
