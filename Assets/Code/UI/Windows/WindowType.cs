@@ -5,6 +5,7 @@ namespace Code.UI.Windows
         MainMenu,
         WinWindow,
         LoseWindow,
-        EquipmentWindow
+        EquipmentWindow,
+        ChooseLevelWindow
     }
 }

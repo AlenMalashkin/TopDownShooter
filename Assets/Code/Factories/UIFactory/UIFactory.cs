@@ -1,22 +1,32 @@
 using Code.Data;
 using Code.GameplayLogic.Weapons;
+using Code.Infrastructure.GameStateMachineNamespace;
+using Code.Level;
 using Code.Services.AssetProvider;
+using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
 using Code.Services.StaticDataService;
+using Code.StaticData.LevelStaticData;
 using Code.UI.EquipmentMenu;
+using Code.UI.Windows.ChooseLevelWindow;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
 {
     public class UIFactory : IUIFactory
     {
+        private IGameStateMachine _gameStateMachine;
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticDataService;
         private IEquipmentService _equipmentService;
+        private IChooseLevelService _chooseLevelService;
 
-        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticDataService,
+        public UIFactory(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
+            IAssetProvider assetProvider, IStaticDataService staticDataService,
             IEquipmentService equipmentService)
         {
+            _gameStateMachine = gameStateMachine;
+            _chooseLevelService = chooseLevelService;
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
             _equipmentService = equipmentService;
@@ -35,6 +45,15 @@ namespace Code.Factories.UIFactory
             EquipmentItem equipmentItem = Object.Instantiate(equipmentItemPrefab, root);
             equipmentItem.Init(weaponData, _equipmentService);
             return equipmentItem.gameObject;
+        }
+
+        public LevelCard CreateLevelCard(LevelType type, Transform root)
+        {
+            LevelStaticData levelStaticData = _staticDataService.ForLevel(type);
+            LevelCard levelCardPrefab = _assetProvider.LoadAsset<LevelCard>("Prefabs/UI/LevelCard");
+            LevelCard levelCard = Object.Instantiate(levelCardPrefab, root);
+            levelCard.Init(_gameStateMachine, _chooseLevelService, type, levelStaticData.LevelImage, levelStaticData.LevelName);
+            return levelCard;
         }
     }
 }

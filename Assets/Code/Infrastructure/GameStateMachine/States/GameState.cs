@@ -9,6 +9,7 @@ using Code.GameplayLogic.Weapons;
 using Code.Infrastructure.GameStateMachine.States;
 using Code.Level;
 using Code.Services;
+using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
@@ -26,8 +27,9 @@ using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
 {
-    public class GameState : IGameState
+    public class GameState : IPayloadState<LevelType>
     {
+        private ServiceLocator _serviceLocator;
         private IGameStateMachine _gameStateMachine;
         private ISceneLoadService _sceneLoadService;
         private IStaticDataService _staticDataService;
@@ -39,12 +41,13 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IWeaponFactory _weaponFactory;
         private IUIFactory _uiFactory;
         private IHUDFactory _hudFactory;
-        private IWindowFactory _windowFactory;
+        private ILevelFactory _levelFactory;
         private IUIProvider _uiProvider;
         private IEnemiesProvider _enemiesProvider;
         private IRandomService _randomService;
         private IProgressService _progressService;
         private ISaveLoadService _saveLoadService;
+        private IChooseLevelService _chooseLevelService;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -55,13 +58,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private Weapon _playerWeapon;
 
-        public GameState(IGameStateMachine gameStateMachine, ISceneLoadService sceneLoadService,
+        public GameState(ServiceLocator serviceLocator, IGameStateMachine gameStateMachine, ISceneLoadService sceneLoadService,
             IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
             IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
             IEnemiesProvider enemiesProvider, IRandomService randomService, IProgressService progressService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, IChooseLevelService chooseLevelService)
         {
+            _serviceLocator = serviceLocator;
             _gameStateMachine = gameStateMachine;
             _sceneLoadService = sceneLoadService;
             _staticDataService = staticDataService;
@@ -74,18 +78,19 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _randomService = randomService;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
+            _chooseLevelService = chooseLevelService;
         }
 
-        public void Enter()
+        public void Enter(LevelType payload)
         {
             _playerFactory = _factoryProvider.GetFactory<IPlayerFactory>();
             _weaponFactory = _factoryProvider.GetFactory<IWeaponFactory>();
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
-            _windowFactory = _factoryProvider.GetFactory<IWindowFactory>();
+            _levelFactory = _factoryProvider.GetFactory<ILevelFactory>();
 
-            _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
-            _sceneLoadService.LoadScene(_levelStaticData.LevelName, OnLoad);
+            _levelStaticData = _staticDataService.ForLevel(payload);
+            _sceneLoadService.LoadScene("Main", OnLoad);
             _inputService.Enable();
 
             _enemiesProvider.EnemiesChanged += OnEnemiesCountChanged;
@@ -105,12 +110,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         {
             _loadingScreen.Hide();
 
-            _player = InitializePlayerAndCamera();
-
             _uiRoot = _uiFactory.CreateRoot().transform;
             _uiProvider.ChangeUIRoot(_uiRoot);
 
-            InitializeSpawners();
+            InitializeLevel();
 
             InitializeHealthBar(_player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
@@ -118,13 +121,18 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _spawner.EnableSpawner(_player.transform);
         }
 
-        private void InitializeSpawners()
+        private void InitializeLevel()
         {
+            _levelFactory.CreateLevel(_levelStaticData.Type);
+
+            _player = InitializePlayerAndCamera();
+
             _spawner = new EnemySpawner(_updater,
                 _factoryProvider,
                 _staticDataService,
                 _randomService,
-                _enemiesProvider);
+                _enemiesProvider, 
+                _chooseLevelService);
 
             if (_levelStaticData.BossType != BossType.None)
             {
@@ -144,15 +152,15 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             GameObject player = _playerFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
-                .Init(ServiceLocator.Container.Resolve<IInputService>(), _playerWeapon);
+                .Init(_serviceLocator.Resolve<IInputService>(), _playerWeapon);
             player.GetComponent<PlayerLook>()
-                .Init(ServiceLocator.Container.Resolve<IInputService>(), mainCamera);
+                .Init(_serviceLocator.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
-                .Init(ServiceLocator.Container.Resolve<IInputService>());
+                .Init(_serviceLocator.Resolve<IInputService>());
             _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
-                .Init(ServiceLocator.Container.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
-            player.GetComponent<PlayerDeath>().Init(ServiceLocator.Container.Resolve<IGameFinishService>());
+                .Init(_serviceLocator.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
+            player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
 
             CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();
 
