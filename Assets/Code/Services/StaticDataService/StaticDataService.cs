@@ -44,7 +44,7 @@ namespace Code.Services.StaticDataService
                 .EnemyWeaponsData
                 .ToDictionary(x => x.Type);
 
-            _levelsData = Resources.LoadAll<LevelStaticData>("StaticData/LevelConfig")
+            _levelsData = Resources.LoadAll<LevelStaticData>("StaticData/")
                 .ToDictionary(x => x.Type);
 
             _windowsData = Resources.Load<WindowStaticData>("StaticData/WindowConfig")

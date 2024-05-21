@@ -6,6 +6,7 @@ using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
 using Code.Services.AssetProvider;
+using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
@@ -17,7 +18,6 @@ using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.Utils.Timer;
-using UnityEngine;
 using Random = System.Random;
 
 namespace Code.Infrastructure.GameStateMachine.States
@@ -73,6 +73,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEnemiesProvider>(new EnemiesProvider());
             _serviceLocator.RegisterService<IUIProvider>(new UIProvider());
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
+            _serviceLocator.RegisterService<IChooseLevelService>(new ChooseLevelService());
             RegisterStaticDataService();
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>(),
@@ -102,6 +103,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             factoryProvider.AddFactory<IWeaponFactory>(_serviceLocator.Resolve<IWeaponFactory>());
             factoryProvider.AddFactory<IEnemyFactory>(_serviceLocator.Resolve<IEnemyFactory>());
             factoryProvider.AddFactory<IPickupFactory>(_serviceLocator.Resolve<IPickupFactory>());
+            factoryProvider.AddFactory<ILevelFactory>(_serviceLocator.Resolve<ILevelFactory>());
 
             _serviceLocator.RegisterService(factoryProvider);
         }
@@ -119,16 +121,21 @@ namespace Code.Infrastructure.GameStateMachine.States
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
                 _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
+            _serviceLocator.RegisterService<ILevelFactory>(new LevelFactory(_serviceLocator.Resolve<IAssetProvider>(),
+                _serviceLocator.Resolve<IStaticDataService>()));
         }
 
         private void RegisterUIFactories()
         {
-            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_serviceLocator.Resolve<IAssetProvider>(),
+            _serviceLocator.RegisterService<IUIFactory>(new UIFactory(_gameStateMachine,
+                _serviceLocator.Resolve<IChooseLevelService>(),
+                _serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>()));
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>()));
+                    _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>(),
+                    _serviceLocator.Resolve<IChooseLevelService>()));
         }
 
         private void LoadProgress()

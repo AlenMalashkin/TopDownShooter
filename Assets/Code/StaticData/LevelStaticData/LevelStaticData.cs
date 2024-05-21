@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Level;
 using UnityEngine;
@@ -11,6 +10,8 @@ namespace Code.StaticData.LevelStaticData
     {
         public LevelType Type;
         public string LevelName;
+        public Sprite LevelImage;
+        public string LevelPrefabPath;
         public List<Vector3> EnemySpawners;
         public Vector3 PlayerPositionOnLevel;
         public BossType BossType;

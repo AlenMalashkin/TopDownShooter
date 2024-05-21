@@ -1,3 +1,4 @@
+using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.MainMenu;
 using UnityEngine;
 
@@ -9,5 +10,6 @@ namespace Code.Factories.UIFactory
         GameObject CreateLoseWindow(Transform root);
         GameObject CreateWinWindow(Transform root);
         GameObject CreateEquipmentWindow(Transform root);
+        ChooseLevelWindow CreateChooseLevelWindow(Transform root);
     }
 }

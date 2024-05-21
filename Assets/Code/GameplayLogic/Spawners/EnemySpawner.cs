@@ -4,6 +4,7 @@ using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Infrastructure;
 using Code.Level;
 using Code.Services;
+using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.RandomService;
 using Code.Services.StaticDataService;
@@ -20,14 +21,15 @@ namespace Code.GameplayLogic.Spawners
     {
         public int EnemiesRemaining => _enemiesRemaining;
         public Transform Target => _target;
-        
+
         private IUpdater _upater;
         private IFactoryProvider _factoryProvider;
         private IStaticDataService _staticDataService;
         private IRandomService _randomService;
         private IEnemyFactory _enemyFactory;
         private IEnemiesProvider _enemiesProvider;
-        
+        private IChooseLevelService _chooseLevelService;
+
         private ITimer _timer;
         private LevelStaticData _levelStaticData;
         private SpawnerStaticData _spawnerStaticData;
@@ -36,7 +38,7 @@ namespace Code.GameplayLogic.Spawners
 
         public EnemySpawner(IUpdater upater, IFactoryProvider factoryProvider,
             IStaticDataService staticDataService,
-            IRandomService randomService, IEnemiesProvider enemiesProvider)
+            IRandomService randomService, IEnemiesProvider enemiesProvider, IChooseLevelService chooseLevelService)
         {
             _upater = upater;
             _staticDataService = staticDataService;
@@ -44,12 +46,13 @@ namespace Code.GameplayLogic.Spawners
             _factoryProvider = factoryProvider;
             _enemyFactory = factoryProvider.GetFactory<IEnemyFactory>();
             _enemiesProvider = enemiesProvider;
+            _chooseLevelService = chooseLevelService;
         }
 
         public override void EnableSpawner(Transform target)
         {
-            _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
-            _spawnerStaticData = _staticDataService.ForSpawner(LevelType.Main);
+            _levelStaticData = _staticDataService.ForLevel(_chooseLevelService.CurrentLevel);
+            _spawnerStaticData = _staticDataService.ForSpawner(_chooseLevelService.CurrentLevel);
             _enemiesRemaining = _spawnerStaticData.EnemiesOnLevel;
 
             _target = target;
