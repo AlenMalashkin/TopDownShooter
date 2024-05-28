@@ -18,6 +18,7 @@ using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.Utils.Timer;
+using GamePush;
 using Random = System.Random;
 
 namespace Code.Infrastructure.GameStateMachine.States
@@ -78,10 +79,15 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IProgressService>(), _serviceLocator.Resolve<ISaveLoadService>()));
-            _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
+            RegisterInput();
             RegisterUIFactories();
             RegisterGameFactories();
             RegisterFactoryProvider();
+        }
+
+        private void RegisterInput()
+        {
+            _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 
         private void RegisterStaticDataService()

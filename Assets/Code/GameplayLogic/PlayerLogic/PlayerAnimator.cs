@@ -1,6 +1,4 @@
 using Code.Services.EquipmentService;
-using Code.Services.InputService;
-using Code.Services.InputService.InputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,28 +8,23 @@ namespace Code.GameplayLogic.PlayerLogic
     [RequireComponent(typeof(PlayerMovement))]
     public class PlayerAnimator : AnimatorComponent
     {
+        [SerializeField] private PlayerMovement _playerMovement;
+        
         private bool _isMoving;
         private bool _isMovingBackwards;
 
         private Transform _cameraTransform;
-        private IInputService _inputService;
         private IEquipmentService _equipmentService;
 
-        public void Init(IEquipmentService equipmentService, IInputService inputService, Transform cameraTransform)
+        public void Init(IEquipmentService equipmentService, Transform cameraTransform)
         {
-            _inputService = inputService;
             _equipmentService = equipmentService;
             _cameraTransform = cameraTransform;
         }
 
-        private void Start()
+        private void Update()
         {
-            _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
-        }
-
-        private void OnDisable()
-        {
-            _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
+            UpdateMovementAnimations(_playerMovement.MoveDirection);
         }
 
         public void PlayDeathAnimation()

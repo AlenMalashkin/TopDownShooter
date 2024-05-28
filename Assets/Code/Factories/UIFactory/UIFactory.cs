@@ -8,6 +8,7 @@ using Code.Services.EquipmentService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
 using Code.UI.EquipmentMenu;
+using Code.UI.HUD;
 using Code.UI.Windows.ChooseLevelWindow;
 using UnityEngine;
 
@@ -54,6 +55,12 @@ namespace Code.Factories.UIFactory
             LevelCard levelCard = Object.Instantiate(levelCardPrefab, root);
             levelCard.Init(_gameStateMachine, _chooseLevelService, type, levelStaticData.LevelImage, levelStaticData.LevelName);
             return levelCard;
+        }
+
+        public UIJoysticks CreateUIJoysticks(Transform root)
+        {
+            UIJoysticks uiJoysticks = _assetProvider.LoadAsset<UIJoysticks>("Prefabs/UIJoysticks");
+            return Object.Instantiate(uiJoysticks, root);
         }
     }
 }

@@ -23,6 +23,7 @@ using Code.Services.UIProvider;
 using Code.StaticData.LevelStaticData;
 using Code.UI.HUD;
 using Code.Utils.Timer;
+using GamePush;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
@@ -58,7 +59,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
         private Weapon _playerWeapon;
 
-        public GameState(ServiceLocator serviceLocator, IGameStateMachine gameStateMachine, ISceneLoadService sceneLoadService,
+        public GameState(ServiceLocator serviceLocator, IGameStateMachine gameStateMachine,
+            ISceneLoadService sceneLoadService,
             IStaticDataService staticDataService,
             LoadingScreen loadingScreen, IInputService inputService,
             IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
@@ -131,7 +133,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 _factoryProvider,
                 _staticDataService,
                 _randomService,
-                _enemiesProvider, 
+                _enemiesProvider,
                 _chooseLevelService);
 
             if (_levelStaticData.BossType != BossType.None)
@@ -159,8 +161,21 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 .Init(_serviceLocator.Resolve<IInputService>());
             _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             player.GetComponent<PlayerAnimator>()
-                .Init(_serviceLocator.Resolve<IEquipmentService>(), _inputService, mainCamera.transform);
+                .Init(_serviceLocator.Resolve<IEquipmentService>(), mainCamera.transform);
             player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
+            
+            if (GP_Device.IsMobile())
+            {
+                UIJoysticks uiJoysticks = _uiFactory.CreateUIJoysticks(_uiRoot);
+
+                playerShoot
+                    .Init(uiJoysticks.FireJoystick, _playerWeapon);
+                player.GetComponent<PlayerMovement>()
+                    .Init(uiJoysticks.MovementJoystick);
+                player.GetComponent<PlayerLook>()
+                    .Init(uiJoysticks.MovementJoystick, uiJoysticks.FireJoystick);
+                _playerWeapon.AttachToHand(playerShoot.PlayerArm);
+            }
 
             CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();
 
