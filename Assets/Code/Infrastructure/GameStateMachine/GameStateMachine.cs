@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachine.States;
 using Code.Infrastructure.GameStateMachineNamespace.States;
@@ -30,9 +29,15 @@ namespace Code.Infrastructure.GameStateMachineNamespace
             _states[typeof(MenuState)] =
                 new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>(),
                     serviceLocator.Resolve<IUIProvider>());
-            _states[typeof(GameState)] = new GameState(serviceLocator, this, serviceLocator.Resolve<ISceneLoadService>()
-                , serviceLocator.Resolve<IStaticDataService>()
-                , loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
+            _states[typeof(TutorialState)] = new TutorialState(serviceLocator,
+                serviceLocator.Resolve<IStaticDataService>(), sceneLoadService, loadingScreen,
+                serviceLocator.Resolve<IUIProvider>(), serviceLocator.Resolve<IFactoryProvider>(),
+                serviceLocator.Resolve<ISaveLoadService>(), serviceLocator.Resolve<IProgressService>(),
+                serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IInputService>());
+            _states[typeof(GameState)] = new GameState(serviceLocator, this,
+                serviceLocator.Resolve<ISceneLoadService>(),
+                serviceLocator.Resolve<IStaticDataService>(),
+                loadingScreen, serviceLocator.Resolve<IInputService>(), updater,
                 serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>(),
                 serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>(),
                 serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>(),

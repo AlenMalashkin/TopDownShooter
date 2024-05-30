@@ -23,6 +23,6 @@ namespace Code.Services.StaticDataService
         SpawnerStaticData ForSpawner(LevelType type);
         EnemyStaticData ForEnemy(EnemyType type);
         BossStaticData ForBoss(BossType type);
-        WeaponPickup ForWeaponPickup(WeaponType type);
+        Pickup ForWeaponPickup(WeaponType type);
     }
 }
