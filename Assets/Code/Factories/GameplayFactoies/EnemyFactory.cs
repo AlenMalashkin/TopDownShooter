@@ -10,6 +10,7 @@ using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
+using Code.Tutorial;
 using Code.UI.HUD;
 using UnityEngine;
 
@@ -112,6 +113,24 @@ namespace Code.Factories.GameplayFactoies
                 , enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
             return enemy;
+        }
+
+        public Enemy CreateTutorialEnemy(Vector3 position, GameObject player)
+        {
+            EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(EnemyType.TutorialEnemy);
+            Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
+            enemy.GetComponent<TutorialEnemy>().Init(_enemiesProvider);
+            enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
+            return enemy;
+        }
+
+        public Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, GameObject player)
+        {
+            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.TutorialBoss);
+            Enemy boss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            boss.GetComponent<TutorialBoss>().Init(_pickupFactory);
+            _hudFactory.CreateBossHealthBar(bossHealthBarRoot, boss.GetComponent<Damageable>());
+            return boss;
         }
 
         private Enemy CreateBaseEnemy(EnemyType type, Vector3 position)

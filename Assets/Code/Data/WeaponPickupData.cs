@@ -8,7 +8,7 @@ namespace Code.Data
     [Serializable]
     public class WeaponPickupData
     {
-        public WeaponPickup Prefab;
+        public Pickup Prefab;
         public WeaponType Type;
     }
 }

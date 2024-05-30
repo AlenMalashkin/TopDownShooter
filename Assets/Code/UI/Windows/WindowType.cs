@@ -6,6 +6,7 @@ namespace Code.UI.Windows
         WinWindow,
         LoseWindow,
         EquipmentWindow,
-        ChooseLevelWindow
+        ChooseLevelWindow,
+        TutorialPassWindow
     }
 }

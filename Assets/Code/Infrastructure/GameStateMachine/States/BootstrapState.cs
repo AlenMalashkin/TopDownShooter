@@ -122,7 +122,7 @@ namespace Code.Infrastructure.GameStateMachine.States
                 new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IPickupFactory>(
                 new PickupFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameFinishService>()));
+                    _serviceLocator.Resolve<IGameFinishService>(), _serviceLocator.Resolve<IWindowFactory>(), _serviceLocator.Resolve<IUIProvider>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
@@ -140,8 +140,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>(),
-                    _serviceLocator.Resolve<IChooseLevelService>()));
+                    _serviceLocator.Resolve<IGameStateMachine>(),_serviceLocator.Resolve<IUIFactory>(),
+                    _serviceLocator.Resolve<IChooseLevelService>(), _progressService, _saveLoadService));
         }
 
         private void LoadProgress()
