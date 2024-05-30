@@ -4,5 +4,6 @@ namespace Code.GameplayLogic.EnemiesLogic
     {
         Melee,
         Range,
+        TutorialEnemy
     }
 }

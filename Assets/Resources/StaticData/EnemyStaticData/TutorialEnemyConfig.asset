@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3646a98966b6488ea4941137be9e41ae, type: 3}
-  m_Name: MeleeBossEnemyConfig
+  m_Name: TutorialEnemyConfig
   m_EditorClassIdentifier: 
   _type: 2
-  _prefab: {fileID: 5525871848005710543, guid: e36788d09d3d31c419a932449262b534, type: 3}
+  _prefab: {fileID: 7238778214934180746, guid: 4544e41efdfe0ae40afe608be11d7628, type: 3}

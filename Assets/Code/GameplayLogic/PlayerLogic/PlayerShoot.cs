@@ -13,6 +13,7 @@ namespace Code.GameplayLogic.PlayerLogic
         public Transform PlayerArm => playerArm;
 
         private IInputService _inputService;
+        private Joystick _fireJoystick;
         private Weapon _weapon;
 
         public void Init(IInputService inputService, Weapon weapon)
@@ -21,9 +22,15 @@ namespace Code.GameplayLogic.PlayerLogic
             _weapon = weapon;
         }
 
+        public void Init(Joystick fireJoystick, Weapon weapon)
+        {
+            _fireJoystick = fireJoystick;
+            _weapon = weapon;
+        }
+
         private void Update()
         {
-            if (_inputService.GetInputAction<IFireAction>().FirePressed)
+            if (_inputService.GetInputAction<IFireAction>().FirePressed || _fireJoystick.Direction != Vector2.zero)
                 Shoot();
             else
                 playerAnimator.PlayRunWithWeaponAnimation();

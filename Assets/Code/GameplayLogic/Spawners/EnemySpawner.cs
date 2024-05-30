@@ -20,7 +20,6 @@ namespace Code.GameplayLogic.Spawners
     public class EnemySpawner : Spawner
     {
         public int EnemiesRemaining => _enemiesRemaining;
-        public Transform Target => _target;
 
         private IUpdater _upater;
         private IFactoryProvider _factoryProvider;

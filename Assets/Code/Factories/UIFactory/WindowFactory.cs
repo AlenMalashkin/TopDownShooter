@@ -1,6 +1,9 @@
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.ChooseLevelService;
+using Code.Services.ProgressService;
+using Code.Services.SaveService;
 using Code.Services.StaticDataService;
+using Code.Tutorial.TutorialWindows;
 using Code.UI.EquipmentMenu;
 using Code.UI.Windows;
 using Code.UI.Windows.ChooseLevelWindow;
@@ -17,23 +20,27 @@ namespace Code.Factories.UIFactory
         private IGameStateMachine _gameStateMachine;
         private IUIFactory _uiFactory;
         private IChooseLevelService _chooseLevelService;
+        private IProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
 
         public WindowFactory(IStaticDataService staticDataService, IGameStateMachine gameStateMachine,
-            IUIFactory uiFactory, IChooseLevelService chooseLevelService)
+            IUIFactory uiFactory, IChooseLevelService chooseLevelService, IProgressService progressService,
+            ISaveLoadService saveLoadService)
         {
             _staticDataService = staticDataService;
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _chooseLevelService = chooseLevelService;
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
         }
 
         public MainMenuWindow CreateMainMenu(Transform root)
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.MainMenu).WindowPrefab;
             MainMenuWindow menuWindow = Object.Instantiate(window, root) as MainMenuWindow;
-            menuWindow.TestPlayButton.Init(_gameStateMachine);
+            menuWindow.ChooseLevelButton.Init(_gameStateMachine, this, _progressService, root);
             menuWindow.EquipmentButton.Init(this, root);
-            menuWindow.ChooseLevelButton.Init(this, root);
             return menuWindow;
         }
 
@@ -67,6 +74,14 @@ namespace Code.Factories.UIFactory
             ChooseLevelWindow chooseLevelWindow = Object.Instantiate(window, root) as ChooseLevelWindow;
             chooseLevelWindow.Init(_uiFactory);
             return chooseLevelWindow;
+        }
+
+        public TutorialWindow CreateTutorialWindow(Transform root)
+        {
+            BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialPassWindow).WindowPrefab;
+            TutorialWindow tutorialWindow = Object.Instantiate(window, root) as TutorialWindow;
+            tutorialWindow.Init(_gameStateMachine, _progressService, _saveLoadService);
+            return tutorialWindow;
         }
     }
 }

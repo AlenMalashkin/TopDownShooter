@@ -18,6 +18,7 @@ using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.Utils.Timer;
+using GamePush;
 using Random = System.Random;
 
 namespace Code.Infrastructure.GameStateMachine.States
@@ -78,10 +79,15 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IProgressService>(), _serviceLocator.Resolve<ISaveLoadService>()));
-            _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
+            RegisterInput();
             RegisterUIFactories();
             RegisterGameFactories();
             RegisterFactoryProvider();
+        }
+
+        private void RegisterInput()
+        {
+            _serviceLocator.RegisterService<IInputService>(new DesktopInputService(new PlayerInputActions()));
         }
 
         private void RegisterStaticDataService()
@@ -116,7 +122,7 @@ namespace Code.Infrastructure.GameStateMachine.States
                 new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IPickupFactory>(
                 new PickupFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameFinishService>()));
+                    _serviceLocator.Resolve<IGameFinishService>(), _serviceLocator.Resolve<IWindowFactory>(), _serviceLocator.Resolve<IUIProvider>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
@@ -134,8 +140,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
-                    _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>(),
-                    _serviceLocator.Resolve<IChooseLevelService>()));
+                    _serviceLocator.Resolve<IGameStateMachine>(),_serviceLocator.Resolve<IUIFactory>(),
+                    _serviceLocator.Resolve<IChooseLevelService>(), _progressService, _saveLoadService));
         }
 
         private void LoadProgress()
