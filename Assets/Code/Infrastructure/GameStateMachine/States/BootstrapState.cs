@@ -19,6 +19,7 @@ using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.Utils.Timer;
 using GamePush;
+using UnityEngine;
 using Random = System.Random;
 
 namespace Code.Infrastructure.GameStateMachine.States
