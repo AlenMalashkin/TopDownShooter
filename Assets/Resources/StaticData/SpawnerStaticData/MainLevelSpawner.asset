@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelType: 1
   _spawnTime: 2
-  _enemiesOnLevel: 2
+  _enemiesOnLevel: 10

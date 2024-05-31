@@ -32,7 +32,7 @@ namespace Code.GameplayLogic.Spawners
 
         public override void EnableSpawner(Transform target)
         {
-            _levelStaticData = _staticDataService.ForLevel(LevelType.Main);
+            _levelStaticData = _staticDataService.ForLevel(LevelType.Level1);
 
             _followTarget = target;
 

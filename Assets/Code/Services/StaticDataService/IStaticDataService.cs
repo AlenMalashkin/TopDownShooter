@@ -9,7 +9,9 @@ using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
 using Code.StaticData.SpawnerStaticData;
+using Code.StaticData.TutorialStaticData;
 using Code.UI.Windows;
+using GamePush;
 
 namespace Code.Services.StaticDataService
 {
@@ -24,5 +26,6 @@ namespace Code.Services.StaticDataService
         EnemyStaticData ForEnemy(EnemyType type);
         BossStaticData ForBoss(BossType type);
         Pickup ForWeaponPickup(WeaponType type);
+        TutorialStaticData ForTutorial();
     }
 }

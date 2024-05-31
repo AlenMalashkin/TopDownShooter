@@ -16,7 +16,7 @@ using Code.Services.SaveService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
-using Code.StaticData.LevelStaticData;
+using Code.StaticData.TutorialStaticData;
 using Code.UI.HUD;
 using GamePush;
 using UnityEngine;
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.GameStateMachine.States
         private IEnemiesProvider _enemiesProvider;
 
         private ServiceLocator _serviceLocator;
-        private LevelStaticData _levelStaticData;
+        private TutorialStaticData _tutorialStaticData;
         private ILevelFactory _levelFactory;
         private IPlayerFactory _playerFactory;
         private IWeaponFactory _weaponFactory;
@@ -72,8 +72,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
             _enemyFactory = _factoryProvider.GetFactory<IEnemyFactory>();
-            
-            _levelStaticData = _staticDataService.ForLevel(LevelType.Tutorial);
+
+            _tutorialStaticData = _staticDataService.ForTutorial();
             _sceneLoadService.LoadScene("Main", OnLoad);
             _inputService.Enable();
             _enemiesProvider.EnemiesChanged += OnEnemiesCountChanged;
@@ -97,14 +97,16 @@ namespace Code.Infrastructure.GameStateMachine.States
 
             InitializeHealthBar(_player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
-            
-            _enemiesProvider.AddEnemy(_enemyFactory.CreateTutorialEnemy(_levelStaticData.EnemySpawners[1], _player));
+
+            _enemiesProvider.AddEnemy(
+                _enemyFactory.CreateTutorialEnemy(_tutorialStaticData.TutorialLevel.EnemySpawnMarker.transform.position,
+                    _player));
         }
 
         private void InitializeLevel()
         {
-            _levelFactory.CreateLevel(_levelStaticData.Type);
-
+            _levelFactory.CreateTutorialLevel();
+            
             _player = InitializePlayerAndCamera();
         }
 
@@ -115,7 +117,8 @@ namespace Code.Infrastructure.GameStateMachine.States
 
             Camera mainCamera = Camera.main;
 
-            GameObject player = _playerFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
+            GameObject player =
+                _playerFactory.CreatePlayer(_tutorialStaticData.TutorialLevel.PlayerSpawnMarker.transform.position);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(_serviceLocator.Resolve<IInputService>(), _playerWeapon);
@@ -163,7 +166,8 @@ namespace Code.Infrastructure.GameStateMachine.States
         private void OnEnemiesCountChanged(int count)
         {
             if (count <= 0)
-                _enemyFactory.CreateTutorialBoss(_levelStaticData.EnemySpawners[0], _uiRoot, _player);
+                _enemyFactory.CreateTutorialBoss(_tutorialStaticData.TutorialLevel.BossSpawnMarker.transform.position,
+                    _uiRoot, _player);
         }
     }
 }
