@@ -9,7 +9,7 @@ namespace Code.GameplayLogic.PlayerLogic
     public class PlayerAnimator : AnimatorComponent
     {
         [SerializeField] private PlayerMovement _playerMovement;
-        
+
         private bool _isMoving;
         private bool _isMovingBackwards;
 
@@ -33,7 +33,7 @@ namespace Code.GameplayLogic.PlayerLogic
             PlayAnimationByName(AnimationStrings.Death, GetLayerIndex("Base Layer"));
         }
 
-        public void PlayShootAnimation()    
+        public void PlayShootAnimation()
             => PlayAnimationByName(GetShootAnimationName(_equipmentService.CurrentWeaponCategory),
                 GetLayerIndex("Upper Body"));
 

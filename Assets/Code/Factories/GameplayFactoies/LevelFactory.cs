@@ -2,6 +2,7 @@ using Code.Level;
 using Code.Services.AssetProvider;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
+using Code.Tutorial;
 using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
@@ -16,11 +17,17 @@ namespace Code.Factories.GameplayFactoies
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
         }
-        
+
         public GameObject CreateLevel(LevelType type)
         {
             LevelStaticData levelStaticData = _staticDataService.ForLevel(type);
             return Object.Instantiate(_assetProvider.LoadAsset(levelStaticData.LevelPrefabPath));
+        }
+
+        public TutorialLevel CreateTutorialLevel()
+        {
+            TutorialLevel tutorialLevel = Object.Instantiate(_staticDataService.ForTutorial().TutorialLevel);
+            return tutorialLevel;
         }
     }
 }

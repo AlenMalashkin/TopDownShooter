@@ -29,17 +29,20 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void Start()
         {
-            _inputService.GetInputAction<ILookAction>().SubscribeLookInput(LookAtMousePoint);
+            if (!GP_Device.IsMobile())
+                _inputService.GetInputAction<ILookAction>().SubscribeLookInput(LookAtMousePoint);
         }
 
         private void OnDisable()
         {
-            _inputService.GetInputAction<ILookAction>().UnsubscribeLookInput(LookAtMousePoint);
+            if (!GP_Device.IsMobile())
+                _inputService.GetInputAction<ILookAction>().UnsubscribeLookInput(LookAtMousePoint);
         }
 
         private void Update()
         {
-            LookInJoystickDirection(_fireJoystick.Direction != Vector2.zero ? _fireJoystick : _movementJoystick);
+            if (GP_Device.IsMobile())
+                LookInJoystickDirection(_fireJoystick.Direction != Vector2.zero ? _fireJoystick : _movementJoystick);
         }
 
         private void LookAtMousePoint(InputAction.CallbackContext context)
@@ -56,7 +59,8 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void LookInJoystickDirection(Joystick joystick)
         {
-            transform.eulerAngles = new Vector3(0f, Mathf.Atan2(joystick.Direction.x, joystick.Direction.y) * Mathf.Rad2Deg, 0f);
+            transform.eulerAngles = new Vector3(0f,
+                Mathf.Atan2(joystick.Direction.x, joystick.Direction.y) * Mathf.Rad2Deg, 0f);
         }
     }
 }
