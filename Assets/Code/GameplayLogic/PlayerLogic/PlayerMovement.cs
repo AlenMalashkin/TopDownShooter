@@ -13,7 +13,7 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private float _speed;
 
-        public Vector2 MoveDirection => _moveDirection;
+        public Vector2 MoveDirection => new Vector2(_moveDirection.x, _moveDirection.z);
         
         private Joystick _movementJoystick;
         private Vector3 _moveDirection;
@@ -33,13 +33,13 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void Start()
         {
-            if (GP_Device.IsDesktop())
+            if (!GP_Device.IsMobile())
                 _inputService.GetInputAction<IMovementAction>().SubscribeMovementInput(OnMove);
         }
 
         private void OnDisable()
         {
-            if (GP_Device.IsDesktop())
+            if (!GP_Device.IsMobile())
                 _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
             
             _rigidbody.velocity = Vector3.zero;
@@ -47,7 +47,8 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void Update()
         {
-            _moveDirection = new Vector3(_movementJoystick.Direction.x, 0, _movementJoystick.Direction.y);
+            if (GP_Device.IsMobile())
+                _moveDirection = new Vector3(_movementJoystick.Direction.x, 0, _movementJoystick.Direction.y);
         }
 
         private void FixedUpdate()

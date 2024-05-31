@@ -16,7 +16,7 @@ namespace Code.UI.Windows.Buttons
         
         protected override void OnClick()
         {
-            _gameStateMachine.Enter<GameState, LevelType>(LevelType.Main);
+            _gameStateMachine.Enter<GameState, LevelType>(LevelType.Level1);
         }
     }
 }

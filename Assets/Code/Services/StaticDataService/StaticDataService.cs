@@ -11,9 +11,11 @@ using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
 using Code.StaticData.PickupStaticData;
 using Code.StaticData.SpawnerStaticData;
+using Code.StaticData.TutorialStaticData;
 using Code.StaticData.WeaponStaticData;
 using Code.StaticData.WindowStaticData;
 using Code.UI.Windows;
+using GamePush;
 using UnityEngine;
 
 namespace Code.Services.StaticDataService
@@ -33,7 +35,8 @@ namespace Code.Services.StaticDataService
 
         private Dictionary<BossType, BossStaticData> _bosses = new Dictionary<BossType, BossStaticData>();
         private Dictionary<WeaponType, Pickup> _weaponPickups = new Dictionary<WeaponType, Pickup>();
-
+        private TutorialStaticData _tutorialStaticData;
+        
         public void Load()
         {
             _weaponsData = Resources.Load<WeaponStaticData>("StaticData/WeaponsConfig")
@@ -63,6 +66,8 @@ namespace Code.Services.StaticDataService
             _weaponPickups = Resources.Load<PickupStaticData>("StaticData/PickupStaticData/PickupsConfig")
                 .WeaponPickupData
                 .ToDictionary(x => x.Type, x => x.Prefab);
+
+            _tutorialStaticData = Resources.Load<TutorialStaticData>("StaticData/TutorialStaticData");
         }
 
         public WeaponData ForWeapon(WeaponType type)
@@ -88,5 +93,8 @@ namespace Code.Services.StaticDataService
 
         public Pickup ForWeaponPickup(WeaponType type)
             => _weaponPickups[type];
+
+        public TutorialStaticData ForTutorial()
+            => _tutorialStaticData;
     }
 }

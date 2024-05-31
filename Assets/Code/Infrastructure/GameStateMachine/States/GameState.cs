@@ -163,7 +163,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             player.GetComponent<PlayerAnimator>()
                 .Init(_serviceLocator.Resolve<IEquipmentService>(), mainCamera.transform);
             player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
-            
+
             if (GP_Device.IsMobile())
             {
                 UIJoysticks uiJoysticks = _uiFactory.CreateUIJoysticks(_uiRoot);
