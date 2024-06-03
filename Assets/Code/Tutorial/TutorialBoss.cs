@@ -1,6 +1,7 @@
 using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
+using Code.Tutorial.TutorialWindows;
 using UnityEngine;
 
 namespace Code.Tutorial
@@ -12,10 +13,12 @@ namespace Code.Tutorial
         [SerializeField] private Collider _hitBox;
 
         private IPickupFactory _pickupFactory;
+        private DialogWindow _dialogWindow;
 
-        public void Init(IPickupFactory pickupFactory)
+        public void Init(IPickupFactory pickupFactory, DialogWindow dialogWindow)
         {
             _pickupFactory = pickupFactory;
+            _dialogWindow = dialogWindow;
         }
         
         private void OnEnable()
@@ -40,6 +43,7 @@ namespace Code.Tutorial
             _hitBox.enabled = false;
             _pickupFactory.CrateTutorialPickup(transform.position, WeaponType.Pistol);
             _animator.PlayAnimationByName("Death");
+            _dialogWindow.ShowNextWindow();
             Destroy(gameObject, 3);
         }
     }

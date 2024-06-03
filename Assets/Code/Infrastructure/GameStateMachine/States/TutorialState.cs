@@ -17,6 +17,8 @@ using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
 using Code.StaticData.TutorialStaticData;
+using Code.Tutorial;
+using Code.Tutorial.TutorialWindows;
 using Code.UI.HUD;
 using GamePush;
 using UnityEngine;
@@ -46,6 +48,9 @@ namespace Code.Infrastructure.GameStateMachine.States
         private Transform _uiRoot;
         private GameObject _player;
         private Weapon _playerWeapon;
+        private IWindowFactory _windowFactory;
+        private TutorialLevel _tutorialLevel;
+        private DialogWindow _dialogWindow;
 
         public TutorialState(ServiceLocator serviceLocator, IStaticDataService staticDataService,
             ISceneLoadService sceneLoadService, LoadingScreen loadingScreen, IUIProvider uiProvider,
@@ -72,6 +77,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
             _enemyFactory = _factoryProvider.GetFactory<IEnemyFactory>();
+            _windowFactory = _factoryProvider.GetFactory<IWindowFactory>();
 
             _tutorialStaticData = _staticDataService.ForTutorial();
             _sceneLoadService.LoadScene("Main", OnLoad);
@@ -98,14 +104,16 @@ namespace Code.Infrastructure.GameStateMachine.States
             InitializeHealthBar(_player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
 
-            _enemiesProvider.AddEnemy(
-                _enemyFactory.CreateTutorialEnemy(_tutorialStaticData.TutorialLevel.EnemySpawnMarker.transform.position,
-                    _player));
+            _dialogWindow = _windowFactory.CreateTutorialDialogWindow(_uiRoot);
+            _dialogWindow.ShowNextWindow();
+
+            _tutorialLevel.TutorialTriggerZone.Init(_dialogWindow, _enemiesProvider, _enemyFactory,
+                _tutorialStaticData);
         }
 
         private void InitializeLevel()
         {
-            _levelFactory.CreateTutorialLevel();
+            _tutorialLevel = _levelFactory.CreateTutorialLevel();
             
             _player = InitializePlayerAndCamera();
         }
@@ -167,7 +175,7 @@ namespace Code.Infrastructure.GameStateMachine.States
         {
             if (count <= 0)
                 _enemyFactory.CreateTutorialBoss(_tutorialStaticData.TutorialLevel.BossSpawnMarker.transform.position,
-                    _uiRoot, _player);
+                    _uiRoot, _dialogWindow);
         }
     }
 }
