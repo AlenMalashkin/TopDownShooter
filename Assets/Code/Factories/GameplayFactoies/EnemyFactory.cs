@@ -11,6 +11,7 @@ using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.Tutorial;
+using Code.Tutorial.TutorialWindows;
 using Code.UI.HUD;
 using UnityEngine;
 
@@ -115,20 +116,20 @@ namespace Code.Factories.GameplayFactoies
             return enemy;
         }
 
-        public Enemy CreateTutorialEnemy(Vector3 position, GameObject player)
+        public Enemy CreateTutorialEnemy(Vector3 position, DialogWindow tutorialDialogWindow)
         {
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(EnemyType.TutorialEnemy);
             Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<TutorialEnemy>().Init(_enemiesProvider);
+            enemy.GetComponent<TutorialEnemy>().Init(_enemiesProvider, tutorialDialogWindow);
             enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
             return enemy;
         }
 
-        public Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, GameObject player)
+        public Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, DialogWindow dialogWindow)
         {
             BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.TutorialBoss);
             Enemy boss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
-            boss.GetComponent<TutorialBoss>().Init(_pickupFactory);
+            boss.GetComponent<TutorialBoss>().Init(_pickupFactory, dialogWindow);
             _hudFactory.CreateBossHealthBar(bossHealthBarRoot, boss.GetComponent<Damageable>());
             return boss;
         }

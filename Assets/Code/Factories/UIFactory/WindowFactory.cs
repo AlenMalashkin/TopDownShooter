@@ -76,12 +76,19 @@ namespace Code.Factories.UIFactory
             return chooseLevelWindow;
         }
 
-        public TutorialWindow CreateTutorialWindow(Transform root)
+        public TutorialPassedWindow CreateTutorialWindow(Transform root)
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialPassWindow).WindowPrefab;
-            TutorialWindow tutorialWindow = Object.Instantiate(window, root) as TutorialWindow;
-            tutorialWindow.Init(_gameStateMachine, _progressService, _saveLoadService);
-            return tutorialWindow;
+            TutorialPassedWindow tutorialPassedWindow = Object.Instantiate(window, root) as TutorialPassedWindow;
+            tutorialPassedWindow.Init(_gameStateMachine, _progressService, _saveLoadService);
+            return tutorialPassedWindow;
+        }
+
+        public TutorialDialogWindow CreateTutorialDialogWindow(Transform root)
+        {
+            BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialMessageWindow).WindowPrefab;
+            TutorialDialogWindow tutorialDialogWindow = Object.Instantiate(window, root) as TutorialDialogWindow;
+            return tutorialDialogWindow;
         }
     }
 }
