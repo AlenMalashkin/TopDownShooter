@@ -8,7 +8,8 @@ namespace Code.GameplayLogic.Weapons
         public abstract event Action<int> AmmoChanged;
         public abstract bool CanShoot { get; }
         public abstract void AttachToHand(Transform parent);
-        public abstract void ShootBullet(Vector3 shootDirection);
+        public abstract void Shoot(Vector3 shootDirection);
+        public abstract void ShootBullets(Vector3 direction, int damage);
         public abstract void Reload();
 
     }
