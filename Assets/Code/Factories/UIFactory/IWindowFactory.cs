@@ -12,6 +12,7 @@ namespace Code.Factories.UIFactory
         GameObject CreateWinWindow(Transform root);
         GameObject CreateEquipmentWindow(Transform root);
         ChooseLevelWindow CreateChooseLevelWindow(Transform root);
-        TutorialWindow CreateTutorialWindow(Transform root);
+        TutorialPassedWindow CreateTutorialWindow(Transform root);
+        TutorialDialogWindow CreateTutorialDialogWindow(Transform root);
     }
 }
