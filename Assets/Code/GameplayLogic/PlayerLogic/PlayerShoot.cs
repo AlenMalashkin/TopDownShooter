@@ -51,7 +51,7 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (_weapon.CanShoot)
             {
-                _weapon.ShootBullet(transform.forward);
+                _weapon.Shoot(transform.forward);
                 _playerAnimator.PlayShootAnimation();
             }
             else

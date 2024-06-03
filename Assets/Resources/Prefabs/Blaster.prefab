@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 707861973409315232}
-  - component: {fileID: 707861973409315247}
+  - component: {fileID: 7351220134573403955}
   m_Layer: 0
   m_Name: Blaster
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &707861973409315247
+--- !u!114 &7351220134573403955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,16 +73,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 707861973409315246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5d093be99142d5981ce2cd2b8f3613, type: 3}
+  m_Script: {fileID: 11500000, guid: 667d2ba2573f4df28cba2037cc056d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPositionInHand: {x: -0.002, y: -0.067, z: -0.074}
   _weaponRotationInHand: {x: 120, y: 25, z: -45}
-  _fireRate: 0.4
+  _fireRate: 1
   _reloadTime: 1
-  _maxBullets: 10
-  _damage: 20
+  _maxBullets: 6
+  _damage: 2
   _shootPoint: {fileID: 707861972147941715}
+  _spread: 0.3
+  _maxBulletsCount: 15
+  _minBulletsCount: 10
 --- !u!1 &1437724331736617572
 GameObject:
   m_ObjectHideFlags: 0

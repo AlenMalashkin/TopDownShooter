@@ -18,8 +18,11 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         [SerializeField] private int _damage;
         [SerializeField] private Transform _shootPoint;
 
+        public int BulletsInClip => _bulletsInClip;
         public override bool CanShoot => !IsClipEmpty && !_isReloading;
-
+        protected Transform ShootPoint => _shootPoint;
+        protected IWeaponFactory WeaponFactory => _weaponFactory;
+        protected Bullet BulletPrefab => _bulletPrefab;
         private bool IsClipEmpty => _bulletsInClip == 0;
 
         private Bullet _bulletPrefab;
@@ -27,8 +30,6 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         private float _shootCooldown;
         private int _bulletsInClip;
         private IWeaponFactory _weaponFactory;
-
-        public int BulletsInClip => _bulletsInClip;
 
         private void Start()
         {
@@ -55,17 +56,22 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
                 _weaponRotationInHand.y, _weaponRotationInHand.z);
         }
 
-        public override void ShootBullet(Vector3 shootDirection)
+        public override void Shoot(Vector3 shootDirection)
         {
             if (_shootCooldown > _fireRate)
             {
-                Bullet createdBullet = _weaponFactory.CreateBullet(_shootPoint.position, _bulletPrefab);
-                createdBullet.Init(_damage, shootDirection);
+                ShootBullets(shootDirection, _damage);
                 _bulletsInClip--;
                 _shootCooldown = 0f;
 
                 AmmoChanged?.Invoke(_bulletsInClip);
             }
+        }
+
+        public override void ShootBullets(Vector3 direction, int damage)
+        {
+            Bullet createdBullet = _weaponFactory.CreateBullet(_shootPoint.position, _bulletPrefab);
+            createdBullet.Init(damage, direction);
         }
 
         public override void Reload()

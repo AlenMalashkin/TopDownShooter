@@ -40,7 +40,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         public override void UpdateState()
         {
-            _weapon.ShootBullet(transform.forward);
+            _weapon.Shoot(transform.forward);
             var targetPosition = _target.position;
             targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
