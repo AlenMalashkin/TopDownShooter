@@ -1,4 +1,5 @@
 using Code.GameplayLogic;
+using Code.Tutorial.TutorialWindows;
 using UnityEngine;
 
 namespace Code.Factories.GameplayFactoies
@@ -10,7 +11,7 @@ namespace Code.Factories.GameplayFactoies
         Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot);
         Enemy CreateRangeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot);
         Enemy CreateUniqueBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot);
-        Enemy CreateTutorialEnemy(Vector3 position, GameObject player);
-        Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, GameObject player);
+        Enemy CreateTutorialEnemy(Vector3 position, DialogWindow tutorialDialogWindow);
+        Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, DialogWindow dialogWindow);
     }
 }

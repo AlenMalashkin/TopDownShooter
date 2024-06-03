@@ -1,6 +1,7 @@
 using System;
 using Code.GameplayLogic;
 using Code.Services.EnemiesProvider;
+using Code.Tutorial.TutorialWindows;
 using UnityEngine;
 
 namespace Code.Tutorial
@@ -12,10 +13,12 @@ namespace Code.Tutorial
         [SerializeField] private Collider _hitBox;
 
         private IEnemiesProvider _enemiesProvider;
+        private DialogWindow _dialogWindow;
 
-        public void Init(IEnemiesProvider enemiesProvider)
+        public void Init(IEnemiesProvider enemiesProvider, DialogWindow dialogWindow)
         {
             _enemiesProvider = enemiesProvider;
+            _dialogWindow = dialogWindow;
         }
         
         private void OnEnable()
@@ -40,6 +43,7 @@ namespace Code.Tutorial
             _hitBox.enabled = false;
             _animator.PlayAnimationByName("Death");
             _enemiesProvider.RemoveEnemy(this);
+            _dialogWindow.ShowNextWindow();
             Destroy(gameObject, 3);
         }
     }
