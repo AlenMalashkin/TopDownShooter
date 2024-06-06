@@ -27,3 +27,5 @@ MonoBehaviour:
     WindowPrefab: {fileID: 3907530716615030032, guid: 3b2f32e308bf0be48997d0503cc1cb6e, type: 3}
   - Type: 6
     WindowPrefab: {fileID: 7222965375771089250, guid: 1a7be067697c25d48914c31498e7c5eb, type: 3}
+  - Type: 7
+    WindowPrefab: {fileID: 3776537939821089302, guid: 483240240e8be1b4aa36ac837bec7e69, type: 3}

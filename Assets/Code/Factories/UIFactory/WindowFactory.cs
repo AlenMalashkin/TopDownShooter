@@ -1,15 +1,18 @@
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.ChooseLevelService;
+using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.SaveService;
 using Code.Services.StaticDataService;
 using Code.Tutorial.TutorialWindows;
 using Code.UI.EquipmentMenu;
+using Code.UI.Pause;
 using Code.UI.Windows;
 using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.LoseWindow;
 using Code.UI.Windows.MainMenu;
 using Code.UI.Windows.WinWindow;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
@@ -22,10 +25,11 @@ namespace Code.Factories.UIFactory
         private IChooseLevelService _chooseLevelService;
         private IProgressService _progressService;
         private ISaveLoadService _saveLoadService;
+        private IPauseService _pauseService;
 
         public WindowFactory(IStaticDataService staticDataService, IGameStateMachine gameStateMachine,
             IUIFactory uiFactory, IChooseLevelService chooseLevelService, IProgressService progressService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, IPauseService pauseService)
         {
             _staticDataService = staticDataService;
             _gameStateMachine = gameStateMachine;
@@ -33,6 +37,7 @@ namespace Code.Factories.UIFactory
             _chooseLevelService = chooseLevelService;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
+            _pauseService = pauseService;
         }
 
         public MainMenuWindow CreateMainMenu(Transform root)
@@ -89,6 +94,15 @@ namespace Code.Factories.UIFactory
             BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialMessageWindow).WindowPrefab;
             TutorialDialogWindow tutorialDialogWindow = Object.Instantiate(window, root) as TutorialDialogWindow;
             return tutorialDialogWindow;
+        }
+
+        public PauseWindow CreatePauseWindow(Transform root)
+        {
+            PauseWindow pauseWindow =
+                Object.Instantiate(_staticDataService.ForWindow(WindowType.PauseWindow).WindowPrefab, root) as
+                    PauseWindow;
+            pauseWindow.Init(_pauseService, _gameStateMachine);
+            return pauseWindow;
         }
     }
 }

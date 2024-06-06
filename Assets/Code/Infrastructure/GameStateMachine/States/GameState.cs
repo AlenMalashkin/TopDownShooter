@@ -14,6 +14,8 @@ using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
 using Code.Services.InputService;
+using Code.Services.InputService.InputActions;
+using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.RandomService;
 using Code.Services.SaveService;
@@ -25,6 +27,7 @@ using Code.UI.HUD;
 using Code.Utils.Timer;
 using GamePush;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Code.Infrastructure.GameStateMachineNamespace.States
 {
@@ -40,6 +43,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IFactoryProvider _factoryProvider;
         private IPlayerFactory _playerFactory;
         private IWeaponFactory _weaponFactory;
+        private IWindowFactory _windowFactory;
         private IUIFactory _uiFactory;
         private IHUDFactory _hudFactory;
         private ILevelFactory _levelFactory;
@@ -49,6 +53,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private IProgressService _progressService;
         private ISaveLoadService _saveLoadService;
         private IChooseLevelService _chooseLevelService;
+        private IPauseService _pauseService;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -65,7 +70,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             LoadingScreen loadingScreen, IInputService inputService,
             IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
             IEnemiesProvider enemiesProvider, IRandomService randomService, IProgressService progressService,
-            ISaveLoadService saveLoadService, IChooseLevelService chooseLevelService)
+            ISaveLoadService saveLoadService, IChooseLevelService chooseLevelService, IPauseService pauseService)
         {
             _serviceLocator = serviceLocator;
             _gameStateMachine = gameStateMachine;
@@ -81,6 +86,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _chooseLevelService = chooseLevelService;
+            _pauseService = pauseService;
         }
 
         public void Enter(LevelType payload)
@@ -90,12 +96,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _uiFactory = _factoryProvider.GetFactory<IUIFactory>();
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
             _levelFactory = _factoryProvider.GetFactory<ILevelFactory>();
+            _windowFactory = _factoryProvider.GetFactory<IWindowFactory>();
 
             _levelStaticData = _staticDataService.ForLevel(payload);
             _sceneLoadService.LoadScene("Main", OnLoad);
             _inputService.Enable();
 
             _enemiesProvider.EnemiesChanged += OnEnemiesCountChanged;
+            _inputService.GetInputAction<IPauseAction>().SubscribePauseAction(OnPausePressed);
         }
 
         public void Exit()
@@ -104,8 +112,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _inputService.Disable();
             _spawner.DisableSpawner();
             _bossSpawner?.DisableSpawner();
+            _pauseService.Resume();
 
             _enemiesProvider.EnemiesChanged -= OnEnemiesCountChanged;
+            _inputService.GetInputAction<IPauseAction>().UnsubscribePauseAction(OnPausePressed);
         }
 
         private void OnLoad()
@@ -119,6 +129,10 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             InitializeHealthBar(_player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
+            
+            if (GP_Device.IsMobile())
+                _uiFactory.CreateUIPauseButton(_uiRoot)
+                    .Init(_pauseService, _windowFactory, _uiRoot);
 
             _spawner.EnableSpawner(_player.transform);
         }
@@ -207,6 +221,12 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType != BossType.None)
                 _bossSpawner.EnableSpawner(_player.transform);
+        }
+
+        private void OnPausePressed(InputAction.CallbackContext ctx)
+        {
+            _windowFactory.CreatePauseWindow(_uiRoot);
+            _pauseService.Pause();
         }
     }
 }

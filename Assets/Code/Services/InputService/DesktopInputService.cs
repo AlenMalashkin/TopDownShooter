@@ -17,7 +17,8 @@ namespace Code.Services.InputService
             {
                 [typeof(IMovementAction)] = new MovementAction(_playerInputActions),
                 [typeof(IFireAction)] = new FireAction(_playerInputActions),
-                [typeof(ILookAction)] = new LookAction(_playerInputActions)
+                [typeof(ILookAction)] = new LookAction(_playerInputActions),
+                [typeof(IPauseAction)] = new PauseAction(_playerInputActions)
             };
         }
 
