@@ -12,5 +12,6 @@ namespace Code.Factories.UIFactory
         GameObject CreateEquipmentItem(WeaponType type, Transform root);
         LevelCard CreateLevelCard(LevelType type, Transform root);
         UIJoysticks CreateUIJoysticks(Transform root);
+        PauseButton CreateUIPauseButton(Transform root);
     }
 }

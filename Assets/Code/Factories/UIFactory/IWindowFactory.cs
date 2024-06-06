@@ -1,4 +1,5 @@
 using Code.Tutorial.TutorialWindows;
+using Code.UI.Pause;
 using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.MainMenu;
 using UnityEngine;
@@ -14,5 +15,6 @@ namespace Code.Factories.UIFactory
         ChooseLevelWindow CreateChooseLevelWindow(Transform root);
         TutorialPassedWindow CreateTutorialWindow(Transform root);
         TutorialDialogWindow CreateTutorialDialogWindow(Transform root);
+        PauseWindow CreatePauseWindow(Transform root);
     }
 }

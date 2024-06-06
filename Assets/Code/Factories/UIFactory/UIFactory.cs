@@ -5,11 +5,13 @@ using Code.Level;
 using Code.Services.AssetProvider;
 using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
+using Code.Services.PauseService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
 using Code.UI.EquipmentMenu;
 using Code.UI.HUD;
 using Code.UI.Windows.ChooseLevelWindow;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
@@ -21,16 +23,18 @@ namespace Code.Factories.UIFactory
         private IStaticDataService _staticDataService;
         private IEquipmentService _equipmentService;
         private IChooseLevelService _chooseLevelService;
+        private IPauseService _pauseService;
 
         public UIFactory(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
             IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IEquipmentService equipmentService)
+            IEquipmentService equipmentService, IPauseService pauseService)
         {
             _gameStateMachine = gameStateMachine;
             _chooseLevelService = chooseLevelService;
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
             _equipmentService = equipmentService;
+            _pauseService = pauseService;
         }
 
         public GameObject CreateRoot()
@@ -61,6 +65,12 @@ namespace Code.Factories.UIFactory
         {
             UIJoysticks uiJoysticks = _assetProvider.LoadAsset<UIJoysticks>("Prefabs/UIJoysticks");
             return Object.Instantiate(uiJoysticks, root);
+        }
+
+        public PauseButton CreateUIPauseButton(Transform root)
+        {
+            PauseButton pauseButton = _assetProvider.LoadAsset<PauseButton>("Prefabs/PauseButton");
+            return Object.Instantiate(pauseButton, root);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Code.UI.Windows
         EquipmentWindow,
         ChooseLevelWindow,
         TutorialPassWindow,
-        TutorialMessageWindow
+        TutorialMessageWindow,
+        PauseWindow
     }
 }

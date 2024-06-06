@@ -7,12 +7,14 @@ using Code.Services;
 using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.InputService;
+using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.RandomService;
 using Code.Services.SaveService;
 using Code.Services.SceneLoadService;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
+using GamePush;
 
 namespace Code.Infrastructure.GameStateMachineNamespace
 {
@@ -41,7 +43,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace
                 serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>(),
                 serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>(),
                 serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>(),
-                serviceLocator.Resolve<IChooseLevelService>());
+                serviceLocator.Resolve<IChooseLevelService>(), serviceLocator.Resolve<IPauseService>());
             _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
                 serviceLocator.Resolve<IUIProvider>());
         }
