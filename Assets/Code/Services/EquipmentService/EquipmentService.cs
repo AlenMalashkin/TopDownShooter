@@ -1,3 +1,4 @@
+using System;
 using Code.Data;
 using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
@@ -9,6 +10,7 @@ namespace Code.Services.EquipmentService
 {
     public class EquipmentService : IEquipmentService
     {
+        public event Action<WeaponType> WeaponEquipped;
         public WeaponType CurrentEquippedWeapon => _progressService.Progress.WeaponType;
         public WeaponCategory CurrentWeaponCategory => _staticDataService.ForWeapon(_progressService.Progress.WeaponType).Category;
 
@@ -28,6 +30,7 @@ namespace Code.Services.EquipmentService
         {
             _progressService.Progress.WeaponType = type;
             _saveLoadService.SaveProgress();
+            WeaponEquipped?.Invoke(type);
         }
     }
 }

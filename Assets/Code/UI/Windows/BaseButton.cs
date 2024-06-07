@@ -5,7 +5,7 @@ namespace Code.UI.Windows.MainMenu.Buttons
 {
     public abstract class BaseButton : MonoBehaviour
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected Button _button;
         
         public virtual void OnEnable()
         {

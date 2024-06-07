@@ -1,5 +1,6 @@
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.ChooseLevelService;
+using Code.Services.EquipmentService;
 using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.SaveService;
@@ -12,6 +13,7 @@ using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.LoseWindow;
 using Code.UI.Windows.MainMenu;
 using Code.UI.Windows.WinWindow;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,10 +28,11 @@ namespace Code.Factories.UIFactory
         private IProgressService _progressService;
         private ISaveLoadService _saveLoadService;
         private IPauseService _pauseService;
+        private IEquipmentService _equipmentService;
 
         public WindowFactory(IStaticDataService staticDataService, IGameStateMachine gameStateMachine,
             IUIFactory uiFactory, IChooseLevelService chooseLevelService, IProgressService progressService,
-            ISaveLoadService saveLoadService, IPauseService pauseService)
+            ISaveLoadService saveLoadService, IPauseService pauseService, IEquipmentService equipmentService)
         {
             _staticDataService = staticDataService;
             _gameStateMachine = gameStateMachine;
@@ -38,6 +41,7 @@ namespace Code.Factories.UIFactory
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _pauseService = pauseService;
+            _equipmentService = equipmentService;
         }
 
         public MainMenuWindow CreateMainMenu(Transform root)
@@ -69,7 +73,7 @@ namespace Code.Factories.UIFactory
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.EquipmentWindow).WindowPrefab;
             EquipmentWindow equipmentWindow = Object.Instantiate(window, root) as EquipmentWindow;
-            equipmentWindow.Init(_uiFactory);
+            equipmentWindow.Init(_uiFactory, _equipmentService);
             return equipmentWindow.gameObject;
         }
 

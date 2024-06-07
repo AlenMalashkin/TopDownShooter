@@ -19,13 +19,13 @@ MonoBehaviour:
     PreviewSprite: {fileID: 21300000, guid: 6e4b86e92f62cec409a49bcad5dcd86c, type: 3}
     ItemName: Pistol
     Prefab: {fileID: 6662779086400649341, guid: bb7d17dfe35805c4692616dad0b11e2f, type: 3}
-  - Type: 2
+  - Type: 1
     Category: 1
     Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     PreviewSprite: {fileID: 21300000, guid: 28f10c8e8487034458546556b98a08c1, type: 3}
     ItemName: Shotgun
     Prefab: {fileID: 707861973409315246, guid: d24dd15cba9440c4e984ea7386225cce, type: 3}
-  - Type: 1
+  - Type: 2
     Category: 1
     Bullet: {fileID: 6626827583623060268, guid: da33bc3f424b8474dbfe7bf52476052b, type: 3}
     PreviewSprite: {fileID: 21300000, guid: 4830193dc4eba85478abe510917ab4ef, type: 3}
