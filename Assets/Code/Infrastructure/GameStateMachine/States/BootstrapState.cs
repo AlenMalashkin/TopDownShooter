@@ -126,7 +126,8 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IPickupFactory>(
                 new PickupFactory(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IGameFinishService>(), _serviceLocator.Resolve<IWindowFactory>(),
-                    _serviceLocator.Resolve<IUIProvider>()));
+                    _serviceLocator.Resolve<IUIProvider>(), _serviceLocator.Resolve<IProgressService>(),
+                    _serviceLocator.Resolve<ISaveLoadService>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
                 _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
@@ -141,13 +142,13 @@ namespace Code.Infrastructure.GameStateMachine.States
                 _serviceLocator.Resolve<IChooseLevelService>(),
                 _serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>(),
-                _serviceLocator.Resolve<IPauseService>()));
+                _progressService));
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>(),
                     _serviceLocator.Resolve<IChooseLevelService>(), _progressService, _saveLoadService,
-                    _serviceLocator.Resolve<IPauseService>()));
+                    _serviceLocator.Resolve<IPauseService>(), _serviceLocator.Resolve<IEquipmentService>()));
         }
 
         private void LoadProgress()

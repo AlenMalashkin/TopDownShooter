@@ -5,13 +5,12 @@ using Code.Level;
 using Code.Services.AssetProvider;
 using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
-using Code.Services.PauseService;
+using Code.Services.ProgressService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
 using Code.UI.EquipmentMenu;
 using Code.UI.HUD;
 using Code.UI.Windows.ChooseLevelWindow;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
@@ -23,18 +22,18 @@ namespace Code.Factories.UIFactory
         private IStaticDataService _staticDataService;
         private IEquipmentService _equipmentService;
         private IChooseLevelService _chooseLevelService;
-        private IPauseService _pauseService;
+        private IProgressService _progressService;
 
         public UIFactory(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
             IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IEquipmentService equipmentService, IPauseService pauseService)
+            IEquipmentService equipmentService, IProgressService progressService)
         {
             _gameStateMachine = gameStateMachine;
             _chooseLevelService = chooseLevelService;
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
             _equipmentService = equipmentService;
-            _pauseService = pauseService;
+            _progressService = progressService;
         }
 
         public GameObject CreateRoot()
@@ -43,13 +42,13 @@ namespace Code.Factories.UIFactory
             return Object.Instantiate(uiRoot);
         }
 
-        public GameObject CreateEquipmentItem(WeaponType type, Transform root)
+        public EquipmentItem CreateEquipmentItem(WeaponType type, Transform root)
         {
             EquipmentItem equipmentItemPrefab = _assetProvider.LoadAsset<EquipmentItem>("Prefabs/UI/EquipmentItem");
             WeaponData weaponData = _staticDataService.ForWeapon(type);
             EquipmentItem equipmentItem = Object.Instantiate(equipmentItemPrefab, root);
-            equipmentItem.Init(weaponData, _equipmentService);
-            return equipmentItem.gameObject;
+            equipmentItem.Init(weaponData, _equipmentService, _progressService);
+            return equipmentItem;
         }
 
         public LevelCard CreateLevelCard(LevelType type, Transform root)

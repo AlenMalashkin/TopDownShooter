@@ -3,7 +3,7 @@ namespace Code.GameplayLogic.Weapons
     public enum WeaponType
     {
         Pistol = 0,
-        Rifle = 1,
-        Blaster = 2,
+        Blaster = 1,
+        Rifle = 2,
     }
 }
