@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Code.Infrastructure;
+using GamePush;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +26,8 @@ namespace Code.Services.SceneLoadService
             while (!operation.isDone)
                 yield return null;
                     
+            GP_Ads.ShowFullscreen();
+            
             onLoad?.Invoke();
         }
     }
