@@ -13,8 +13,6 @@ using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.LoseWindow;
 using Code.UI.Windows.MainMenu;
 using Code.UI.Windows.WinWindow;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory

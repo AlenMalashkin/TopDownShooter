@@ -71,6 +71,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         public override void ShootBullets(Vector3 direction, int damage)
         {
             Bullet createdBullet = _weaponFactory.CreateBullet(_shootPoint.position, _bulletPrefab);
+            createdBullet.transform.rotation = Quaternion.LookRotation(direction);
             createdBullet.Init(damage, direction);
         }
 
