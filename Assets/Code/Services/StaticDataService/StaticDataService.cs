@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
+using Code.Data.Localization;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.Weapons;
@@ -9,6 +10,7 @@ using Code.Pickups;
 using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
 using Code.StaticData.LevelStaticData;
+using Code.StaticData.LocalizationStaticData;
 using Code.StaticData.PickupStaticData;
 using Code.StaticData.SpawnerStaticData;
 using Code.StaticData.TutorialStaticData;
@@ -23,7 +25,10 @@ namespace Code.Services.StaticDataService
     public class StaticDataService : IStaticDataService
     {
         private Dictionary<WeaponType, WeaponData> _weaponsData = new Dictionary<WeaponType, WeaponData>();
-        private Dictionary<EnemyWeaponType, EnemyWeaponData> _enemyWeapons = new Dictionary<EnemyWeaponType, EnemyWeaponData>();
+
+        private Dictionary<EnemyWeaponType, EnemyWeaponData> _enemyWeapons =
+            new Dictionary<EnemyWeaponType, EnemyWeaponData>();
+
         private Dictionary<LevelType, LevelStaticData> _levelsData = new Dictionary<LevelType, LevelStaticData>();
         private Dictionary<WindowType, WindowData> _windowsData = new Dictionary<WindowType, WindowData>();
 
@@ -35,8 +40,9 @@ namespace Code.Services.StaticDataService
 
         private Dictionary<BossType, BossStaticData> _bosses = new Dictionary<BossType, BossStaticData>();
         private Dictionary<WeaponType, Pickup> _weaponPickups = new Dictionary<WeaponType, Pickup>();
+        private Dictionary<WindowType, Localization> _localizations = new Dictionary<WindowType, Localization>();
         private TutorialStaticData _tutorialStaticData;
-        
+
         public void Load()
         {
             _weaponsData = Resources.Load<WeaponStaticData>("StaticData/WeaponsConfig")
@@ -67,6 +73,10 @@ namespace Code.Services.StaticDataService
                 .WeaponPickupData
                 .ToDictionary(x => x.Type, x => x.Prefab);
 
+            _localizations = Resources.Load<LocalizationStaticData>("StaticData/Localization/Localization")
+                .Localization
+                .ToDictionary(x => x.WindowType);
+
             _tutorialStaticData = Resources.Load<TutorialStaticData>("StaticData/TutorialStaticData");
         }
 
@@ -75,7 +85,7 @@ namespace Code.Services.StaticDataService
 
         public EnemyWeaponData ForEnemyWeapon(EnemyWeaponType type)
             => _enemyWeapons[type];
-        
+
         public LevelStaticData ForLevel(LevelType type)
             => _levelsData[type];
 
@@ -96,5 +106,8 @@ namespace Code.Services.StaticDataService
 
         public TutorialStaticData ForTutorial()
             => _tutorialStaticData;
+
+        public Localization ForLocalization(WindowType type)
+            => _localizations[type];
     }
 }

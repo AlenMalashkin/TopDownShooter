@@ -215,8 +215,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType == BossType.None)
             {
                 _gameStateMachine.Enter<GameResultState, GameResult>(GameResult.Win);
-                _progressService.Progress.LevelsPassed = (int) _levelStaticData.Type;
-                _saveLoadService.SaveProgress();
             }
 
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType != BossType.None)

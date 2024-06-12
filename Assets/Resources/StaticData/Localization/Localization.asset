@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66c472c4ddf465eabc6bbd837c7dd49, type: 3}
+  m_Name: Localization
+  m_EditorClassIdentifier: 
+  _localization:
+  - WindowType: 0
+    Translations:
+    - Key: PlayButtonText
+      RussianTranslation: "\u0418\u0433\u0440\u0430\u0442\u044C"
+      EnglishTranslation: Play
+    - Key: ShopButtonText
+      RussianTranslation: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
+      EnglishTranslation: Shop
+  - WindowType: 1
+    Translations:
+    - Key: NextLevelButtonText
+      RussianTranslation: "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439
+        \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+      EnglishTranslation: Next level
+    - Key: ToMenuButtonText
+      RussianTranslation: "\u0412 \u043C\u0435\u043D\u044E"
+      EnglishTranslation: To Menu
+    - Key: WinText
+      RussianTranslation: "\u0412\u044B \u0432\u044B\u0438\u0433\u0440\u0430\u043B\u0438"
+      EnglishTranslation: You Win
+  - WindowType: 2
+    Translations:
+    - Key: RetryButtonText
+      RussianTranslation: "\u041F\u043E\u0432\u0440\u043E\u0440\u0438\u0442\u044C"
+      EnglishTranslation: Retry
+    - Key: ToMenuButtonText
+      RussianTranslation: "\u0412 \u043C\u0435\u043D\u044E"
+      EnglishTranslation: To menu
+    - Key: LoseText
+      RussianTranslation: "\u0412\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u043B\u0438"
+      EnglishTranslation: You Lose
+  - WindowType: 3
+    Translations:
+    - Key: EquippedStatus
+      RussianTranslation: "\u042D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+      EnglishTranslation: Equipped
+    - Key: ClosedStatus
+      RussianTranslation: "\u0417\u0430\u043A\u0440\u044B\u0442\u043E"
+      EnglishTranslation: Closed
+    - Key: EquipStatus
+      RussianTranslation: "\u042D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+      EnglishTranslation: Equip
+  - WindowType: 5
+    Translations:
+    - Key: WinText
+      RussianTranslation: "\u041E\u0431\u0443\u0447\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E"
+      EnglishTranslation: Tutorial passed
+    - Key: ToMenuButtonText
+      RussianTranslation: "\u0412 \u043C\u0435\u043D\u044E"
+      EnglishTranslation: To menu
+  - WindowType: 6
+    Translations:
+    - Key: MessageOne
+      RussianTranslation: "\u041B\u0435\u0432\u044B\u0439 \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A
+        \u0434\u043B\u044F \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u044F,
+        \u043F\u0440\u0430\u0432\u044B\u0439 \u0434\u0436\u043E\u0439\u0441\u0442\u0438\u043A
+        \u0434\u043B\u044F \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u044B"
+      EnglishTranslation: Left stick to move, right stick to shoot
+    - Key: MessageTwo
+      RussianTranslation: "\u0423\u0431\u0435\u0439\u0442\u0435 \u0432\u0440\u0430\u0433\u0430"
+      EnglishTranslation: Kill enemy
+    - Key: MessageThree
+      RussianTranslation: "\u0423\u0431\u0435\u0439\u0442\u0435 \u0431\u043E\u0441\u0441\u0430"
+      EnglishTranslation: Kill boss
+    - Key: MessageFour
+      RussianTranslation: "\u041F\u043E\u0434\u0431\u0435\u0440\u0438\u0442\u0435
+        \u043E\u0440\u0443\u0436\u0438\u0435"
+      EnglishTranslation: Pick up a weapon
+  - WindowType: 7
+    Translations:
+    - Key: ResumeButtonText
+      RussianTranslation: "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F"
+      EnglishTranslation: Resume
+    - Key: BackToMenuButtonText
+      RussianTranslation: "\u0412 \u043C\u0435\u043D\u044E"
+      EnglishTranslation: To menu
+    - Key: PauseHeader
+      RussianTranslation: "\u0418\u0433\u0440\u0430 \u043D\u0430 \u043F\u0430\u0443\u0437\u0435"
+      EnglishTranslation: Game paused

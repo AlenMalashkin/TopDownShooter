@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 5482179498542589356}
+  _buttonText: {fileID: 7535677171560904329}
 --- !u!1 &4794785513745054378
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 5871189478834912439}
+  _buttonText: {fileID: 8767982090978552253}
 --- !u!1 &7306152819797006441
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d7018ae1bb49a4b9665b0468b0a0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loseText: {fileID: 1060908733060722399}
   _retryLevelButton: {fileID: 3867592501832106426}
   _backToMenuButton: {fileID: 3773185775617368689}
 --- !u!1 &7964413330969079707
