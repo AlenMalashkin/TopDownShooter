@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1693554180650252210}
+  _buttonText: {fileID: 5360907829824060211}
 --- !u!1 &4913546232921422440
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 8115314678836654840}
+  _buttonText: {fileID: 549691010028996421}
+  _buttonText: {fileID: 549691010028996421}
 --- !u!1 &6740231206442105537
 GameObject:
   m_ObjectHideFlags: 0

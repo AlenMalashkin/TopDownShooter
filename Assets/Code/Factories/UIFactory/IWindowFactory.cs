@@ -15,6 +15,6 @@ namespace Code.Factories.UIFactory
         ChooseLevelWindow CreateChooseLevelWindow(Transform root);
         TutorialPassedWindow CreateTutorialWindow(Transform root);
         TutorialDialogWindow CreateTutorialDialogWindow(Transform root);
-        PauseWindow CreatePauseWindow(Transform root);
+        void CreatePauseWindow(Transform root);
     }
 }

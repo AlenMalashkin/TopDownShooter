@@ -1,4 +1,5 @@
 using Code.Data;
+using Code.Data.Localization;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
@@ -27,5 +28,6 @@ namespace Code.Services.StaticDataService
         BossStaticData ForBoss(BossType type);
         Pickup ForWeaponPickup(WeaponType type);
         TutorialStaticData ForTutorial();
+        Localization ForLocalization(WindowType type);
     }
 }

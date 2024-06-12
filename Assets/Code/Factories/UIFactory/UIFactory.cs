@@ -56,7 +56,7 @@ namespace Code.Factories.UIFactory
             LevelStaticData levelStaticData = _staticDataService.ForLevel(type);
             LevelCard levelCardPrefab = _assetProvider.LoadAsset<LevelCard>("Prefabs/UI/LevelCard");
             LevelCard levelCard = Object.Instantiate(levelCardPrefab, root);
-            levelCard.Init(_gameStateMachine, _chooseLevelService, type, levelStaticData.LevelImage, levelStaticData.LevelName);
+            levelCard.Init(_gameStateMachine, _chooseLevelService, type, levelStaticData.LevelImage);
             return levelCard;
         }
 

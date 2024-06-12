@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.UI.EquipmentMenu
 {
-    public class EquipmentWindow : BaseWindow, IEquipmentObserver
+    public class EquipmentWindow : BaseWindow, IEquipmentObserver, ILocalizable
     {
         [SerializeField] private Transform _equipmentRoot;
 
@@ -16,6 +16,7 @@ namespace Code.UI.EquipmentMenu
 
         private IUIFactory _uiFactory;
         private IEquipmentService _equipmentService;
+        private Dictionary<string, string> _localization;
 
         public void Init(IUIFactory uiFactory, IEquipmentService equipmentService)
         {
@@ -45,6 +46,9 @@ namespace Code.UI.EquipmentMenu
         {
             foreach (var observable in _shopItems)
             {
+                if (observable is ILocalizable localizable)
+                    localizable.Localize(_localization);
+                
                 observable.UpdateObservable();
             }
         }
@@ -52,6 +56,11 @@ namespace Code.UI.EquipmentMenu
         private void OnWeaponEquipment(WeaponType type)
         {
             Observe();
+        }
+
+        public void Localize(Dictionary<string, string> localization)
+        {
+            _localization = localization;
         }
     }
 }

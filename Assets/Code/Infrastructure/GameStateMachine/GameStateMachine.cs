@@ -45,7 +45,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace
                 serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>(),
                 serviceLocator.Resolve<IChooseLevelService>(), serviceLocator.Resolve<IPauseService>());
             _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
-                serviceLocator.Resolve<IUIProvider>());
+                serviceLocator.Resolve<IUIProvider>(), serviceLocator.Resolve<IChooseLevelService>(),
+                serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>());
         }
 
         public void Enter<TState>() where TState : class, IGameState

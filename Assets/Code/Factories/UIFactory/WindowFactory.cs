@@ -1,6 +1,7 @@
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
+using Code.Services.LocalizationService;
 using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.SaveService;
@@ -27,10 +28,12 @@ namespace Code.Factories.UIFactory
         private ISaveLoadService _saveLoadService;
         private IPauseService _pauseService;
         private IEquipmentService _equipmentService;
+        private ILocalizationService _localizationService;
 
         public WindowFactory(IStaticDataService staticDataService, IGameStateMachine gameStateMachine,
             IUIFactory uiFactory, IChooseLevelService chooseLevelService, IProgressService progressService,
-            ISaveLoadService saveLoadService, IPauseService pauseService, IEquipmentService equipmentService)
+            ISaveLoadService saveLoadService, IPauseService pauseService, IEquipmentService equipmentService,
+            ILocalizationService localizationService)
         {
             _staticDataService = staticDataService;
             _gameStateMachine = gameStateMachine;
@@ -40,12 +43,14 @@ namespace Code.Factories.UIFactory
             _saveLoadService = saveLoadService;
             _pauseService = pauseService;
             _equipmentService = equipmentService;
+            _localizationService = localizationService;
         }
 
         public MainMenuWindow CreateMainMenu(Transform root)
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.MainMenu).WindowPrefab;
             MainMenuWindow menuWindow = Object.Instantiate(window, root) as MainMenuWindow;
+            menuWindow.Init(_localizationService.LoadTranslation(WindowType.MainMenu));
             menuWindow.ChooseLevelButton.Init(_gameStateMachine, this, _progressService, root);
             menuWindow.EquipmentButton.Init(this, root);
             return menuWindow;
@@ -56,6 +61,7 @@ namespace Code.Factories.UIFactory
             BaseWindow window = _staticDataService.ForWindow(WindowType.LoseWindow).WindowPrefab;
             LoseWindow loseWindow = Object.Instantiate(window, root) as LoseWindow;
             loseWindow.Init(_gameStateMachine);
+            loseWindow.Localize(_localizationService.LoadTranslation(WindowType.LoseWindow));
             return loseWindow.gameObject;
         }
 
@@ -64,6 +70,7 @@ namespace Code.Factories.UIFactory
             BaseWindow window = _staticDataService.ForWindow(WindowType.WinWindow).WindowPrefab;
             WinWindow winWindow = Object.Instantiate(window, root) as WinWindow;
             winWindow.Init(_gameStateMachine, _chooseLevelService);
+            winWindow.Localize(_localizationService.LoadTranslation(WindowType.WinWindow));
             return winWindow.gameObject;
         }
 
@@ -72,6 +79,7 @@ namespace Code.Factories.UIFactory
             BaseWindow window = _staticDataService.ForWindow(WindowType.EquipmentWindow).WindowPrefab;
             EquipmentWindow equipmentWindow = Object.Instantiate(window, root) as EquipmentWindow;
             equipmentWindow.Init(_uiFactory, _equipmentService);
+            equipmentWindow.Localize(_localizationService.LoadTranslation(WindowType.EquipmentWindow));
             return equipmentWindow.gameObject;
         }
 
@@ -88,6 +96,7 @@ namespace Code.Factories.UIFactory
             BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialPassWindow).WindowPrefab;
             TutorialPassedWindow tutorialPassedWindow = Object.Instantiate(window, root) as TutorialPassedWindow;
             tutorialPassedWindow.Init(_gameStateMachine, _progressService, _saveLoadService);
+            tutorialPassedWindow.Localize(_localizationService.LoadTranslation(WindowType.TutorialPassWindow));
             return tutorialPassedWindow;
         }
 
@@ -95,16 +104,20 @@ namespace Code.Factories.UIFactory
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.TutorialMessageWindow).WindowPrefab;
             TutorialDialogWindow tutorialDialogWindow = Object.Instantiate(window, root) as TutorialDialogWindow;
+            tutorialDialogWindow.Localize(_localizationService.LoadTranslation(WindowType.TutorialMessageWindow));
             return tutorialDialogWindow;
         }
 
-        public PauseWindow CreatePauseWindow(Transform root)
+        public void CreatePauseWindow(Transform root)
         {
+            if (_pauseService.Paused)
+                return;
+
             PauseWindow pauseWindow =
                 Object.Instantiate(_staticDataService.ForWindow(WindowType.PauseWindow).WindowPrefab, root) as
                     PauseWindow;
             pauseWindow.Init(_pauseService, _gameStateMachine);
-            return pauseWindow;
+            pauseWindow.Localize(_localizationService.LoadTranslation(WindowType.PauseWindow));
         }
     }
 }
