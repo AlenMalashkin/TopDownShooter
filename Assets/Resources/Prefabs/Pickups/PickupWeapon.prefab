@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 25
   _rotatableWeapon: {fileID: 8104788883742053205}
-  _weaponType: 2
+  _weaponType: 1
 --- !u!135 &8987099484501194664
 SphereCollider:
   m_ObjectHideFlags: 0

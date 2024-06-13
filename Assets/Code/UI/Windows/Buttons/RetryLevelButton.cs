@@ -1,6 +1,7 @@
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Level;
+using Code.Services.ChooseLevelService;
 using Code.UI.Windows.MainMenu.Buttons;
 
 namespace Code.UI.Windows.Buttons
@@ -8,15 +9,17 @@ namespace Code.UI.Windows.Buttons
     public class RetryLevelButton : BaseButton
     {
         private IGameStateMachine _gameStateMachine;
-
-        public void Init(IGameStateMachine gameStateMachine)
+        private IChooseLevelService _chooseLevelService;
+        
+        public void Init(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService)
         {
             _gameStateMachine = gameStateMachine;
+            _chooseLevelService = chooseLevelService;
         }
         
         protected override void OnClick()
         {
-            _gameStateMachine.Enter<GameState, LevelType>(LevelType.Level1);
+            _gameStateMachine.Enter<GameState, LevelType>(_chooseLevelService.CurrentLevel);
         }
     }
 }

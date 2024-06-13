@@ -1451,5 +1451,5 @@ MonoBehaviour:
   - {fileID: 1707697326831973506}
   - {fileID: -8294816619135043573}
   _timeToDestroy: 3
-  _dropType: 2
+  _dropType: 1
   _animator: {fileID: 3421331023965387897}

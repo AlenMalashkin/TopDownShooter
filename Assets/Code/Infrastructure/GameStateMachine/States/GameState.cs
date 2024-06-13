@@ -154,7 +154,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             {
                 _bossSpawner = new BossSpawner(_factoryProvider,
                     _staticDataService,
-                    _uiProvider);
+                    _uiProvider, _chooseLevelService);
             }
         }
 

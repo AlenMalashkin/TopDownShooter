@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392b598adc474f3393583a6f7791672e, type: 3}
+  m_Name: Level2Config
+  m_EditorClassIdentifier: 
+  Type: 2
+  LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  LevelPrefabPath: Prefabs/Levels/Graveyard2
+  EnemySpawners:
+  - {x: 10.096661, y: 3.1769953, z: 50.432358}
+  - {x: 10.332661, y: 3.1769953, z: 55.572357}
+  - {x: -1.2913394, y: 3.1769953, z: 50.432358}
+  - {x: -1.2913394, y: 3.1769953, z: 55.572357}
+  PlayerPositionOnLevel: {x: 4.6966605, y: 3.1769953, z: 54.10436}
+  BossType: 0

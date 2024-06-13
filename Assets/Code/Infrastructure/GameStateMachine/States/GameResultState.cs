@@ -37,12 +37,11 @@ namespace Code.Infrastructure.GameStateMachine.States
             switch (payload)
             {
                 case GameResult.Win:
-                    _windowFactory.CreateWinWindow(_uiProvider.GetRoot());
-                    _progressService.Progress.LevelsPassed = (int) _chooseLevelService.CurrentLevel;
-                    _saveLoadService.SaveProgress();
+                    Debug.Log("Win");
+                    FinishGameWithWinResult();
                     break;
                 case GameResult.Lose:
-                    _windowFactory.CreateLoseWindow(_uiProvider.GetRoot());
+                    FinishGameWithLoseResult();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(payload), payload, null);
@@ -51,6 +50,22 @@ namespace Code.Infrastructure.GameStateMachine.States
 
         public void Exit()
         {
+        }
+
+        private void FinishGameWithWinResult()
+        {
+            _windowFactory.CreateWinWindow(_uiProvider.GetRoot());
+
+            if ((int) _chooseLevelService.NextLevel > _progressService.Progress.LevelsPassed)
+            {
+                _progressService.Progress.LevelsPassed = (int) _chooseLevelService.NextLevel;
+                _saveLoadService.SaveProgress();
+            }
+        }
+
+        private void FinishGameWithLoseResult()
+        {
+            _windowFactory.CreateLoseWindow(_uiProvider.GetRoot());
         }
     }
 }
