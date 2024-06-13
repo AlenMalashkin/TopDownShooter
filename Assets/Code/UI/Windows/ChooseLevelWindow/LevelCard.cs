@@ -19,12 +19,13 @@ namespace Code.UI.Windows.ChooseLevelWindow
         private LevelType _levelType;
 
         public void Init(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
-            LevelType levelType, Sprite levelImage)
+            LevelType levelType, Sprite levelImage, bool interactable)
         {
             _gameStateMachine = gameStateMachine;
             _chooseLevelService = chooseLevelService;
             _levelType = levelType;
             _levelImage.sprite = levelImage;
+            _chooseLevelButton.interactable = interactable;
         }
 
         private void OnEnable()

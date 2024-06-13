@@ -10,6 +10,6 @@ namespace Code.Data.Progress
         public bool TutorialPassed;
         public List<WeaponType> CollectedWeapons = new List<WeaponType> { WeaponType.Pistol };
         public WeaponType WeaponType = WeaponType.Pistol;
-        public int LevelsPassed;
+        public int LevelsPassed = 1;
     }
 }

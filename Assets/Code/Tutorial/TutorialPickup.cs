@@ -1,7 +1,6 @@
 using Code.Factories.UIFactory;
 using Code.GameplayLogic.PlayerLogic;
 using Code.Pickups;
-using Code.Services.GameResultService;
 using UnityEngine;
 
 namespace Code.Tutorial
@@ -35,7 +34,14 @@ namespace Code.Tutorial
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out Player player))
+            {
                 PickupItem();
+
+                foreach (var playerComponent in player.GetComponentsInChildren<MonoBehaviour>())
+                {
+                    playerComponent.enabled = false;
+                }
+            }
         }
     }
 }

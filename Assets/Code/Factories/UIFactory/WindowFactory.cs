@@ -60,7 +60,7 @@ namespace Code.Factories.UIFactory
         {
             BaseWindow window = _staticDataService.ForWindow(WindowType.LoseWindow).WindowPrefab;
             LoseWindow loseWindow = Object.Instantiate(window, root) as LoseWindow;
-            loseWindow.Init(_gameStateMachine);
+            loseWindow.Init(_gameStateMachine, _chooseLevelService);
             loseWindow.Localize(_localizationService.LoadTranslation(WindowType.LoseWindow));
             return loseWindow.gameObject;
         }

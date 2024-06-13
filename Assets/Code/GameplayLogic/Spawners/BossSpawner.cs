@@ -4,6 +4,7 @@ using Code.Factories.UIFactory;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.Level;
+using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
 using Code.Services.UIProvider;
@@ -18,21 +19,23 @@ namespace Code.GameplayLogic.Spawners
         private IEnemyFactory _enemyFactory;
         private IStaticDataService _staticDataService;
         private IUIProvider _uiProvider;
+        private IChooseLevelService _chooseLevelService;
         private Transform _followTarget;
 
         private LevelStaticData _levelStaticData;
 
         public BossSpawner(IFactoryProvider factoryProvider,
-            IStaticDataService staticDataService, IUIProvider uiProvider)
+            IStaticDataService staticDataService, IUIProvider uiProvider, IChooseLevelService chooseLevelService)
         {
             _enemyFactory = factoryProvider.GetFactory<IEnemyFactory>();
             _staticDataService = staticDataService;
             _uiProvider = uiProvider;
+            _chooseLevelService = chooseLevelService;
         }
 
         public override void EnableSpawner(Transform target)
         {
-            _levelStaticData = _staticDataService.ForLevel(LevelType.Level1);
+            _levelStaticData = _staticDataService.ForLevel(_chooseLevelService.CurrentLevel);
 
             _followTarget = target;
 
