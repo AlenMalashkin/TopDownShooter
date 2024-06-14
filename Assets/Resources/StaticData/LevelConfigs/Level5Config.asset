@@ -16,9 +16,9 @@ MonoBehaviour:
   LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   LevelPrefabPath: Prefabs/Levels/Nature2
   EnemySpawners:
-  - {x: 8.88, y: 0.52, z: 40.719997}
   - {x: -3.2400002, y: 0.52, z: 31.999998}
-  - {x: -0.884, y: 0.52, z: 42.848}
   - {x: 9.400001, y: 0.52, z: 31.119999}
-  PlayerPositionOnLevel: {x: 3.1000001, y: 0.52, z: 37.719997}
+  - {x: -0.884, y: 0.52, z: 42.848}
+  - {x: 8.88, y: 0.52, z: 40.719997}
+  PlayerPositionOnLevel: {x: 3.1000001, y: 0.744, z: 37.719997}
   BossType: 2

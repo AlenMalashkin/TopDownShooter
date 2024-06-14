@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Code.Data.Localization;
 using Code.UI.Windows.MainMenu.Buttons;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Code.UI.Windows.MainMenu

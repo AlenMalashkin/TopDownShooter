@@ -116,6 +116,11 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             _enemiesProvider.EnemiesChanged -= OnEnemiesCountChanged;
             _inputService.GetInputAction<IPauseAction>().UnsubscribePauseAction(OnPausePressed);
+
+            foreach (var playerComponent in _player.GetComponentsInChildren<MonoBehaviour>())
+            {
+                playerComponent.enabled = false;
+            }
         }
 
         private void OnLoad()

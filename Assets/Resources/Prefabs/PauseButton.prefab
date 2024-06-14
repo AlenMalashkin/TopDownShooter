@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17291e14eef48038100dca42bcf59b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 2773141250403115519}
+  _pauseButton: {fileID: 2773141250403115519}

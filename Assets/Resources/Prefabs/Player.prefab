@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -7934347280076148031}
   - component: {fileID: 2824888104418228948}
   - component: {fileID: 6221892715674344849}
+  - component: {fileID: 8914414401716147498}
   - component: {fileID: 6440623114920537623}
   - component: {fileID: 1463331391845523324}
   - component: {fileID: 2891484462921024806}
@@ -57,7 +58,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &2824888104418228948
 CapsuleCollider:
@@ -94,6 +95,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!143 &8914414401716147498
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147739227663965134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 0.8226102
+  m_Radius: 0.1
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0.01203895, y: 0.1852361, z: 0.05297269}
 --- !u!114 &6440623114920537623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _characterController: {fileID: 8914414401716147498}
 --- !u!114 &2891484462921024806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,8 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ab803f0cd4ce6b6dca3d2da2f4c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collidersToDisable:
-  - {fileID: 2824888104418228948}
+  _collidersToDisable: []
   _timeToDestroy: 3
   _animator: {fileID: 6917467311574802575}
 --- !u!1 &3396605725179295872

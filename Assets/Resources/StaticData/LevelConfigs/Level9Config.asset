@@ -16,11 +16,11 @@ MonoBehaviour:
   LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   LevelPrefabPath: Prefabs/Levels/FinalLevel
   EnemySpawners:
-  - {x: 3.2400002, y: 0.52, z: -8.68}
   - {x: 3.8720002, y: 0.52, z: 1.176}
+  - {x: 9.728, y: 0.52, z: 2.4160001}
   - {x: -2.024, y: 0.52, z: 1.432}
   - {x: 9.2, y: 0.52, z: -6.7599998}
+  - {x: 3.2400002, y: 0.52, z: -8.68}
   - {x: -2.5200002, y: 0.52, z: -8.88}
-  - {x: 9.728, y: 0.52, z: 2.4160001}
-  PlayerPositionOnLevel: {x: 4.32, y: 0.52, z: -3.72}
+  PlayerPositionOnLevel: {x: 4.32, y: 0.684, z: -3.72}
   BossType: 3

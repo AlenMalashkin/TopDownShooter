@@ -16,9 +16,9 @@ MonoBehaviour:
   LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
   LevelPrefabPath: Prefabs/Levels/Survival2
   EnemySpawners:
+  - {x: 0.52800006, y: 0.5, z: 47.016}
   - {x: -7.44, y: 0.5, z: 45.48}
   - {x: -0.78800005, y: 0.5, z: 54.46}
   - {x: -9.272, y: 0.5, z: 54.528}
-  - {x: 0.52800006, y: 0.5, z: 47.016}
-  PlayerPositionOnLevel: {x: -4.5277543, y: 0.5, z: 50.48522}
+  PlayerPositionOnLevel: {x: -4.5277543, y: 0.704, z: 50.48522}
   BossType: 0
