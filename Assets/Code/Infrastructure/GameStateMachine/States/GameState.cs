@@ -116,6 +116,11 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             _enemiesProvider.EnemiesChanged -= OnEnemiesCountChanged;
             _inputService.GetInputAction<IPauseAction>().UnsubscribePauseAction(OnPausePressed);
+
+            foreach (var playerComponent in _player.GetComponentsInChildren<MonoBehaviour>())
+            {
+                playerComponent.enabled = false;
+            }
         }
 
         private void OnLoad()
@@ -154,7 +159,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             {
                 _bossSpawner = new BossSpawner(_factoryProvider,
                     _staticDataService,
-                    _uiProvider);
+                    _uiProvider, _chooseLevelService);
             }
         }
 
@@ -215,8 +220,6 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType == BossType.None)
             {
                 _gameStateMachine.Enter<GameResultState, GameResult>(GameResult.Win);
-                _progressService.Progress.LevelsPassed = (int) _levelStaticData.Type;
-                _saveLoadService.SaveProgress();
             }
 
             if (enemiesCount <= 0 && _spawner.EnemiesRemaining <= 0 && _levelStaticData.BossType != BossType.None)

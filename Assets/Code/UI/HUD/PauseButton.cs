@@ -1,12 +1,14 @@
 using Code.Factories.UIFactory;
 using Code.Services.PauseService;
-using Code.UI.Windows.MainMenu.Buttons;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.UI.HUD
 {
-    public class PauseButton : BaseButton
+    public class PauseButton : MonoBehaviour
     {
+        [SerializeField] private Button _pauseButton;
+        
         private IPauseService _pauseService;
         private IWindowFactory _windowFactory;
         private Transform _root;
@@ -17,11 +19,21 @@ namespace Code.UI.HUD
             _windowFactory = windowFactory;
             _root = root;
         }
-        
-        protected override void OnClick()
+
+        private void OnEnable()
         {
-            _pauseService.Pause();
+            _pauseButton.onClick.AddListener(OnPauseClicked);
+        }
+
+        private void OnDisable()
+        {
+            _pauseButton.onClick.RemoveListener(OnPauseClicked);
+        }
+
+        private void OnPauseClicked()
+        {
             _windowFactory.CreatePauseWindow(_root);
+            _pauseService.Pause();
         }
     }
 }

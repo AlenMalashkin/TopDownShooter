@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Code.Data;
 using Code.Services.EquipmentService;
 using Code.Services.ProgressService;
+using Code.UI.Windows;
 using Code.UI.Windows.MainMenu.Buttons;
 using TMPro;
 using UnityEngine;
@@ -8,15 +10,15 @@ using UnityEngine.UI;
 
 namespace Code.UI.EquipmentMenu
 {
-    public class EquipmentItem : BaseButton, IEquipmentObservable
+    public class EquipmentItem : BaseButton, IEquipmentObservable, ILocalizable
     {
         [SerializeField] private Image _itemImage;
-        [SerializeField] private TextMeshProUGUI _itemName;
         [SerializeField] private TextMeshProUGUI _equipStatus;
 
         private WeaponData _weaponData;
         private IEquipmentService _equipmentService;
         private IProgressService _progressService;
+        private Dictionary<string, string> _localization;
 
         public void Init(WeaponData weaponData, IEquipmentService equipmentService, IProgressService progressService)
         {
@@ -25,7 +27,6 @@ namespace Code.UI.EquipmentMenu
             _progressService = progressService;
 
             _itemImage.sprite = _weaponData.PreviewSprite;
-            _itemName.text = _weaponData.ItemName;
         }
 
         protected override void OnClick()
@@ -37,17 +38,22 @@ namespace Code.UI.EquipmentMenu
         {
             if (_progressService.Progress.CollectedWeapons.Contains(_weaponData.Type))
             {
-                _equipStatus.text = "Экипировать";
+                _equipStatus.text = _localization["EquipStatus"];
                 _button.interactable = true;
             }
             else
             {
-                _equipStatus.text = "Закрыто";
+                _equipStatus.text = _localization["ClosedStatus"];
                 _button.interactable = false;
             }
             
             if (_equipmentService.CurrentEquippedWeapon == _weaponData.Type)
-                _equipStatus.text = "Экипировано";
+                _equipStatus.text = _localization["EquippedStatus"];
+        }
+
+        public void Localize(Dictionary<string, string> localization)
+        {
+            _localization = localization;
         }
     }
 }

@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4daf756b2894e3381c9baad8b0e0adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _winText: {fileID: 395341787336902674}
   _toNextLevelButton: {fileID: 1759300200490808450}
   _backToMenuButton: {fileID: 7187858904114188361}
 --- !u!1 &1633529592124908937
@@ -461,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 8617880130446318344}
+  _buttonText: {fileID: 493911932295318492}
 --- !u!1 &4345682502062766172
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,3 +810,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 3368364365817700493}
+  _buttonText: {fileID: 1286731243674242679}

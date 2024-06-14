@@ -11,6 +11,7 @@ using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
 using Code.Services.GameResultService;
 using Code.Services.InputService;
+using Code.Services.LocalizationService;
 using Code.Services.PauseService;
 using Code.Services.ProgressService;
 using Code.Services.RandomService;
@@ -77,12 +78,14 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IUIProvider>(new UIProvider());
             _serviceLocator.RegisterService<IAssetProvider>(new AssetProvider());
             _serviceLocator.RegisterService<IChooseLevelService>(new ChooseLevelService());
-            _serviceLocator.RegisterService<IPauseService>(new PauseService());
             RegisterStaticDataService();
+            _serviceLocator.RegisterService<ILocalizationService>(
+                new LocalizationService(_serviceLocator.Resolve<IStaticDataService>()));
             _serviceLocator.RegisterService<IEquipmentService>(
                 new EquipmentService(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IProgressService>(), _serviceLocator.Resolve<ISaveLoadService>()));
             RegisterInput();
+            _serviceLocator.RegisterService<IPauseService>(new PauseService(_serviceLocator.Resolve<IInputService>()));
             RegisterUIFactories();
             RegisterGameFactories();
             RegisterFactoryProvider();
@@ -148,7 +151,8 @@ namespace Code.Infrastructure.GameStateMachine.States
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IUIFactory>(),
                     _serviceLocator.Resolve<IChooseLevelService>(), _progressService, _saveLoadService,
-                    _serviceLocator.Resolve<IPauseService>(), _serviceLocator.Resolve<IEquipmentService>()));
+                    _serviceLocator.Resolve<IPauseService>(), _serviceLocator.Resolve<IEquipmentService>(),
+                    _serviceLocator.Resolve<ILocalizationService>()));
         }
 
         private void LoadProgress()

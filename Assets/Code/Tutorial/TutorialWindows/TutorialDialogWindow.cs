@@ -1,13 +1,15 @@
+using System.Collections.Generic;
+using Code.UI.Windows;
 using TMPro;
 using UnityEngine;
 
 namespace Code.Tutorial.TutorialWindows
 {
-    public class TutorialDialogWindow : DialogWindow
+    public class TutorialDialogWindow : DialogWindow, ILocalizable
     {
-        [SerializeField] private string[] _messages;
         [SerializeField] private TextMeshProUGUI _messageText;
-
+        
+        private string[] _messages;
         private int _currentMessageIndex;
         
         public override void ShowNextWindow()
@@ -17,6 +19,17 @@ namespace Code.Tutorial.TutorialWindows
 
             _messageText.text = _messages[_currentMessageIndex];
             _currentMessageIndex += 1;
+        }
+
+        public void Localize(Dictionary<string, string> localization)
+        {
+            _messages = new[]
+            {
+                localization["MessageOne"],
+                localization["MessageTwo"],
+                localization["MessageThree"],
+                localization["MessageFour"]
+            };
         }
     }
 }

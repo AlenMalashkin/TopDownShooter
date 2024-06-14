@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3d0bec61f3457e89309f8d8f1cde83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _winText: {fileID: 395341787336902674}
   _backToMenuButton: {fileID: 7187858904114188361}
 --- !u!1 &1633529592124908937
 GameObject:
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 8617880130446318344}
+  _buttonText: {fileID: 493911932295318492}
 --- !u!1 &4345682502062766172
 GameObject:
   m_ObjectHideFlags: 0

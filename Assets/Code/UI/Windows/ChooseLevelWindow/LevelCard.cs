@@ -13,20 +13,19 @@ namespace Code.UI.Windows.ChooseLevelWindow
     {
         [SerializeField] private Button _chooseLevelButton;
         [SerializeField] private Image _levelImage;
-        [SerializeField] private TextMeshProUGUI _levelName;
 
         private IGameStateMachine _gameStateMachine;
         private IChooseLevelService _chooseLevelService;
         private LevelType _levelType;
 
         public void Init(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
-            LevelType levelType, Sprite levelImage, string levelName)
+            LevelType levelType, Sprite levelImage, bool interactable)
         {
             _gameStateMachine = gameStateMachine;
             _chooseLevelService = chooseLevelService;
             _levelType = levelType;
             _levelImage.sprite = levelImage;
-            _levelName.text = levelName;
+            _chooseLevelButton.interactable = interactable;
         }
 
         private void OnEnable()

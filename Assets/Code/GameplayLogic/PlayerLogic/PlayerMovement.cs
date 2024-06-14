@@ -12,9 +12,11 @@ namespace Code.GameplayLogic.PlayerLogic
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private CharacterController _characterController;
 
         public Vector2 MoveDirection => new Vector2(_moveDirection.x, _moveDirection.z);
-        
+
+        private float _gravity;
         private Joystick _movementJoystick;
         private Vector3 _moveDirection;
         private IInputService _inputService;
@@ -49,12 +51,11 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (GP_Device.IsMobile())
                 _moveDirection = new Vector3(_movementJoystick.Direction.x, 0, _movementJoystick.Direction.y);
+
+            _gravity += Physics.gravity.y;
+            _characterController.Move(new Vector3(_moveDirection.x, _gravity, _moveDirection.z) * _speed * Time.deltaTime);
         }
 
-        private void FixedUpdate()
-        {
-            _rigidbody.velocity = _moveDirection * _speed;
-        }
 
         private void OnMove(InputAction.CallbackContext context)
         {
