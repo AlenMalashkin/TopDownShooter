@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level2Config
   m_EditorClassIdentifier: 
   Type: 2
-  LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  LevelImage: {fileID: 21300000, guid: b794c42f862d52945948cfc63bf5fa5a, type: 3}
   LevelPrefabPath: Prefabs/Levels/Graveyard2
   EnemySpawners:
   - {x: 10.096661, y: 3.1769953, z: 50.432358}

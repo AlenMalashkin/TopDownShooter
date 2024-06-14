@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level4Config
   m_EditorClassIdentifier: 
   Type: 4
-  LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  LevelImage: {fileID: 21300000, guid: 14fbb31c7b902674ca29182966dfbe43, type: 3}
   LevelPrefabPath: Prefabs/Levels/Nature
   EnemySpawners:
   - {x: 0.8826064, y: 2.6857035, z: 13.1508255}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level9Config
   m_EditorClassIdentifier: 
   Type: 9
-  LevelImage: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  LevelImage: {fileID: 21300000, guid: a84a965fa923ebe42b567742658b109d, type: 3}
   LevelPrefabPath: Prefabs/Levels/FinalLevel
   EnemySpawners:
   - {x: 3.8720002, y: 0.52, z: 1.176}
