@@ -1,3 +1,5 @@
+using Code.GameplayLogic;
+using Code.GameplayLogic.PlayerLogic;
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
@@ -13,7 +15,9 @@ using Code.UI.Windows;
 using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.LoseWindow;
 using Code.UI.Windows.MainMenu;
+using Code.UI.Windows.RewardWindow;
 using Code.UI.Windows.WinWindow;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
@@ -118,6 +122,16 @@ namespace Code.Factories.UIFactory
                     PauseWindow;
             pauseWindow.Init(_pauseService, _gameStateMachine);
             pauseWindow.Localize(_localizationService.LoadTranslation(WindowType.PauseWindow));
+        }
+
+        public RewardWindow CreateRewardWindow(Transform root, Damageable damageable, PlayerDeath playerDeath)
+        {
+            RewardWindow rewardWindow =
+                Object.Instantiate(_staticDataService.ForWindow(WindowType.RewardWindow).WindowPrefab, root) as
+                    RewardWindow;
+            rewardWindow.Init(damageable, playerDeath, _pauseService);
+            rewardWindow.Localize(_localizationService.LoadTranslation(WindowType.RewardWindow));
+            return rewardWindow;
         }
     }
 }

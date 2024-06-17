@@ -1,3 +1,4 @@
+using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
@@ -8,23 +9,23 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         [SerializeField] private Damageable _damageable;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
 
-        private Damageable _playerDamageable;
+        private PlayerDeath _playerDeath;
 
-        public void Init(Damageable playerDamageable)
+        public void Init(PlayerDeath playerDeath)
         {
-            _playerDamageable = playerDamageable;
+            _playerDeath = playerDeath;
         }
 
         private void Start()
         {
             _damageable.Death += _enemyDeath.OnDeath;
-            _playerDamageable.Death += OnPlayerDeath;
+            _playerDeath.Death += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
             _damageable.Death -= _enemyDeath.OnDeath;
-            _playerDamageable.Death -= OnPlayerDeath;
+            _playerDeath.Death -= OnPlayerDeath;
         }
 
         private void Update()
@@ -32,7 +33,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
             _aiStateMachine.UpdateState();
         }
 
-        private void OnPlayerDeath(Damageable damageable)
+        private void OnPlayerDeath()
             => _aiStateMachine.EnterState<EnemyIdleState>();
     }
 }
