@@ -92,3 +92,32 @@ MonoBehaviour:
     - Key: PauseHeader
       RussianTranslation: "\u0418\u0433\u0440\u0430 \u043D\u0430 \u043F\u0430\u0443\u0437\u0435"
       EnglishTranslation: Game paused
+  - WindowType: 4
+    Translations:
+    - Key: LevelOne
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 1"
+      EnglishTranslation: Level 1
+    - Key: LevelTwo
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 2"
+      EnglishTranslation: Level 2
+    - Key: LevelThree
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 3"
+      EnglishTranslation: Level 3
+    - Key: LevelFour
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 4"
+      EnglishTranslation: Level 4
+    - Key: LevelFive
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 5"
+      EnglishTranslation: Level 5
+    - Key: LevelSix
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 6"
+      EnglishTranslation: Level 6
+    - Key: LevelSeven
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 7"
+      EnglishTranslation: Level 7
+    - Key: LevelEight
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 8"
+      EnglishTranslation: Level 8
+    - Key: LevelNine
+      RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 9"
+      EnglishTranslation: Level 9

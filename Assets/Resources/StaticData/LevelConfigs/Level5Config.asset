@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level5Config
   m_EditorClassIdentifier: 
   Type: 5
+  LevelNameTranslationKey: LevelFive
   LevelImage: {fileID: 21300000, guid: 1264b47cd8dc1de4ca4fecdb5c7aa34b, type: 3}
   LevelPrefabPath: Prefabs/Levels/Nature2
   EnemySpawners:

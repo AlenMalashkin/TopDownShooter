@@ -5,11 +5,13 @@ using Code.Level;
 using Code.Services.AssetProvider;
 using Code.Services.ChooseLevelService;
 using Code.Services.EquipmentService;
+using Code.Services.LocalizationService;
 using Code.Services.ProgressService;
 using Code.Services.StaticDataService;
 using Code.StaticData.LevelStaticData;
 using Code.UI.EquipmentMenu;
 using Code.UI.HUD;
+using Code.UI.Windows;
 using Code.UI.Windows.ChooseLevelWindow;
 using UnityEngine;
 
@@ -23,10 +25,12 @@ namespace Code.Factories.UIFactory
         private IEquipmentService _equipmentService;
         private IChooseLevelService _chooseLevelService;
         private IProgressService _progressService;
+        private ILocalizationService _localizationService;
 
         public UIFactory(IGameStateMachine gameStateMachine, IChooseLevelService chooseLevelService,
             IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IEquipmentService equipmentService, IProgressService progressService)
+            IEquipmentService equipmentService, IProgressService progressService,
+            ILocalizationService localizationService)
         {
             _gameStateMachine = gameStateMachine;
             _chooseLevelService = chooseLevelService;
@@ -34,6 +38,7 @@ namespace Code.Factories.UIFactory
             _staticDataService = staticDataService;
             _equipmentService = equipmentService;
             _progressService = progressService;
+            _localizationService = localizationService;
         }
 
         public GameObject CreateRoot()
@@ -57,7 +62,8 @@ namespace Code.Factories.UIFactory
             LevelCard levelCardPrefab = _assetProvider.LoadAsset<LevelCard>("Prefabs/UI/LevelCard");
             LevelCard levelCard = Object.Instantiate(levelCardPrefab, root);
             levelCard.Init(_gameStateMachine, _chooseLevelService, type, levelStaticData.LevelImage,
-                _progressService.Progress.LevelsPassed >= (int) type);
+                levelStaticData.LevelNameTranslationKey, _progressService.Progress.LevelsPassed >= (int) type);
+            levelCard.Localize(_localizationService.LoadTranslation(WindowType.ChooseLevelWindow));
             return levelCard;
         }
 

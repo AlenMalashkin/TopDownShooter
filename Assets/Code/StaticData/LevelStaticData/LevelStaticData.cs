@@ -9,6 +9,7 @@ namespace Code.StaticData.LevelStaticData
     public class LevelStaticData : ScriptableObject
     {
         public LevelType Type;
+        public string LevelNameTranslationKey;
         public Sprite LevelImage;
         public string LevelPrefabPath;
         public List<Vector3> EnemySpawners;
