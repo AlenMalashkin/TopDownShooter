@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level3Config
   m_EditorClassIdentifier: 
   Type: 3
+  LevelNameTranslationKey: LevelThree
   LevelImage: {fileID: 21300000, guid: e40db6dff8757774786ffe128c18b7ba, type: 3}
   LevelPrefabPath: Prefabs/Levels/Graveyard3
   EnemySpawners:

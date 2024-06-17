@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level8Config
   m_EditorClassIdentifier: 
   Type: 8
+  LevelNameTranslationKey: LevelEight
   LevelImage: {fileID: 21300000, guid: e446d35ec524ef644958ddebf1bca979, type: 3}
   LevelPrefabPath: Prefabs/Levels/Survival2
   EnemySpawners:

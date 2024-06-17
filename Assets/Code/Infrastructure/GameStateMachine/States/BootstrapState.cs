@@ -145,7 +145,7 @@ namespace Code.Infrastructure.GameStateMachine.States
                 _serviceLocator.Resolve<IChooseLevelService>(),
                 _serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IEquipmentService>(),
-                _progressService));
+                _progressService, _serviceLocator.Resolve<ILocalizationService>()));
             _serviceLocator.RegisterService<IHUDFactory>(new HUDFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWindowFactory>(
                 new WindowFactory(_serviceLocator.Resolve<IStaticDataService>(),
