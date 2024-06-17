@@ -9,6 +9,7 @@ namespace Code.UI.Windows
         ChooseLevelWindow,
         TutorialPassWindow,
         TutorialMessageWindow,
-        PauseWindow
+        PauseWindow,
+        RewardWindow
     }
 }

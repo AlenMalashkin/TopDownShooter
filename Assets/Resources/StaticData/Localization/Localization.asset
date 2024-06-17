@@ -121,3 +121,15 @@ MonoBehaviour:
     - Key: LevelNine
       RussianTranslation: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 9"
       EnglishTranslation: Level 9
+  - WindowType: 8
+    Translations:
+    - Key: Question
+      RussianTranslation: "\u0412\u043E\u0437\u0440\u043E\u0434\u0438\u0442\u044C\u0441\u044F
+        \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0432 \u0440\u0435\u043A\u043B\u0430\u043C\u0443?"
+      EnglishTranslation: Reborn after watching an ad?
+    - Key: CloseButtonText
+      RussianTranslation: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C"
+      EnglishTranslation: Close
+    - Key: ClaimButtonText
+      RussianTranslation: "\u0412\u043E\u0437\u0440\u043E\u0434\u0438\u0442\u044C\u0441\u044F"
+      EnglishTranslation: Reborn
