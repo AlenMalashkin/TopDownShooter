@@ -1,3 +1,4 @@
+using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
@@ -9,23 +10,23 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private AIStateMachineBase _aiStateMachine;
         [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
 
-        private Damageable _playerDamageable;
+        private PlayerDeath _playerDeath;
 
-        public void Init(Damageable playerDamageable)
+        public void Init(PlayerDeath playerDeath)
         {
-            _playerDamageable = playerDamageable;
+            _playerDeath = playerDeath;
         }
         
         private void Start()
         {
             _damageable.Death += _deathComponent.OnDeath;
-            _playerDamageable.Death += OnPlayerDeath;
+            _playerDeath.Death += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
             _damageable.Death -= _deathComponent.OnDeath;
-            _playerDamageable.Death -= OnPlayerDeath;
+            _playerDeath.Death -= OnPlayerDeath;
         }
 
         private void Update()
@@ -34,7 +35,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
             _aiStateMachine.UpdateState();
         }
 
-        private void OnPlayerDeath(Damageable damageable)
+        private void OnPlayerDeath()
             => _aiStateMachine.EnterState<EnemyIdleState>();
     }
 }

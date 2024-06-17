@@ -4,6 +4,7 @@ using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
 using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
+using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Weapons;
 using Code.Infrastructure;
 using Code.Services.EnemiesProvider;
@@ -45,7 +46,7 @@ namespace Code.Factories.GameplayFactoies
             enemy.GetComponent<MeleeAttackState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeEnemy>()
-                .Init(followTarget.GetComponent<Damageable>());
+                .Init(followTarget.GetComponent<PlayerDeath>());
             enemy.GetComponent<EnemyDeath>()
                 .Init(_enemiesProvider);
             return enemy;
@@ -59,7 +60,7 @@ namespace Code.Factories.GameplayFactoies
             rangeEnemy.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
             rangeEnemy.GetComponent<RangeEnemy>()
-                .Init(followTarget.GetComponent<Damageable>());
+                .Init(followTarget.GetComponent<PlayerDeath>());
             rangeEnemy.GetComponent<EnemyDeath>()
                 .Init(_enemiesProvider);
             RangeAttackState rangeAttackState = rangeEnemy.GetComponent<RangeAttackState>();
@@ -78,7 +79,7 @@ namespace Code.Factories.GameplayFactoies
             enemy.GetComponent<MeleeAttackState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeEnemy>()
-                .Init(followTarget.GetComponent<Damageable>());
+                .Init(followTarget.GetComponent<PlayerDeath>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot, enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
             return enemy;
@@ -93,7 +94,7 @@ namespace Code.Factories.GameplayFactoies
             rangeBoss.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
             rangeBoss.GetComponent<RangeEnemy>()
-                .Init(followTarget.GetComponent<Damageable>());
+                .Init(followTarget.GetComponent<PlayerDeath>());
             RangeAttackState rangeAttackState = rangeBoss.GetComponent<RangeAttackState>();
             Weapon weapon = _weaponFactory.CreateEnemyWeapon(EnemyWeaponType.RangeBossWeapon);
             weapon.AttachToHand(rangeAttackState.EnemyArm);
@@ -109,7 +110,7 @@ namespace Code.Factories.GameplayFactoies
             Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
             enemy.GetComponent<FinalBossMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeComboState>().Init(followTarget, _updater);
-            enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<Damageable>());
+            enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<PlayerDeath>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot
                 , enemy.GetComponent<Damageable>());
             enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);

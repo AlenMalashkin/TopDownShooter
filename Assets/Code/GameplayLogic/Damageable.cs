@@ -5,14 +5,15 @@ namespace Code.GameplayLogic
 {
     public class Damageable : MonoBehaviour, IDamageable
     {
+        public event Action<float> HealthChanged;
+        public event Action Hit;
+        public event Action<Damageable> Death;
+        
         [SerializeField] private float _health;
         [SerializeField] private float _maxHealth;
 
         private AnimatorComponent _animator;
-
-        public event Action<float> HealthChanged;
-        public event Action Hit; 
-        public event Action<Damageable> Death;
+        private bool _died;
 
         private void Awake()
         {
@@ -36,7 +37,12 @@ namespace Code.GameplayLogic
                 _health = value;
                 if (_health < 0)
                 {
+                    _died = true;
                     _health = 0;
+                }
+                else if(_health > 0)
+                {
+                    _died = false;
                 }
                 else if (_health > _maxHealth)
                 {
@@ -53,11 +59,20 @@ namespace Code.GameplayLogic
             
             HealthChanged?.Invoke(Health);
             
-            if (_health <= 0)
+            if (_health <= 0 && !_died)
                 Death?.Invoke(this);
             
             Hit?.Invoke();
         }
-        
+
+        public void Heal(float heal)
+        {
+            if (Health + heal > MaxHealth)
+                Health = MaxHealth;
+            else
+                Health += heal;
+
+            HealthChanged?.Invoke(_health);
+        }
     }
 }

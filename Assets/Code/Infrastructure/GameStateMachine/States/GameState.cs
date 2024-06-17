@@ -134,7 +134,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             InitializeHealthBar(_player.GetComponent<Damageable>());
             InitializeAmmoBar(_playerWeapon);
-            
+
             if (GP_Device.IsMobile())
                 _uiFactory.CreateUIPauseButton(_uiRoot)
                     .Init(_pauseService, _windowFactory, _uiRoot);
@@ -171,6 +171,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             Camera mainCamera = Camera.main;
 
             GameObject player = _playerFactory.CreatePlayer(_levelStaticData.PlayerPositionOnLevel);
+            player.GetComponent<Player>().Init(_serviceLocator.Resolve<IWindowFactory>(),
+                _serviceLocator.Resolve<IUIProvider>(), _pauseService);
             PlayerShoot playerShoot = player.GetComponent<PlayerShoot>();
             playerShoot
                 .Init(_serviceLocator.Resolve<IInputService>(), _playerWeapon);
