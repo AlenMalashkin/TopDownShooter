@@ -9,6 +9,7 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private Damageable _damageable;
         [SerializeField] private PlayerDeath _deathComponent;
+        [SerializeField] private ParticleSystem _particleSystem;
 
         private IWindowFactory _windowFactory;
         private IUIProvider _uiProvider;
@@ -25,11 +26,13 @@ namespace Code.GameplayLogic.PlayerLogic
         private void OnEnable()
         {
             _damageable.Death += OnDeath;
+            _damageable.Hit += OnHit;
         }
 
         private void OnDisable()
         {
             _damageable.Death -= OnDeath;
+            _damageable.Hit -= OnHit;
         }
 
         private void OnDeath(Damageable damageable)
@@ -45,6 +48,11 @@ namespace Code.GameplayLogic.PlayerLogic
                 _windowFactory.CreateRewardWindow(_uiProvider.GetRoot(), damageable, _deathComponent);
                 _rewardClaimed = true;
             }
+        }
+
+        private void OnHit()
+        {
+            _particleSystem.Play();
         }
     }
 }

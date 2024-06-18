@@ -11,6 +11,7 @@ namespace Code.Tutorial
         [SerializeField] private AnimatorComponent _animator;
         [SerializeField] private Damageable _damageable;
         [SerializeField] private Collider _hitBox;
+        [SerializeField] private ParticleSystem _particleSystem;
 
         private IPickupFactory _pickupFactory;
         private DialogWindow _dialogWindow;
@@ -24,12 +25,14 @@ namespace Code.Tutorial
         private void OnEnable()
         {
             _damageable.HealthChanged += OnHealthChanged;
+            _damageable.Hit += OnHit;
             _damageable.Death += OnDeath;
         }
 
         private void OnDisable()
         {
             _damageable.HealthChanged -= OnHealthChanged;
+            _damageable.Hit -= OnHit;
             _damageable.Death -= OnDeath;
         }
 
@@ -45,6 +48,11 @@ namespace Code.Tutorial
             _animator.PlayAnimationByName("Death");
             _dialogWindow.ShowNextWindow();
             Destroy(gameObject, 3);
+        }
+        
+        private void OnHit()
+        {
+            _particleSystem.Play();
         }
     }
 }

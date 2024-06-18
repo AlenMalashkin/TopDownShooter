@@ -17,6 +17,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         [SerializeField] private int _maxBullets;
         [SerializeField] private int _damage;
         [SerializeField] private Transform _shootPoint;
+        [SerializeField] private ParticleSystem _particleSystem;
 
         public int BulletsInClip => _bulletsInClip;
         public override bool CanShoot => !IsClipEmpty && !_isReloading;
@@ -61,6 +62,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
             if (_shootCooldown > _fireRate)
             {
                 ShootBullets(shootDirection, _damage);
+                _particleSystem.Play();
                 _bulletsInClip--;
                 _shootCooldown = 0f;
 

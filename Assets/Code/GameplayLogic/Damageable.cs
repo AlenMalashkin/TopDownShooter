@@ -55,11 +55,14 @@ namespace Code.GameplayLogic
         
         public void TakeDamage(float damage)
         {
+            if (_died)
+                return;
+
             Health -= damage;
-            
+
             HealthChanged?.Invoke(Health);
-            
-            if (_health <= 0 && !_died)
+
+            if (_health <= 0)
                 Death?.Invoke(this);
             
             Hit?.Invoke();

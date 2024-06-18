@@ -9,6 +9,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private DeathComponent _deathComponent;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
         [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
+        [SerializeField] private ParticleSystem _particleSystem;
 
         private PlayerDeath _playerDeath;
 
@@ -20,12 +21,14 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private void Start()
         {
             _damageable.Death += _deathComponent.OnDeath;
+            _damageable.Hit += OnHit;
             _playerDeath.Death += OnPlayerDeath;
         }
 
         private void OnDisable()
         {
             _damageable.Death -= _deathComponent.OnDeath;
+            _damageable.Hit -= OnHit;
             _playerDeath.Death -= OnPlayerDeath;
         }
 
@@ -37,5 +40,10 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
 
         private void OnPlayerDeath()
             => _aiStateMachine.EnterState<EnemyIdleState>();
+        
+        private void OnHit()
+        {
+            _particleSystem.Play();
+        }
     }
 }
