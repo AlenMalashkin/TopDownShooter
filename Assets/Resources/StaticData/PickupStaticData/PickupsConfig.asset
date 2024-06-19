@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponPickupData:
   - Prefab: {fileID: 8987099484501194670, guid: 6d0034e8ad3e62945aa6226617a06c0e, type: 3}
-    Type: 2
-  - Prefab: {fileID: 8987099484501194670, guid: 4f0c65c11ab97c1479ba76d999d924f8, type: 3}
     Type: 1
+  - Prefab: {fileID: 8987099484501194670, guid: 4f0c65c11ab97c1479ba76d999d924f8, type: 3}
+    Type: 2
   - Prefab: {fileID: 2983741512091512774, guid: 33da7bcd7f20d50499703e546aff0999, type: 3}
     Type: 0

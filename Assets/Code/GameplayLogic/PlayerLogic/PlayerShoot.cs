@@ -23,6 +23,12 @@ namespace Code.GameplayLogic.PlayerLogic
             _weapon = weapon;
         }
 
+        public void Init(Joystick fireJoystick, Weapon weapon)
+        {
+            _fireJoystick = fireJoystick;
+            _weapon = weapon;
+        }
+
         private void Update()
         {
             if (!GP_Device.IsMobile())
@@ -41,23 +47,17 @@ namespace Code.GameplayLogic.PlayerLogic
             }
         }
 
-        public void Init(Joystick fireJoystick, Weapon weapon)
-        {
-            _fireJoystick = fireJoystick;
-            _weapon = weapon;
-        }
-
         private void Shoot()
         {
             if (_weapon.CanShoot)
             {
-                _weapon.Shoot(transform.forward);
                 _playerAnimator.PlayShootAnimation();
+                _weapon.Shoot(transform.forward);
             }
             else
             {
-                _weapon.Reload();
                 _playerAnimator.PlayReloadAnimation();
+                _weapon.Reload();
             }
         }
     }

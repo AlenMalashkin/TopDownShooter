@@ -1,4 +1,5 @@
 using Code.Factories.GameplayFactoies;
+using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.PlayerLogic;
 using Code.Services.EnemiesProvider;
@@ -12,7 +13,7 @@ namespace Code.Tutorial
     {
         [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private Collider _collider;
-        
+
         private DialogWindow _dialogWindow;
         private IEnemiesProvider _enemiesProvider;
         private IEnemyFactory _enemyFactory;
@@ -30,13 +31,11 @@ namespace Code.Tutorial
         private void OnEnable()
         {
             _triggerObserver.TriggerEntered += OnTriggerEntered;
-            _triggerObserver.TriggerLeft += OnTriggerLeft;
         }
 
         private void OnDisable()
         {
             _triggerObserver.TriggerEntered -= OnTriggerEntered;
-            _triggerObserver.TriggerLeft -= OnTriggerLeft;
         }
 
         private void OnTriggerEntered(Collider other)
@@ -44,17 +43,12 @@ namespace Code.Tutorial
             if (other.TryGetComponent(out Player player))
             {
                 _dialogWindow.ShowNextWindow();
-
-                _enemiesProvider.AddEnemy(
-                    _enemyFactory.CreateTutorialEnemy(
-                        _tutorialStaticData.TutorialLevel.EnemySpawnMarker.transform.position,
-                        _dialogWindow));
+                Enemy enemy = _enemyFactory.CreateTutorialEnemy(
+                    _tutorialStaticData.TutorialLevel.EnemySpawnMarker.transform.position,
+                    _dialogWindow);
+                _enemiesProvider.AddEnemy(enemy);
+                _collider.enabled = false;
             }
-        }
-
-        private void OnTriggerLeft(Collider other)
-        {
-            _collider.enabled = false;
         }
     }
 }

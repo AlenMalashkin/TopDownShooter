@@ -95,10 +95,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12161097
+  m_Radius: 0.21084271
   m_Height: 0.91389203
   m_Direction: 1
-  m_Center: {x: -0.015168816, y: 0.37, z: -0.0127162635}
+  m_Center: {x: -0.009749314, y: 0.37, z: -0.012716274}
 --- !u!95 &295936181974638420
 Animator:
   serializedVersion: 5
@@ -274,7 +274,7 @@ MonoBehaviour:
   _collidersToDisable:
   - {fileID: -8422501545310169472}
   _timeToDestroy: 3
-  _dropType: 1
+  _dropType: 2
   _animator: {fileID: 3412082766203825735}
 --- !u!1 &1402734511863253041
 GameObject:

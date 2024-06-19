@@ -15,7 +15,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
                 Bullet bullet = WeaponFactory.CreateBullet(ShootPoint.position, BulletPrefab);
                 bullet.Init(damage,
                     transform.forward + new Vector3(
-                        Random.Range(-_spread, _spread), 
+                        Random.Range(-_spread, _spread),
                         Random.Range(-_spread, _spread),
                         Random.Range(-_spread, _spread)));
             }

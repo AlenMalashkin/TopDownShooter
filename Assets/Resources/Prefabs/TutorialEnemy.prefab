@@ -1341,7 +1341,7 @@ MonoBehaviour:
   _animator: {fileID: 3421331023965387897}
   _damageable: {fileID: 8898709849649301426}
   _hitBox: {fileID: -8294816619135043573}
-  _particleSystem: {fileID: 0}
+  _particleSystem: {fileID: 1360965556114640072}
 --- !u!114 &3421331023965387897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1457,6 +1457,11 @@ PrefabInstance:
 --- !u!4 &1360965556114640071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4553287630450876396, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
+  m_PrefabInstance: {fileID: 3302150145591022379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1360965556114640072 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4553287630450876387, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   m_PrefabInstance: {fileID: 3302150145591022379}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6845474187513007561

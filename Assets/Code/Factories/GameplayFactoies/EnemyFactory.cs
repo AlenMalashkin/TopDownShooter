@@ -2,11 +2,13 @@ using Code.Factories.UIFactory;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
 using Code.GameplayLogic.EnemiesLogic.Bosses;
+using Code.GameplayLogic.EnemiesLogic.Bosses.UniqueBoss;
 using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.GameplayLogic.EnemiesLogic.RangeEnemy;
 using Code.GameplayLogic.PlayerLogic;
 using Code.GameplayLogic.Weapons;
 using Code.Infrastructure;
+using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.EnemiesProvider;
 using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
@@ -20,6 +22,7 @@ namespace Code.Factories.GameplayFactoies
 {
     public class EnemyFactory : IEnemyFactory
     {
+        private IGameStateMachine _gameStateMachine;
         private IStaticDataService _staticDataService;
         private IWeaponFactory _weaponFactory;
         private IHUDFactory _hudFactory;
@@ -27,9 +30,11 @@ namespace Code.Factories.GameplayFactoies
         private IEnemiesProvider _enemiesProvider;
         private IUpdater _updater;
 
-        public EnemyFactory(IStaticDataService staticDataService, IWeaponFactory weaponFactory, IHUDFactory hudFactory,
-            IPickupFactory pickupFactory, IEnemiesProvider enemiesProvider, IUpdater updater)
+        public EnemyFactory(IGameStateMachine gameStateMachine, IStaticDataService staticDataService, IWeaponFactory weaponFactory,
+            IHUDFactory hudFactory, IPickupFactory pickupFactory, IEnemiesProvider enemiesProvider,
+            IUpdater updater)
         {
+            _gameStateMachine = gameStateMachine;
             _staticDataService = staticDataService;
             _weaponFactory = weaponFactory;
             _hudFactory = hudFactory;
@@ -113,7 +118,7 @@ namespace Code.Factories.GameplayFactoies
             enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<PlayerDeath>());
             HealthBar bar = _hudFactory.CreateBossHealthBar(bossHealthBarRoot
                 , enemy.GetComponent<Damageable>());
-            enemy.GetComponent<BossDeath>().Init(bar, _pickupFactory);
+            enemy.GetComponent<FinalBossDeath>().Init(bar, _gameStateMachine);
             return enemy;
         }
 

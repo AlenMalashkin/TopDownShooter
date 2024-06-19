@@ -132,9 +132,9 @@ namespace Code.Infrastructure.GameStateMachine.States
                     _serviceLocator.Resolve<IUIProvider>(), _serviceLocator.Resolve<IProgressService>(),
                     _serviceLocator.Resolve<ISaveLoadService>()));
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
-                _serviceLocator.Resolve<IStaticDataService>(), _serviceLocator.Resolve<IWeaponFactory>(),
-                _serviceLocator.Resolve<IHUDFactory>(), _serviceLocator.Resolve<IPickupFactory>(),
-                _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
+                _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IStaticDataService>(),
+                _serviceLocator.Resolve<IWeaponFactory>(), _serviceLocator.Resolve<IHUDFactory>(),
+                _serviceLocator.Resolve<IPickupFactory>(), _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
             _serviceLocator.RegisterService<ILevelFactory>(new LevelFactory(_serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>()));
         }
