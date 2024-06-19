@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Code.UI.Windows;
+using GamePush;
 using TMPro;
 using UnityEngine;
 
@@ -23,13 +24,28 @@ namespace Code.Tutorial.TutorialWindows
 
         public void Localize(Dictionary<string, string> localization)
         {
-            _messages = new[]
+            if (GP_Device.IsMobile())
             {
-                localization["MessageOne"],
-                localization["MessageTwo"],
-                localization["MessageThree"],
-                localization["MessageFour"]
-            };
+                _messages = new[]
+                {
+                    localization["MessageOneMobile"],
+                    localization["MessageTwo"],
+                    localization["MessageThree"],
+                    localization["MessageFour"]
+                };
+            }
+            else
+            {
+                _messages = new[]
+                {
+                    localization["MessageOne"],
+                    localization["MessageTwo"],
+                    localization["MessageThree"],
+                    localization["MessageFour"]
+                };
+            }
+            
+            
         }
     }
 }
