@@ -10,9 +10,11 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Transform _playerArm;
+        [SerializeField] private float _fireDelay = 0.1f;
 
         public Transform PlayerArm => _playerArm;
 
+        private float _fireDelayCounter;
         private IInputService _inputService;
         private Joystick _fireJoystick;
         private Weapon _weapon;
@@ -34,16 +36,24 @@ namespace Code.GameplayLogic.PlayerLogic
             if (!GP_Device.IsMobile())
             {
                 if (_inputService.GetInputAction<IFireAction>().FirePressed)
+                {
                     Shoot();
+                }
                 else
+                {
                     _playerAnimator.PlayRunWithWeaponAnimation();
+                }
             }
             else
             {
                 if (_fireJoystick.Direction != Vector2.zero)
+                {
                     Shoot();
+                }
                 else
+                {
                     _playerAnimator.PlayRunWithWeaponAnimation();
+                }
             }
         }
 
@@ -52,7 +62,13 @@ namespace Code.GameplayLogic.PlayerLogic
             if (_weapon.CanShoot)
             {
                 _playerAnimator.PlayShootAnimation();
-                _weapon.Shoot(transform.forward);
+                _fireDelayCounter += Time.deltaTime;
+
+                if (_fireDelayCounter > _fireDelay)
+                {
+                    _weapon.Shoot(transform.forward);
+                    _fireDelayCounter = 0f;
+                }
             }
             else
             {
