@@ -12,7 +12,7 @@ namespace Code.Factories.UIFactory
         GameObject CreateRoot();
         EquipmentItem CreateEquipmentItem(WeaponType type, Transform root);
         LevelCard CreateLevelCard(LevelType type, Transform root);
-        UIJoysticks CreateUIJoysticks(Transform root);
+        MobileHUD CreateMobileHUD(Transform root);
         PauseButton CreateUIPauseButton(Transform root);
     }
 }

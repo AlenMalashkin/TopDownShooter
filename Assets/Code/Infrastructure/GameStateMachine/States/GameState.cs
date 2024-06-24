@@ -197,14 +197,14 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             if (GP_Device.IsMobile())
             {
-                UIJoysticks uiJoysticks = _uiFactory.CreateUIJoysticks(_uiRoot);
+                MobileHUD mobileHUD = _uiFactory.CreateMobileHUD(_uiRoot);
 
                 playerShoot
-                    .Init(uiJoysticks.FireJoystick, _playerWeapon);
+                    .Init(mobileHUD.FireJoystick, _playerWeapon, mobileHUD.ReloadButton);
                 player.GetComponent<PlayerMovement>()
-                    .Init(uiJoysticks.MovementJoystick);
+                    .Init(mobileHUD.MovementJoystick);
                 player.GetComponent<PlayerLook>()
-                    .Init(uiJoysticks.MovementJoystick, uiJoysticks.FireJoystick);
+                    .Init(mobileHUD.MovementJoystick, mobileHUD.FireJoystick);
                 _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             }
 
