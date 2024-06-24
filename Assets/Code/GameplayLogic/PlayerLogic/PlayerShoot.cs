@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
@@ -11,6 +12,8 @@ namespace Code.GameplayLogic.PlayerLogic
         [SerializeField] private PlayerAnimator _playerAnimator;
         [SerializeField] private Transform _playerArm;
         [SerializeField] private float _fireDelay = 0.1f;
+        [SerializeField] private SoundPlayer _soundPlayer;
+        [SerializeField] private AudioClip _reloadSound;
 
         public Transform PlayerArm => _playerArm;
 
@@ -30,6 +33,9 @@ namespace Code.GameplayLogic.PlayerLogic
             _fireJoystick = fireJoystick;
             _weapon = weapon;
         }
+
+        public void PlayReloadSound()
+            => _soundPlayer.Play(_reloadSound);
 
         private void Update()
         {

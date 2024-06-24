@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.Factories.GameplayFactoies;
 using Code.GameplayLogic;
 using Code.GameplayLogic.Weapons;
@@ -11,8 +12,10 @@ namespace Code.Tutorial
         [SerializeField] private AnimatorComponent _animator;
         [SerializeField] private Damageable _damageable;
         [SerializeField] private Collider _hitBox;
+        [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private ParticleSystem _particleSystem;
-
+        [SerializeField] private AudioClip _hitSound;
+        
         private IPickupFactory _pickupFactory;
         private DialogWindow _dialogWindow;
 
@@ -53,6 +56,7 @@ namespace Code.Tutorial
         private void OnHit()
         {
             _particleSystem.Play();
+            _soundPlayer.Play(_hitSound);
         }
     }
 }

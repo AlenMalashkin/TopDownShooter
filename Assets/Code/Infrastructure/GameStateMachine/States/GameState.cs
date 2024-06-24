@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Code.Factories;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
@@ -9,6 +10,7 @@ using Code.GameplayLogic.Weapons;
 using Code.Infrastructure.GameStateMachine.States;
 using Code.Level;
 using Code.Services;
+using Code.Services.AssetProvider;
 using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.EquipmentService;
@@ -54,6 +56,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
         private ISaveLoadService _saveLoadService;
         private IChooseLevelService _chooseLevelService;
         private IPauseService _pauseService;
+        private IAssetProvider _assetProvider;
+        private IAudioFactory _audioFactory;
 
         private LevelStaticData _levelStaticData;
         private ITimer _timer;
@@ -70,7 +74,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             LoadingScreen loadingScreen, IInputService inputService,
             IUpdater updater, IFactoryProvider factoryProvider, IUIProvider uiProvider,
             IEnemiesProvider enemiesProvider, IRandomService randomService, IProgressService progressService,
-            ISaveLoadService saveLoadService, IChooseLevelService chooseLevelService, IPauseService pauseService)
+            ISaveLoadService saveLoadService, IChooseLevelService chooseLevelService, IPauseService pauseService,
+            IAssetProvider assetProvider)
         {
             _serviceLocator = serviceLocator;
             _gameStateMachine = gameStateMachine;
@@ -87,6 +92,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _saveLoadService = saveLoadService;
             _chooseLevelService = chooseLevelService;
             _pauseService = pauseService;
+            _assetProvider = assetProvider;
         }
 
         public void Enter(LevelType payload)
@@ -97,6 +103,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _hudFactory = _factoryProvider.GetFactory<IHUDFactory>();
             _levelFactory = _factoryProvider.GetFactory<ILevelFactory>();
             _windowFactory = _factoryProvider.GetFactory<IWindowFactory>();
+            _audioFactory = _factoryProvider.GetFactory<IAudioFactory>();
 
             _levelStaticData = _staticDataService.ForLevel(payload);
             _sceneLoadService.LoadScene("Main", OnLoad);
@@ -129,6 +136,9 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             _uiRoot = _uiFactory.CreateRoot().transform;
             _uiProvider.ChangeUIRoot(_uiRoot);
+            
+            _audioFactory.CreateSoundPlayer()
+                .PlayLoop(_assetProvider.LoadAsset<AudioClip>("ExternalContent/Sounds/ActionMusic"));
 
             InitializeLevel();
 

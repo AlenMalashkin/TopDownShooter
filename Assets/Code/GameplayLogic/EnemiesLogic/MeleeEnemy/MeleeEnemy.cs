@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         [SerializeField] private Damageable _damageable;
         [SerializeField] private DeathComponent _deathComponent;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
+        [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private AudioClip _hitSound;
 
         private PlayerDeath _playerDeath;
 
@@ -42,6 +45,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         private void OnHit()
         {
             _particleSystem.Play();
+            _soundPlayer.Play(_hitSound);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.Factories.UIFactory;
 using Code.Services.PauseService;
 using Code.Services.UIProvider;
@@ -9,8 +10,10 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private Damageable _damageable;
         [SerializeField] private PlayerDeath _deathComponent;
+        [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private ParticleSystem _particleSystem;
-
+        [SerializeField] private AudioClip _hitSound;
+        
         private IWindowFactory _windowFactory;
         private IUIProvider _uiProvider;
         private IPauseService _pauseService;
@@ -53,6 +56,7 @@ namespace Code.GameplayLogic.PlayerLogic
         private void OnHit()
         {
             _particleSystem.Play();
+            _soundPlayer.Play(_hitSound);
         }
     }
 }

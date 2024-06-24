@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         [SerializeField] private DeathComponent _deathComponent;
         [SerializeField] private AIStateMachineBase _aiStateMachine;
         [SerializeField] private RangeEnemyPlayerDetector _playerDetector;
+        [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private AudioClip _hitSound;
 
         private PlayerDeath _playerDeath;
 
@@ -44,6 +47,7 @@ namespace Code.GameplayLogic.EnemiesLogic.RangeEnemy
         private void OnHit()
         {
             _particleSystem.Play();
+            _soundPlayer.Play(_hitSound);
         }
     }
 }

@@ -116,6 +116,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             factoryProvider.AddFactory<IEnemyFactory>(_serviceLocator.Resolve<IEnemyFactory>());
             factoryProvider.AddFactory<IPickupFactory>(_serviceLocator.Resolve<IPickupFactory>());
             factoryProvider.AddFactory<ILevelFactory>(_serviceLocator.Resolve<ILevelFactory>());
+            factoryProvider.AddFactory<IAudioFactory>(_serviceLocator.Resolve<IAudioFactory>());
 
             _serviceLocator.RegisterService(factoryProvider);
         }
@@ -137,6 +138,7 @@ namespace Code.Infrastructure.GameStateMachine.States
                 _serviceLocator.Resolve<IPickupFactory>(), _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
             _serviceLocator.RegisterService<ILevelFactory>(new LevelFactory(_serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>()));
+            _serviceLocator.RegisterService<IAudioFactory>(new AudioFactory(_serviceLocator.Resolve<IAssetProvider>()));
         }
 
         private void RegisterUIFactories()

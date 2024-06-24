@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
     public class MeleeAttackState : AIState
     {
         [SerializeField] private float _damage = 20;
+        [SerializeField] private SoundPlayer _soundPlayer;
+        [SerializeField] private AudioClip _punchSound;
         [SerializeField] private AIStateMachine _aiStateMachine;
         [SerializeField] private AnimatorComponent _meleeEnemyAnimator;
         [SerializeField] private TriggerObserver _fistTriggerObserver;
@@ -61,6 +64,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         {
             if (other.TryGetComponent(out Damageable damageable) && other.TryGetComponent(out Player player))
             {
+                _soundPlayer.Play(_punchSound);
                 damageable.TakeDamage(_damage);
                 DisableFistCollider();
             }
