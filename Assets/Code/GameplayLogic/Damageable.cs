@@ -35,7 +35,7 @@ namespace Code.GameplayLogic
             private set
             {
                 _health = value;
-                if (_health < 0)
+                if (_health <= 0)
                 {
                     _died = true;
                     _health = 0;
