@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Code.Audio;
 using Code.Data;
 using Code.Factories.GameplayFactoies;
 using UnityEngine;
@@ -17,7 +18,10 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         [SerializeField] private int _maxBullets;
         [SerializeField] private int _damage;
         [SerializeField] private Transform _shootPoint;
+        [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private AudioClip _shotSound;
+        [SerializeField] private AudioClip _reloadSound;
 
         public int BulletsInClip => _bulletsInClip;
         public override bool CanShoot => !IsClipEmpty && !_isReloading;
@@ -63,6 +67,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
             {
                 ShootBullets(shootDirection, _damage);
                 _particleSystem.Play();
+                _soundPlayer.Play(_shotSound);
                 _bulletsInClip--;
                 _shootCooldown = 0f;
 

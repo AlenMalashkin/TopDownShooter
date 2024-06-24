@@ -55,6 +55,8 @@ namespace Code.GameplayLogic
         
         public void TakeDamage(float damage)
         {
+            Hit?.Invoke();
+            
             if (_died)
                 return;
 
@@ -64,8 +66,6 @@ namespace Code.GameplayLogic
 
             if (_health <= 0)
                 Death?.Invoke(this);
-            
-            Hit?.Invoke();
         }
 
         public void Heal(float heal)

@@ -4,6 +4,7 @@ using Code.Factories.UIFactory;
 using Code.Infrastructure.GameStateMachine.States;
 using Code.Infrastructure.GameStateMachineNamespace.States;
 using Code.Services;
+using Code.Services.AssetProvider;
 using Code.Services.ChooseLevelService;
 using Code.Services.EnemiesProvider;
 using Code.Services.InputService;
@@ -30,7 +31,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace
                 new BootstrapState(serviceLocator, this, sceneLoadService, loadingScreen, updater);
             _states[typeof(MenuState)] =
                 new MenuState(sceneLoadService, loadingScreen, serviceLocator.Resolve<IFactoryProvider>(),
-                    serviceLocator.Resolve<IUIProvider>());
+                    serviceLocator.Resolve<IUIProvider>(), serviceLocator.Resolve<IAssetProvider>());
             _states[typeof(TutorialState)] = new TutorialState(serviceLocator,
                 serviceLocator.Resolve<IStaticDataService>(), sceneLoadService, loadingScreen,
                 serviceLocator.Resolve<IUIProvider>(), serviceLocator.Resolve<IFactoryProvider>(),
@@ -43,7 +44,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace
                 serviceLocator.Resolve<IFactoryProvider>(), serviceLocator.Resolve<IUIProvider>(),
                 serviceLocator.Resolve<IEnemiesProvider>(), serviceLocator.Resolve<IRandomService>(),
                 serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>(),
-                serviceLocator.Resolve<IChooseLevelService>(), serviceLocator.Resolve<IPauseService>());
+                serviceLocator.Resolve<IChooseLevelService>(), serviceLocator.Resolve<IPauseService>(),
+                serviceLocator.Resolve<IAssetProvider>());
             _states[typeof(GameResultState)] = new GameResultState(serviceLocator.Resolve<IFactoryProvider>(),
                 serviceLocator.Resolve<IUIProvider>(), serviceLocator.Resolve<IChooseLevelService>(),
                 serviceLocator.Resolve<IProgressService>(), serviceLocator.Resolve<ISaveLoadService>());
