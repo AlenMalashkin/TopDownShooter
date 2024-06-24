@@ -67,10 +67,10 @@ namespace Code.Factories.UIFactory
             return levelCard;
         }
 
-        public UIJoysticks CreateUIJoysticks(Transform root)
+        public MobileHUD CreateMobileHUD(Transform root)
         {
-            UIJoysticks uiJoysticks = _assetProvider.LoadAsset<UIJoysticks>("Prefabs/UIJoysticks");
-            return Object.Instantiate(uiJoysticks, root);
+            MobileHUD mobileHUD = _assetProvider.LoadAsset<MobileHUD>("Prefabs/MobileHud");
+            return Object.Instantiate(mobileHUD, root);
         }
 
         public PauseButton CreateUIPauseButton(Transform root)

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using Code.Audio;
-using Code.Data;
 using Code.Factories.GameplayFactoies;
+using Code.Services.InputService;
 using UnityEngine;
 
 namespace Code.GameplayLogic.Weapons.PlayerWeapons
@@ -35,6 +35,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         private float _shootCooldown;
         private int _bulletsInClip;
         private IWeaponFactory _weaponFactory;
+        private IInputService _inputService;
 
         private void Start()
         {
@@ -86,6 +87,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
         {
             StartCoroutine(ReloadingRoutine());
         }
+
 
         private IEnumerator ReloadingRoutine()
         {

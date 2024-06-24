@@ -1,9 +1,12 @@
+using System;
 using Code.Audio;
 using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using GamePush;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Code.GameplayLogic.PlayerLogic
 {
@@ -20,18 +23,30 @@ namespace Code.GameplayLogic.PlayerLogic
         private float _fireDelayCounter;
         private IInputService _inputService;
         private Joystick _fireJoystick;
+        private Button _reloadButton;
         private Weapon _weapon;
 
         public void Init(IInputService inputService, Weapon weapon)
         {
             _inputService = inputService;
             _weapon = weapon;
+            _inputService.GetInputAction<IReloadAction>().SubscribeReloadAction(OnReload);
         }
 
-        public void Init(Joystick fireJoystick, Weapon weapon)
+        public void Init(Joystick fireJoystick, Weapon weapon, Button reloadButton)
         {
             _fireJoystick = fireJoystick;
             _weapon = weapon;
+            _reloadButton = reloadButton;
+            _reloadButton.onClick.AddListener(_weapon.Reload);
+        }
+
+        private void OnDisable()
+        {
+            _inputService.GetInputAction<IReloadAction>().SubscribeReloadAction(OnReload);
+            
+            if (GP_Device.IsMobile())
+                _reloadButton.onClick.RemoveListener(_weapon.Reload);
         }
 
         public void PlayReloadSound()
@@ -81,6 +96,12 @@ namespace Code.GameplayLogic.PlayerLogic
                 _playerAnimator.PlayReloadAnimation();
                 _weapon.Reload();
             }
+        }
+
+        public void OnReload(InputAction.CallbackContext context)
+        {
+           _weapon.Reload();
+           Debug.Log("reload");
         }
     }
 }
