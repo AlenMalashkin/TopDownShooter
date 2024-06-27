@@ -1,4 +1,5 @@
 using Cinemachine;
+using Code.Audio;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
@@ -138,6 +139,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             player.GetComponent<PlayerAnimator>()
                 .Init(_serviceLocator.Resolve<IEquipmentService>(), mainCamera.transform);
             player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
+            player.GetComponent<SoundPlayer>().Init(_progressService, _saveLoadService);
 
             if (GP_Device.IsMobile())
             {

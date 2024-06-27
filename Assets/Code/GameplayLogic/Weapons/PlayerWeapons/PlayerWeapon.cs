@@ -25,6 +25,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
 
         public int BulletsInClip => _bulletsInClip;
         public override bool CanShoot => !IsClipEmpty && !_isReloading;
+        public override bool Reloading => _isReloading;
         protected Transform ShootPoint => _shootPoint;
         protected IWeaponFactory WeaponFactory => _weaponFactory;
         protected Bullet BulletPrefab => _bulletPrefab;
@@ -85,9 +86,9 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
 
         public override void Reload()
         {
-            StartCoroutine(ReloadingRoutine());
+            if (_bulletsInClip < _maxBullets)
+                StartCoroutine(ReloadingRoutine());
         }
-
 
         private IEnumerator ReloadingRoutine()
         {
