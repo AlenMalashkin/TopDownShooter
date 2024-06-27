@@ -47,7 +47,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             _uiProvider.ChangeUIRoot(root.transform);
             _windowFactory.CreateMainMenu(root.transform);
             _audioFactory.CreateSoundPlayer()
-                .PlayLoop(_assetProvider.LoadAsset<AudioClip>("ExternalContent/Sounds/MenuMusic"));
+                .PlayMusic(_assetProvider.LoadAsset<AudioClip>("ExternalContent/Sounds/MenuMusic"));
             _loadingScreen.Hide();
         }
     }

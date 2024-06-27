@@ -45,7 +45,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         private void OnHit()
         {
             _particleSystem.Play();
-            _soundPlayer.Play(_hitSound);
+            _soundPlayer.PlaySoundEffect(_hitSound);
         }
     }
 }

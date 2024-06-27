@@ -5,6 +5,7 @@ using Code.UI.Pause;
 using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.MainMenu;
 using Code.UI.Windows.RewardWindow;
+using Code.UI.Windows.SettingsWindow;
 using UnityEngine;
 
 namespace Code.Factories.UIFactory
@@ -20,5 +21,6 @@ namespace Code.Factories.UIFactory
         TutorialDialogWindow CreateTutorialDialogWindow(Transform root);
         void CreatePauseWindow(Transform root);
         RewardWindow CreateRewardWindow(Transform root, Damageable damageable, PlayerDeath playerDeath);
+        SettingsWindow CreateSettingsWindow(Transform root);
     }
 }

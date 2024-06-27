@@ -126,7 +126,7 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IPlayerFactory>(
                 new PlayerFactory(_serviceLocator.Resolve<IAssetProvider>()));
             _serviceLocator.RegisterService<IWeaponFactory>(
-                new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>()));
+                new WeaponFactory(_serviceLocator.Resolve<IStaticDataService>(), _progressService, _saveLoadService));
             _serviceLocator.RegisterService<IPickupFactory>(
                 new PickupFactory(_serviceLocator.Resolve<IStaticDataService>(),
                     _serviceLocator.Resolve<IGameFinishService>(), _serviceLocator.Resolve<IWindowFactory>(),
@@ -135,10 +135,12 @@ namespace Code.Infrastructure.GameStateMachine.States
             _serviceLocator.RegisterService<IEnemyFactory>(new EnemyFactory(
                 _serviceLocator.Resolve<IGameStateMachine>(), _serviceLocator.Resolve<IStaticDataService>(),
                 _serviceLocator.Resolve<IWeaponFactory>(), _serviceLocator.Resolve<IHUDFactory>(),
-                _serviceLocator.Resolve<IPickupFactory>(), _serviceLocator.Resolve<IEnemiesProvider>(), _updater));
+                _serviceLocator.Resolve<IPickupFactory>(), _serviceLocator.Resolve<IEnemiesProvider>(),
+                _progressService, _saveLoadService, _updater));
             _serviceLocator.RegisterService<ILevelFactory>(new LevelFactory(_serviceLocator.Resolve<IAssetProvider>(),
                 _serviceLocator.Resolve<IStaticDataService>()));
-            _serviceLocator.RegisterService<IAudioFactory>(new AudioFactory(_serviceLocator.Resolve<IAssetProvider>()));
+            _serviceLocator.RegisterService<IAudioFactory>(new AudioFactory(_serviceLocator.Resolve<IAssetProvider>(),
+                _saveLoadService, _progressService));
         }
 
         private void RegisterUIFactories()

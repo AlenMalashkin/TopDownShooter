@@ -10,6 +10,7 @@ namespace Code.UI.Windows
         TutorialPassWindow,
         TutorialMessageWindow,
         PauseWindow,
-        RewardWindow
+        RewardWindow,
+        SettingsWindow
     }
 }

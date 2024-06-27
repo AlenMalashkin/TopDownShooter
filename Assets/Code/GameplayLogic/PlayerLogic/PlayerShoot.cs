@@ -50,7 +50,7 @@ namespace Code.GameplayLogic.PlayerLogic
         }
 
         public void PlayReloadSound()
-            => _soundPlayer.Play(_reloadSound);
+            => _soundPlayer.PlaySoundEffect(_reloadSound);
 
         private void Update()
         {
