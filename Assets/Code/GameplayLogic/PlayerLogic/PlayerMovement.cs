@@ -13,6 +13,8 @@ namespace Code.GameplayLogic.PlayerLogic
     {
         [SerializeField] private float _speed;
         [SerializeField] private CharacterController _characterController;
+        [SerializeField] private PlayerShoot _playerShoot;
+        [SerializeField] private PlayerAnimator _playerAnimator;
 
         public Vector2 MoveDirection => new Vector2(_moveDirection.x, _moveDirection.z);
 
@@ -43,7 +45,7 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (!GP_Device.IsMobile())
                 _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
-            
+
             _rigidbody.velocity = Vector3.zero;
         }
 
@@ -51,6 +53,12 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (GP_Device.IsMobile())
                 _moveDirection = new Vector3(_movementJoystick.Direction.x, 0, _movementJoystick.Direction.y);
+
+            if (_moveDirection == Vector3.zero && !_playerShoot.IsShooting && !_playerShoot.IsReloading)
+                _playerAnimator.PlayAnimationByName("Idle");
+            
+            if (_moveDirection != Vector3.zero && !_playerShoot.IsShooting && !_playerShoot.IsReloading)
+                _playerAnimator.PlayRunWithWeaponAnimation();
 
             _gravity += Physics.gravity.y;
             _characterController.Move(new Vector3(_moveDirection.x, _gravity, _moveDirection.z) * _speed * Time.deltaTime);
@@ -61,6 +69,5 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             _moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
         }
-        
     }
 }

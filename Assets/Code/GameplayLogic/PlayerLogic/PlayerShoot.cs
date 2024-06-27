@@ -19,7 +19,10 @@ namespace Code.GameplayLogic.PlayerLogic
         [SerializeField] private AudioClip _reloadSound;
 
         public Transform PlayerArm => _playerArm;
+        public bool IsShooting => _isShooting;
+        public bool IsReloading => _weapon.Reloading;
 
+        private bool _isShooting;
         private float _fireDelayCounter;
         private IInputService _inputService;
         private Joystick _fireJoystick;
@@ -54,15 +57,22 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void Update()
         {
+            if (_weapon.Reloading)
+            {
+                _playerAnimator.PlayReloadAnimation();
+                return;
+            }
+            
             if (!GP_Device.IsMobile())
             {
                 if (_inputService.GetInputAction<IFireAction>().FirePressed)
                 {
                     Shoot();
+                    _isShooting = true;
                 }
                 else
                 {
-                    _playerAnimator.PlayRunWithWeaponAnimation();
+                    _isShooting = false;
                 }
             }
             else
@@ -70,10 +80,11 @@ namespace Code.GameplayLogic.PlayerLogic
                 if (_fireJoystick.Direction != Vector2.zero)
                 {
                     Shoot();
+                    _isShooting = true;
                 }
                 else
                 {
-                    _playerAnimator.PlayRunWithWeaponAnimation();
+                    _isShooting = false;
                 }
             }
         }
@@ -93,15 +104,13 @@ namespace Code.GameplayLogic.PlayerLogic
             }
             else
             {
-                _playerAnimator.PlayReloadAnimation();
                 _weapon.Reload();
             }
         }
 
-        public void OnReload(InputAction.CallbackContext context)
+        private void OnReload(InputAction.CallbackContext context)
         {
-           _weapon.Reload();
-           Debug.Log("reload");
+            _weapon.Reload();
         }
     }
 }
