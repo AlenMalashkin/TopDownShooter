@@ -64,7 +64,7 @@ namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
         {
             if (other.TryGetComponent(out Damageable damageable) && other.TryGetComponent(out Player player))
             {
-                _soundPlayer.Play(_punchSound);
+                _soundPlayer.PlaySoundEffect(_punchSound);
                 damageable.TakeDamage(_damage);
                 DisableFistCollider();
             }

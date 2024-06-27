@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GP_PlatformSettings
   m_EditorClassIdentifier: 
   PlatformToEmulate: 0
-  Language: 1
+  Language: 0
   IsMobile: 0
   IsPortrait: 1
   HasIntegratedAuth: 1

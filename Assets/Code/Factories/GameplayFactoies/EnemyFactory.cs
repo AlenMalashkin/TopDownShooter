@@ -1,3 +1,4 @@
+using Code.Audio;
 using Code.Factories.UIFactory;
 using Code.GameplayLogic;
 using Code.GameplayLogic.EnemiesLogic;
@@ -10,6 +11,8 @@ using Code.GameplayLogic.Weapons;
 using Code.Infrastructure;
 using Code.Infrastructure.GameStateMachineNamespace;
 using Code.Services.EnemiesProvider;
+using Code.Services.ProgressService;
+using Code.Services.SaveService;
 using Code.Services.StaticDataService;
 using Code.StaticData.BossStaticData;
 using Code.StaticData.EnemyStaticData;
@@ -28,11 +31,13 @@ namespace Code.Factories.GameplayFactoies
         private IHUDFactory _hudFactory;
         private IPickupFactory _pickupFactory;
         private IEnemiesProvider _enemiesProvider;
+        private IProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
         private IUpdater _updater;
 
         public EnemyFactory(IGameStateMachine gameStateMachine, IStaticDataService staticDataService, IWeaponFactory weaponFactory,
             IHUDFactory hudFactory, IPickupFactory pickupFactory, IEnemiesProvider enemiesProvider,
-            IUpdater updater)
+            IProgressService progressService, ISaveLoadService saveLoadService,IUpdater updater)
         {
             _gameStateMachine = gameStateMachine;
             _staticDataService = staticDataService;
@@ -40,6 +45,8 @@ namespace Code.Factories.GameplayFactoies
             _hudFactory = hudFactory;
             _pickupFactory = pickupFactory;
             _enemiesProvider = enemiesProvider;
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
             _updater = updater;
         }
 
@@ -75,10 +82,17 @@ namespace Code.Factories.GameplayFactoies
             return rangeEnemy;
         }
 
+        public Enemy CreateTutorialEnemy(Vector3 position, DialogWindow tutorialDialogWindow)
+        {
+            Enemy enemy = CreateBaseEnemy(EnemyType.TutorialEnemy, position);
+            enemy.GetComponent<TutorialEnemy>().Init(_enemiesProvider, tutorialDialogWindow);
+            enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
+            return enemy;
+        }
+
         public Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
-            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.MeleeBoss);
-            Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            Enemy enemy = CreateBaseBoss(BossType.MeleeBoss, position);
             enemy.GetComponent<MeleeMovementState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeAttackState>()
@@ -92,8 +106,7 @@ namespace Code.Factories.GameplayFactoies
 
         public Enemy CreateRangeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
-            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.RangeBoss);
-            Enemy rangeBoss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            Enemy rangeBoss = CreateBaseBoss(BossType.RangeBoss, position);
             rangeBoss.GetComponent<RangeMovementState>()
                 .Init(followTarget);
             rangeBoss.GetComponent<RangeEnemyPlayerDetector>()
@@ -111,8 +124,7 @@ namespace Code.Factories.GameplayFactoies
 
         public Enemy CreateUniqueBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
-            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.UniqueBoss);
-            Enemy enemy = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            Enemy enemy = CreateBaseBoss(BossType.UniqueBoss, position);
             enemy.GetComponent<FinalBossMovementState>().Init(followTarget);
             enemy.GetComponent<MeleeComboState>().Init(followTarget, _updater);
             enemy.GetComponent<FinalBoss>().Init(followTarget.GetComponent<PlayerDeath>());
@@ -122,19 +134,9 @@ namespace Code.Factories.GameplayFactoies
             return enemy;
         }
 
-        public Enemy CreateTutorialEnemy(Vector3 position, DialogWindow tutorialDialogWindow)
-        {
-            EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(EnemyType.TutorialEnemy);
-            Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
-            enemy.GetComponent<TutorialEnemy>().Init(_enemiesProvider, tutorialDialogWindow);
-            enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
-            return enemy;
-        }
-
         public Enemy CreateTutorialBoss(Vector3 position, Transform bossHealthBarRoot, DialogWindow dialogWindow)
         {
-            BossStaticData bossStaticData = _staticDataService.ForBoss(BossType.TutorialBoss);
-            Enemy boss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            Enemy boss = CreateBaseBoss(BossType.TutorialBoss, position);
             boss.GetComponent<TutorialBoss>().Init(_pickupFactory, dialogWindow);
             _hudFactory.CreateBossHealthBar(bossHealthBarRoot, boss.GetComponent<Damageable>());
             return boss;
@@ -145,7 +147,16 @@ namespace Code.Factories.GameplayFactoies
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(type);
             Enemy enemy = Object.Instantiate(enemyStaticData.Prefab, position, Quaternion.identity);
             enemy.GetComponentInChildren<HealthBar>().Init(enemy.GetComponent<Damageable>());
+            enemy.GetComponent<SoundPlayer>().Init(_progressService, _saveLoadService);
             return enemy;
+        }
+
+        private Enemy CreateBaseBoss(BossType type, Vector3 position)
+        {
+            BossStaticData bossStaticData = _staticDataService.ForBoss(type);
+            Enemy boss = Object.Instantiate(bossStaticData.Prefab, position, Quaternion.identity);
+            boss.GetComponent<SoundPlayer>().Init(_progressService, _saveLoadService);
+            return boss;
         }
     }
 }

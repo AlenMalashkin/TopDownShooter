@@ -56,7 +56,7 @@ namespace Code.GameplayLogic.PlayerLogic
         private void OnHit()
         {
             _particleSystem.Play();
-            _soundPlayer.Play(_hitSound);
+            _soundPlayer.PlaySoundEffect(_hitSound);
         }
     }
 }

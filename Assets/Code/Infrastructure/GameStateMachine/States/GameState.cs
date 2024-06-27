@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Code.Audio;
 using Code.Factories;
 using Code.Factories.GameplayFactoies;
 using Code.Factories.UIFactory;
@@ -136,9 +137,9 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
 
             _uiRoot = _uiFactory.CreateRoot().transform;
             _uiProvider.ChangeUIRoot(_uiRoot);
-            
+
             _audioFactory.CreateSoundPlayer()
-                .PlayLoop(_assetProvider.LoadAsset<AudioClip>("ExternalContent/Sounds/ActionMusic"));
+                .PlayMusic(_assetProvider.LoadAsset<AudioClip>("ExternalContent/Sounds/ActionMusic"));
 
             InitializeLevel();
 
@@ -194,6 +195,8 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
             player.GetComponent<PlayerAnimator>()
                 .Init(_serviceLocator.Resolve<IEquipmentService>(), mainCamera.transform);
             player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
+            player.GetComponent<SoundPlayer>().Init(_serviceLocator.Resolve<IProgressService>(),
+                _serviceLocator.Resolve<ISaveLoadService>());
 
             if (GP_Device.IsMobile())
             {

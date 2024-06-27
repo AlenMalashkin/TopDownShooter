@@ -68,7 +68,7 @@ namespace Code.GameplayLogic.Weapons.PlayerWeapons
             {
                 ShootBullets(shootDirection, _damage);
                 _particleSystem.Play();
-                _soundPlayer.Play(_shotSound);
+                _soundPlayer.PlaySoundEffect(_shotSound);
                 _bulletsInClip--;
                 _shootCooldown = 0f;
 

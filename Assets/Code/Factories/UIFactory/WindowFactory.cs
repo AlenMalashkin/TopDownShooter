@@ -16,6 +16,7 @@ using Code.UI.Windows.ChooseLevelWindow;
 using Code.UI.Windows.LoseWindow;
 using Code.UI.Windows.MainMenu;
 using Code.UI.Windows.RewardWindow;
+using Code.UI.Windows.SettingsWindow;
 using Code.UI.Windows.WinWindow;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -57,6 +58,7 @@ namespace Code.Factories.UIFactory
             menuWindow.Init(_localizationService.LoadTranslation(WindowType.MainMenu));
             menuWindow.ChooseLevelButton.Init(_gameStateMachine, this, _progressService, root);
             menuWindow.EquipmentButton.Init(this, root);
+            menuWindow.SettingsButton.Init(this, root);
             return menuWindow;
         }
 
@@ -132,6 +134,16 @@ namespace Code.Factories.UIFactory
             rewardWindow.Init(damageable, playerDeath, _pauseService);
             rewardWindow.Localize(_localizationService.LoadTranslation(WindowType.RewardWindow));
             return rewardWindow;
+        }
+
+        public SettingsWindow CreateSettingsWindow(Transform root)
+        {
+            SettingsWindow settingsWindow =
+                Object.Instantiate(_staticDataService.ForWindow(WindowType.SettingsWindow).WindowPrefab, root) as
+                    SettingsWindow;
+            settingsWindow.Init(_progressService, _saveLoadService);
+            settingsWindow.Localize(_localizationService.LoadTranslation(WindowType.SettingsWindow));
+            return settingsWindow;
         }
     }
 }

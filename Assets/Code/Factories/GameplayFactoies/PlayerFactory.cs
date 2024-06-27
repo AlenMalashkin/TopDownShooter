@@ -14,8 +14,6 @@ namespace Code.Factories.GameplayFactoies
     public class PlayerFactory : IPlayerFactory
     {
         private IAssetProvider _assetProvider;
-        private IFactoryProvider _factoryProvider;
-        private IWindowFactory _windowFactory;
         
         public PlayerFactory(IAssetProvider assetProvider)
         {
