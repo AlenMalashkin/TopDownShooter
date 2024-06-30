@@ -1464,10 +1464,9 @@ GameObject:
   - component: {fileID: 5525871848005710543}
   - component: {fileID: 3039303938797813923}
   - component: {fileID: 6984520124256575680}
-  - component: {fileID: 6403328226255743756}
-  - component: {fileID: 416747486518415225}
+  - component: {fileID: 7783118284585885106}
+  - component: {fileID: 1082655395526580428}
   - component: {fileID: 878183084066271265}
-  - component: {fileID: 4725915382281584476}
   - component: {fileID: 3421331023965387897}
   - component: {fileID: 8898709849649301426}
   - component: {fileID: 6707628421242392615}
@@ -1616,49 +1615,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _states:
-  - {fileID: 416747486518415225}
-  - {fileID: 6403328226255743756}
+  - {fileID: 7783118284585885106}
+  - {fileID: 1082655395526580428}
   - {fileID: 878183084066271265}
-  - {fileID: 4725915382281584476}
-  _startState: {fileID: 416747486518415225}
---- !u!114 &6403328226255743756
+  _startState: {fileID: 7783118284585885106}
+--- !u!114 &7783118284585885106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7061240678110524161}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4855fee1fe2f4ac79a2316bb24a2c254, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fea6d90c84450f92e412607dd1190b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _soundPlayer: {fileID: 3039303938797813923}
-  _punchSound: {fileID: 8300000, guid: cb45c8ff63c65574388ce703ca0e6671, type: 3}
-  _aiStateMachine: {fileID: 6984520124256575680}
-  _meleeEnemyAnimator: {fileID: 3421331023965387897}
-  _fistTriggerObserver: {fileID: 3329372442825506655}
-  _attackZoneTrigger: {fileID: 2638950641129587660}
-  _damageable: {fileID: 8898709849649301426}
-  _fistCollider: {fileID: 5838747064332571589}
---- !u!114 &416747486518415225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7061240678110524161}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d993d94bcc147a585c9684bda2853cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aiStateMachine: {fileID: 6984520124256575680}
   _agent: {fileID: 7061240678110524166}
   _enemyAnimator: {fileID: 3421331023965387897}
+  _aiStateMachine: {fileID: 6984520124256575680}
   _triggerObserver: {fileID: 2638950641129587660}
-  _damageable: {fileID: 8898709849649301426}
+--- !u!114 &1082655395526580428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7061240678110524161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f37d435418543e4a9b9ef67df0e55f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 20
+  _soundPlayer: {fileID: 3039303938797813923}
+  _punchSound: {fileID: 8300000, guid: cb45c8ff63c65574388ce703ca0e6671, type: 3}
+  _meleeEnemyAnimator: {fileID: 3421331023965387897}
+  _fistTriggerObserver: {fileID: 3329372442825506655}
+  _fistCollider: {fileID: 5838747064332571589}
+  _attackZoneTrigger: {fileID: 2638950641129587660}
+  _aiStateMachine: {fileID: 6984520124256575680}
 --- !u!114 &878183084066271265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,20 +1668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 3421331023965387897}
---- !u!114 &4725915382281584476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7061240678110524161}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44af3887b4b744e38a80e1ede4a897f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stunTime: 0.1
-  _triggerZone: {fileID: 1707697326831973506}
 --- !u!114 &3421331023965387897
 MonoBehaviour:
   m_ObjectHideFlags: 0

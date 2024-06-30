@@ -53,9 +53,9 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateMeleeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy enemy = CreateBaseEnemy(EnemyType.Melee, position);
-            enemy.GetComponent<MeleeMovementState>()
+            enemy.GetComponent<EnemyMovementState>()
                 .Init(followTarget);
-            enemy.GetComponent<MeleeAttackState>()
+            enemy.GetComponent<BaseMeleeAttackState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeEnemy>()
                 .Init(followTarget.GetComponent<PlayerDeath>());
@@ -67,7 +67,7 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateRangeEnemy(Transform followTarget, Vector3 position)
         {
             Enemy rangeEnemy = CreateBaseEnemy(EnemyType.Range, position);
-            rangeEnemy.GetComponent<RangeMovementState>()
+            rangeEnemy.GetComponent<EnemyMovementState>()
                 .Init(followTarget);
             rangeEnemy.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);
@@ -93,9 +93,9 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateMeleeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
             Enemy enemy = CreateBaseBoss(BossType.MeleeBoss, position);
-            enemy.GetComponent<MeleeMovementState>()
+            enemy.GetComponent<EnemyMovementState>()
                 .Init(followTarget);
-            enemy.GetComponent<MeleeAttackState>()
+            enemy.GetComponent<BaseMeleeAttackState>()
                 .Init(followTarget);
             enemy.GetComponent<MeleeEnemy>()
                 .Init(followTarget.GetComponent<PlayerDeath>());
@@ -107,7 +107,7 @@ namespace Code.Factories.GameplayFactoies
         public Enemy CreateRangeBoss(Transform followTarget, Vector3 position, Transform bossHealthBarRoot)
         {
             Enemy rangeBoss = CreateBaseBoss(BossType.RangeBoss, position);
-            rangeBoss.GetComponent<RangeMovementState>()
+            rangeBoss.GetComponent<EnemyMovementState>()
                 .Init(followTarget);
             rangeBoss.GetComponent<RangeEnemyPlayerDetector>()
                 .Init(followTarget);

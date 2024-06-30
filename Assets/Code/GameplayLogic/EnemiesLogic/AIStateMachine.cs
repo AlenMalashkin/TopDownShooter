@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Code.GameplayLogic.EnemiesLogic
 {
     public class AIStateMachine : AIStateMachineBase
     {
-        [SerializeField] private AIState[] _states;
+        [SerializeField] private List<AIState> _states;
         [SerializeField] private AIState _startState;
 
         private Dictionary<Type, AIState> _statesMap = new Dictionary<Type, AIState>();

@@ -1,37 +1,30 @@
+using Code.GameplayLogic.EnemiesLogic.MeleeEnemy;
 using Code.GameplayLogic.PlayerLogic;
 using UnityEngine;
 
-namespace Code.GameplayLogic.EnemiesLogic.MeleeEnemy
+namespace Code.GameplayLogic.EnemiesLogic.Bosses.MeleeBoss
 {
-    public class MeleeAttackState : BaseMeleeAttackState
+    public class MeleeBossAttackState : BaseMeleeAttackState
     {
         [SerializeField] private TriggerObserver _attackZoneTrigger;
-        [SerializeField] private Damageable _damageable;
         [SerializeField] private AIStateMachine _aiStateMachine;
 
         public override void EnterState()
         {
             _attackZoneTrigger.TriggerLeft += OnTriggerLeft;
-            _damageable.Hit += OnHit;
             base.EnterState();
         }
 
         public override void ExitState()
         {
             _attackZoneTrigger.TriggerLeft -= OnTriggerLeft;
-            _damageable.Hit -= OnHit;
             base.ExitState();
         }
 
         private void OnTriggerLeft(Collider other)
         {
             if (other.TryGetComponent(out Player player))
-                _aiStateMachine.EnterState<MeleeMovementState>();
-        }
-
-        private void OnHit()
-        {
-            _aiStateMachine.EnterState<MeleeImpactState>();
+                _aiStateMachine.EnterState<MeleeBossMovementState>();
         }
     }
 }
