@@ -46,7 +46,7 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void OnDisable()
         {
-            _inputService.GetInputAction<IReloadAction>().SubscribeReloadAction(OnReload);
+            _inputService.GetInputAction<IReloadAction>().UnsubscribeReloadAction(OnReload);
             
             if (GP_Device.IsMobile())
                 _reloadButton.onClick.RemoveListener(_weapon.Reload);

@@ -61,9 +61,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 0
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -186,9 +186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20747a8a54854b2db7b632380ba37103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aiStateMachine: {fileID: 3915317570043540064}
   _agent: {fileID: 6468380119692025381}
   _enemyAnimator: {fileID: 3412082766203825735}
+  _aiStateMachine: {fileID: 3915317570043540064}
   _playerDetector: {fileID: 7486297633516993232}
   _damageable: {fileID: 1419839085663861394}
 --- !u!114 &692712517227800061

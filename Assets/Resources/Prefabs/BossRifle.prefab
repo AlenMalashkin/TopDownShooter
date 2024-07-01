@@ -338,10 +338,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponPositionInHand: {x: 0, y: 0, z: 0}
   _weaponRotationInHand: {x: 100, y: -150, z: -160}
-  _fireRate: 0.2
+  _fireRate: 0.1
   _reloadTime: 1
   _maxBullets: 10
-  _damage: 2
+  _damage: 3
   _shootPoint: {fileID: 1279242006418108835}
   _soundPlayer: {fileID: 4979804662301362982}
   _particleSystem: {fileID: 5458311547227170732}
