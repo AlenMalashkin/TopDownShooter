@@ -1,5 +1,3 @@
-using System;
-using Code.Level;
 using Code.Services.InputService;
 using Code.Services.InputService.InputActions;
 using GamePush;
@@ -12,9 +10,9 @@ namespace Code.GameplayLogic.PlayerLogic
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
-        [SerializeField] private CharacterController _characterController;
         [SerializeField] private PlayerShoot _playerShoot;
         [SerializeField] private PlayerAnimator _playerAnimator;
+        [SerializeField] private Rigidbody _rigidbody;
 
         public Vector2 MoveDirection => new Vector2(_moveDirection.x, _moveDirection.z);
 
@@ -22,12 +20,10 @@ namespace Code.GameplayLogic.PlayerLogic
         private Joystick _movementJoystick;
         private Vector3 _moveDirection;
         private IInputService _inputService;
-        private Rigidbody _rigidbody;
 
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
-            _rigidbody = GetComponent<Rigidbody>();
         }
 
         public void Init(Joystick movementJoystick)
@@ -49,7 +45,7 @@ namespace Code.GameplayLogic.PlayerLogic
             _rigidbody.velocity = Vector3.zero;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (GP_Device.IsMobile())
                 _moveDirection = new Vector3(_movementJoystick.Direction.x, 0, _movementJoystick.Direction.y);
@@ -60,8 +56,7 @@ namespace Code.GameplayLogic.PlayerLogic
             if (_moveDirection != Vector3.zero && !_playerShoot.IsShooting && !_playerShoot.IsReloading)
                 _playerAnimator.PlayRunWithWeaponAnimation();
 
-            _gravity += Physics.gravity.y;
-            _characterController.Move(new Vector3(_moveDirection.x, _gravity, _moveDirection.z) * _speed * Time.deltaTime);
+            _rigidbody.velocity = _moveDirection * _speed;
         }
 
 
