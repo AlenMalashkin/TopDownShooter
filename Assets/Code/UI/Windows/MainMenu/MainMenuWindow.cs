@@ -19,6 +19,7 @@ namespace Code.UI.Windows.MainMenu
         {
             _chooseLevelButton.SetButtonText(translations["PlayButtonText"]);
             _equipmentButton.SetButtonText(translations["ShopButtonText"]);
+            _settingsButton.SetButtonText(translations["SettingsButtonText"]);
         }
     }
 }

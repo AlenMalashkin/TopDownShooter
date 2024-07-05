@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6216063885116687869}
-  - component: {fileID: -7934347280076148031}
-  - component: {fileID: 2824888104418228948}
   - component: {fileID: 6221892715674344849}
+  - component: {fileID: 4462827957884451833}
+  - component: {fileID: 6828092861240058139}
   - component: {fileID: 6440623114920537623}
   - component: {fileID: 896277410414283281}
   - component: {fileID: 1463331391845523324}
@@ -47,36 +47,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &-7934347280076148031
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147739227663965134}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
---- !u!136 &2824888104418228948
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147739227663965134}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.14993252
-  m_Height: 0.8226102
-  m_Direction: 1
-  m_Center: {x: 0.012038946, y: 0.18523613, z: 0.05297269}
 --- !u!95 &6221892715674344849
 Animator:
   serializedVersion: 5
@@ -98,6 +68,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &4462827957884451833
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147739227663965134}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &6828092861240058139
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147739227663965134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!114 &6440623114920537623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   _speed: 5
   _playerShoot: {fileID: 2891484462921024806}
   _playerAnimator: {fileID: 6917467311574802575}
-  _rigidbody: {fileID: -7934347280076148031}
+  _rigidbody: {fileID: 4462827957884451833}
 --- !u!114 &2891484462921024806
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ MonoBehaviour:
   IsLoggedIn: 1
   HasAnyCredentials: 1
   IsStub: 1
-  IsDev: 1
+  IsDev: 0
   IsAllowedOrigin: 1
   Settings:
   - Platform: 0

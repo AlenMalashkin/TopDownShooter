@@ -341,7 +341,7 @@ MonoBehaviour:
   _fireRate: 0.5
   _reloadTime: 1
   _maxBullets: 12
-  _damage: 10
+  _damage: 5
   _shootPoint: {fileID: 6662779085964614009}
   _soundPlayer: {fileID: 590217228160751333}
   _particleSystem: {fileID: 1470968221014954850}

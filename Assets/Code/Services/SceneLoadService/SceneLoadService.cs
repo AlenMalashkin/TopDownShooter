@@ -26,9 +26,19 @@ namespace Code.Services.SceneLoadService
             while (!operation.isDone)
                 yield return null;
                     
-            GP_Ads.ShowFullscreen();
+            GP_Ads.ShowFullscreen(OnFullScreenStart, OnFullScreenClose);
             
             onLoad?.Invoke();
+        }
+
+        private void OnFullScreenStart()
+        {
+            AudioListener.pause = true;
+        }
+
+        private void OnFullScreenClose(bool success)
+        {
+            AudioListener.pause = false;
         }
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 namespace Code.GameplayLogic.PlayerLogic
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
@@ -16,7 +15,6 @@ namespace Code.GameplayLogic.PlayerLogic
 
         public Vector2 MoveDirection => new Vector2(_moveDirection.x, _moveDirection.z);
 
-        private float _gravity;
         private Joystick _movementJoystick;
         private Vector3 _moveDirection;
         private IInputService _inputService;
@@ -41,7 +39,7 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (!GP_Device.IsMobile())
                 _inputService.GetInputAction<IMovementAction>().UnsubscribeMovementInput(OnMove);
-
+            
             _rigidbody.velocity = Vector3.zero;
         }
 

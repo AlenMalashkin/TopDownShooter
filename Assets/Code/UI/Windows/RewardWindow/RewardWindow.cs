@@ -49,7 +49,7 @@ namespace Code.UI.Windows.RewardWindow
         }
 
         private void OnClaimButtonClicked()
-            => GP_Ads.ShowRewarded("RESPAWN", OnRewardAdClaimed);
+            => GP_Ads.ShowRewarded("RESPAWN", OnRewardAdClaimed, OnRewardedAdStart, OnRewardedAdEnd);
 
         private void OnRewardAdClaimed(string rewardKey)
         {
@@ -58,6 +58,20 @@ namespace Code.UI.Windows.RewardWindow
                 _damageable.Heal(_rewardHeal);
                 _pauseService.Resume();
                 Destroy(gameObject);
+            }
+        }
+
+        private void OnRewardedAdStart()
+        {
+            AudioListener.pause = true;
+        }
+
+        private void OnRewardedAdEnd(bool success)
+        {
+            if (success)
+            {
+                _pauseService.Resume();
+                AudioListener.pause = false;
             }
         }
 
