@@ -191,7 +191,9 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                 .Init(_serviceLocator.Resolve<IInputService>(), mainCamera);
             player.GetComponent<PlayerMovement>()
                 .Init(_serviceLocator.Resolve<IInputService>());
-            _playerWeapon.AttachToHand(playerShoot.WeaponSpawnPoint);
+            _playerWeapon.AttachToHand(playerShoot.PlayerArm);
+            player.GetComponent<PlayerAnimator>()
+                .Init(_serviceLocator.Resolve<IEquipmentService>(), mainCamera.transform);
             player.GetComponent<PlayerDeath>().Init(_serviceLocator.Resolve<IGameFinishService>());
             player.GetComponent<SoundPlayer>().Init(_serviceLocator.Resolve<IProgressService>(),
                 _serviceLocator.Resolve<ISaveLoadService>());
@@ -206,7 +208,7 @@ namespace Code.Infrastructure.GameStateMachineNamespace.States
                     .Init(mobileHUD.MovementJoystick);
                 player.GetComponent<PlayerLook>()
                     .Init(mobileHUD.MovementJoystick, mobileHUD.FireJoystick);
-                _playerWeapon.AttachToHand(playerShoot.WeaponSpawnPoint);
+                _playerWeapon.AttachToHand(playerShoot.PlayerArm);
             }
 
             CinemachineVirtualCamera camera = _playerFactory.CreatePlayerCamera();

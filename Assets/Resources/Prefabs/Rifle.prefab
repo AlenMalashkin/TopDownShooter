@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPositionInHand: {x: 0, y: 0, z: 0}
-  _weaponRotationInHand: {x: 0, y: 0, z: 0}
+  _weaponRotationInHand: {x: 100, y: -150, z: -160}
   _fireRate: 0.2
   _reloadTime: 1
   _maxBullets: 10
