@@ -7,7 +7,8 @@ namespace Code.GameplayLogic.PlayerLogic
     public class PlayerDeath : DeathComponent
     {
         public event Action Death;
-        [SerializeField] private AnimatorComponent _animator;
+
+        [SerializeField] private ParticleSystem _deathSfx; 
 
         private IGameFinishService _gameFinishService;
 
@@ -21,10 +22,8 @@ namespace Code.GameplayLogic.PlayerLogic
             base.OnDeath(damageable);
 
             _gameFinishService.FinishGameWithResult(GameResult.Lose);
+            _deathSfx.Play();
 
-            if (_animator is PlayerAnimator playerAnimator)
-                playerAnimator.PlayDeathAnimation();
-            
             Death?.Invoke();
         }
     }

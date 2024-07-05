@@ -1,4 +1,3 @@
-using System;
 using Code.Audio;
 using Code.GameplayLogic.Weapons;
 using Code.Services.InputService;
@@ -12,13 +11,12 @@ namespace Code.GameplayLogic.PlayerLogic
 {
     public class PlayerShoot : MonoBehaviour
     {
-        [SerializeField] private PlayerAnimator _playerAnimator;
-        [SerializeField] private Transform _playerArm;
+        [SerializeField] private Transform _weaponSpawnPoint;
         [SerializeField] private float _fireDelay = 0.1f;
         [SerializeField] private SoundPlayer _soundPlayer;
         [SerializeField] private AudioClip _reloadSound;
 
-        public Transform PlayerArm => _playerArm;
+        public Transform WeaponSpawnPoint => _weaponSpawnPoint;
         public bool IsShooting => _isShooting;
         public bool IsReloading => _weapon.Reloading;
 
@@ -41,7 +39,7 @@ namespace Code.GameplayLogic.PlayerLogic
             _fireJoystick = fireJoystick;
             _weapon = weapon;
             _reloadButton = reloadButton;
-            _reloadButton.onClick.AddListener(_weapon.Reload);
+            _reloadButton.onClick.AddListener(Reload);
         }
 
         private void OnDisable()
@@ -49,20 +47,11 @@ namespace Code.GameplayLogic.PlayerLogic
             _inputService.GetInputAction<IReloadAction>().UnsubscribeReloadAction(OnReload);
             
             if (GP_Device.IsMobile())
-                _reloadButton.onClick.RemoveListener(_weapon.Reload);
+                _reloadButton.onClick.RemoveListener(Reload);
         }
-
-        public void PlayReloadSound()
-            => _soundPlayer.PlaySoundEffect(_reloadSound);
 
         private void Update()
         {
-            if (_weapon.Reloading)
-            {
-                _playerAnimator.PlayReloadAnimation();
-                return;
-            }
-            
             if (!GP_Device.IsMobile())
             {
                 if (_inputService.GetInputAction<IFireAction>().FirePressed)
@@ -93,7 +82,6 @@ namespace Code.GameplayLogic.PlayerLogic
         {
             if (_weapon.CanShoot)
             {
-                _playerAnimator.PlayShootAnimation();
                 _fireDelayCounter += Time.deltaTime;
 
                 if (_fireDelayCounter > _fireDelay)
@@ -110,6 +98,12 @@ namespace Code.GameplayLogic.PlayerLogic
 
         private void OnReload(InputAction.CallbackContext context)
         {
+            Reload();
+        }
+
+        private void Reload()
+        {
+            _soundPlayer.PlaySoundEffect(_reloadSound);
             _weapon.Reload();
         }
     }

@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667d2ba2573f4df28cba2037cc056d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponPositionInHand: {x: -0.06, y: -0.067, z: -0.074}
-  _weaponRotationInHand: {x: 120, y: 25, z: -60}
+  _weaponPositionInHand: {x: 0, y: 0, z: 0}
+  _weaponRotationInHand: {x: 0, y: 0, z: 0}
   _fireRate: 1
   _reloadTime: 1
   _maxBullets: 6
